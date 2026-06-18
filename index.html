@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Menu AlterBake</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="board" aria-label="Menu AlterBake">
+      <header class="masthead">
+        <div>
+          <p class="place">ALTERBAKE &middot; GLIWICE</p>
+          <h1>AlterBake</h1>
+          <p class="brand-line">stara piekarnia na nowo &middot; od ponad 100 lat</p>
+        </div>
+        <div class="today">
+          <span>DZIŚ NA LADZIE</span>
+          <strong>świeże od 8:00</strong>
+        </div>
+      </header>
+
+      <section class="feature" aria-labelledby="feature-title">
+        <div class="feature-copy">
+          <p class="section-kicker">WYPIEK DNIA</p>
+          <h2 id="feature-title">Kołocz śląski z serem</h2>
+          <p>Kruchy spód, twaróg, maślana kruszonka.</p>
+        </div>
+        <div class="feature-price price-lockup">
+          <strong>12 zł</strong>
+          <span>/ porcja</span>
+        </div>
+      </section>
+
+      <section class="recommendations" aria-labelledby="recommendations-title">
+        <div class="recommendations-heading">
+          <h2 id="recommendations-title">Dziś polecamy</h2>
+        </div>
+        <div class="recommendation-list">
+          <article class="recommendation-card">
+            <span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21c3.4 0 6-2.5 6-5.8 0-2.5-1.4-4.2-3-5.7-.9-.9-1.8-2-1.8-3.5-2.2 1.1-3.6 3-3.6 5.1 0 .6.1 1.1.3 1.7-1-.4-1.8-1.2-2.4-2.2C6.5 12 6 13.4 6 15.2 6 18.5 8.6 21 12 21Z"/>
+              </svg>
+              ciepłe
+            </span>
+            <h3>Chleb firmowy</h3>
+            <p>Zakwas pszenny i żyto.</p>
+          </article>
+          <article class="recommendation-card">
+            <span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m12 3 2.6 5.5 6 .8-4.3 4.2 1 5.9L12 16.5l-5.3 2.9 1-5.9-4.3-4.2 6-.8L12 3Z"/>
+              </svg>
+              na słodko
+            </span>
+            <h3>Jagodzianka</h3>
+            <p>Pełna jagód, masła i kruszonki.</p>
+          </article>
+          <article class="recommendation-card">
+            <span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 11.5 12 5l8 6.5"/>
+                <path d="M6.5 10.2V20h11V10.2"/>
+                <path d="M10 20v-5h4v5"/>
+              </svg>
+              do domu
+            </span>
+            <h3>Chałka maślana</h3>
+            <p>Miękka, zaplatana ręcznie.</p>
+          </article>
+        </div>
+      </section>
+
+      <!--
+        EDYCJA MENU:
+        Nazwy produktow powinny byc krotkie, zeby dobrze czytaly sie z 1-2 metrow.
+        Cene wpisuj jako "12 zl" w <strong>, a jednostke jako "/ porcja" w <span>.
+      -->
+      <section class="menu-grid">
+        <div class="menu-column">
+          <div class="column-heading">
+            <h2>SŁODKIE</h2>
+          </div>
+
+          <article class="menu-item highlight">
+            <div class="item-copy">
+              <h3>Kołocz z serem</h3>
+              <p>Twaróg, kruszonka, kruche ciasto</p>
+            </div>
+            <div class="item-price">
+              <strong>12 zł</strong>
+              <span>/ porcja</span>
+            </div>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-copy">
+              <h3>Jagodzianka</h3>
+              <p>Pełna jagód, masła i kruszonki.</p>
+            </div>
+            <div class="item-price">
+              <strong>16 zł</strong>
+              <span>/ szt.</span>
+            </div>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-copy">
+              <h3>Chałka maślana</h3>
+              <p>Zaplatana ręcznie</p>
+            </div>
+            <div class="item-price">
+              <strong>18 zł</strong>
+              <span>/ szt.</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="menu-column primary-column">
+          <div class="column-heading">
+            <h2>CHLEBY</h2>
+          </div>
+
+          <article class="menu-item highlight">
+            <div class="item-copy">
+              <h3>Chleb firmowy</h3>
+              <p>Zakwas pszenny, żyto, sól</p>
+            </div>
+            <div class="item-price">
+              <strong>19 zł</strong>
+              <span>/ bochenek</span>
+            </div>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-copy">
+              <h3>Żytni razowy</h3>
+              <p>Ciemny, wilgotny, długo prowadzony.</p>
+            </div>
+            <div class="item-price">
+              <strong>21 zł</strong>
+              <span>/ bochenek</span>
+            </div>
+          </article>
+
+          <article class="menu-item sold-out">
+            <div class="item-copy">
+              <h3>Orkiszowy <span class="status-badge">WYPRZEDANE</span></h3>
+              <p>Jutro wraca na ladę.</p>
+            </div>
+            <div class="item-price item-price-empty" aria-hidden="true"></div>
+          </article>
+        </div>
+
+        <div class="menu-column">
+          <div class="column-heading">
+            <h2>NA WAGĘ</h2>
+          </div>
+
+          <article class="menu-item">
+            <div class="item-copy">
+              <h3>Placek cebulowy</h3>
+              <p>Oliwa, cebula, rozmaryn</p>
+            </div>
+            <div class="item-price">
+              <strong>8 zł</strong>
+              <span>/ 100 g</span>
+            </div>
+          </article>
+
+          <article class="menu-item highlight">
+            <div class="item-copy">
+              <h3>Krajanka żytnia</h3>
+              <p>Małe kromki do zabrania</p>
+            </div>
+            <div class="item-price">
+              <strong>7 zł</strong>
+              <span>/ 100 g</span>
+            </div>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-copy">
+              <h3>Pajda z masłem</h3>
+              <p>Chleb firmowy, masło, sól</p>
+            </div>
+            <div class="item-price">
+              <strong>10 zł</strong>
+              <span>/ szt.</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="notice">
+        <span>AlterBake &middot; Gliwice / stara piekarnia na nowo / @alterbake.gliwice</span>
+      </footer>
+    </main>
+  </body>
+</html>
