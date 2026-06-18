@@ -1,0 +1,45 @@
+{
+  "_note": "Przykładowy zapasowy zestaw danych. Możesz skopiować produkty do products.json.",
+  "products": [
+    {
+      "name": "Chleb pszenny na zakwasie",
+      "description": "Lekki miękisz, chrupiąca skórka.",
+      "price": "18 zł",
+      "unit": "/ bochenek",
+      "category": "chleby",
+      "tag": "Dziś",
+      "soldOut": false,
+      "status": ""
+    },
+    {
+      "name": "Drożdżówka z makiem",
+      "description": "Mak, masło, skórka pomarańczowa.",
+      "price": "13 zł",
+      "unit": "/ szt.",
+      "category": "słodkie",
+      "tag": "Nowość",
+      "soldOut": false,
+      "status": ""
+    },
+    {
+      "name": "Krajanka z ziarnami",
+      "description": "Słonecznik, dynia, len.",
+      "price": "8 zł",
+      "unit": "/ 100 g",
+      "category": "na-wagę",
+      "tag": "Limit",
+      "soldOut": false,
+      "status": ""
+    },
+    {
+      "name": "Brioszka",
+      "description": "Jutro wraca na ladę.",
+      "price": "",
+      "unit": "",
+      "category": "słodkie",
+      "tag": "",
+      "soldOut": true,
+      "status": "WYPRZEDANE"
+    }
+  ]
+}
