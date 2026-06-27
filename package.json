@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "test": "node tests/validate-products.js && node tests/validate-html-sync.js && node tests/validate-root-sync.js && node tests/validate-html.js"
+  },
+  "devDependencies": {
+    "html-validate": "^11.5.3"
+  }
+}
+
