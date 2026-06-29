@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Narzędzie wewnętrzne do rozmów rekrutacyjnych i rozwojowych">
+  <title>Profil Pracy i Mocnych Stron</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════════════════════════════════
+       EKRAN 1: Start / Disclaimer
+  ══════════════════════════════════════ -->
+  <div id="screen-start" class="screen">
+    <div class="container">
+      <div class="logo">◆</div>
+      <h1>Profil Pracy i Mocnych Stron</h1>
+      <p class="subtitle">Narzędzie do rozmów rekrutacyjnych i rozwojowych</p>
+
+      <div class="disclaimer-box">
+        <h3>Zanim zaczniemy</h3>
+        <ul>
+          <li>To narzędzie wspiera rozmowę — nie jest testem psychologicznym ani diagnozą.</li>
+          <li>Wyniki opisują tendencje w zachowaniach, nie osobowość ani wartość jako człowieka.</li>
+          <li>Nie ma odpowiedzi dobrych ani złych — liczy się szczerość.</li>
+          <li>Dane pozostają wyłącznie na Twoim urządzeniu i nie są nigdzie wysyłane.</li>
+          <li>Wypełnienie zajmuje około 15–20 minut.</li>
+        </ul>
+      </div>
+
+      <button id="btn-start" class="btn btn-primary btn-large">Zacznij</button>
+      <div style="text-align:center">
+        <button id="btn-reset" class="btn btn-ghost btn-small">Resetuj wszystkie dane</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       EKRAN 2: Dane osoby
+  ══════════════════════════════════════ -->
+  <div id="screen-personal" class="screen">
+    <div class="container">
+      <div class="progress-bar"><div class="progress-fill" style="width:8%"></div></div>
+      <div class="screen-label">Dane wstępne</div>
+      <h2>Dane osoby</h2>
+      <p class="subtitle">Te informacje pojawią się wyłącznie w raporcie końcowym.</p>
+
+      <form id="form-personal">
+        <div class="field">
+          <label for="input-name">Imię i nazwisko <span style="color:var(--text-muted);font-weight:400">(opcjonalnie)</span></label>
+          <input type="text" id="input-name" placeholder="np. Jan Kowalski" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="input-role">Stanowisko / obszar pracy</label>
+          <input type="text" id="input-role" placeholder="np. Specjalista ds. obsługi klienta">
+        </div>
+        <div class="field">
+          <label for="input-interviewer">Osoba prowadząca rozmowę <span style="color:var(--text-muted);font-weight:400">(opcjonalnie)</span></label>
+          <input type="text" id="input-interviewer" placeholder="np. Anna Nowak">
+        </div>
+        <button type="submit" class="btn btn-primary btn-large">Dalej →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       EKRAN 3: Ankieta samoopisowa
+  ══════════════════════════════════════ -->
+  <div id="screen-survey" class="screen">
+    <div class="container">
+      <div class="progress-bar"><div class="progress-fill" id="survey-progress" style="width:10%"></div></div>
+      <div class="screen-label">Samoopis — część 1 z 3</div>
+      <h2 id="survey-question-text"></h2>
+      <p class="instruction">Oceń, na ile poniższe zdanie opisuje Ciebie w pracy. Wybierz jedną z pięciu opcji.</p>
+
+      <div class="scale-container">
+        <div class="scale-labels">
+          <span>Zdecydowanie<br>nie</span>
+          <span>Raczej<br>nie</span>
+          <span>Ani tak,<br>ani nie</span>
+          <span>Raczej<br>tak</span>
+          <span>Zdecydowanie<br>tak</span>
+        </div>
+        <div class="scale-buttons" id="scale-buttons">
+          <button class="scale-btn" data-value="1">1</button>
+          <button class="scale-btn" data-value="2">2</button>
+          <button class="scale-btn" data-value="3">3</button>
+          <button class="scale-btn" data-value="4">4</button>
+          <button class="scale-btn" data-value="5">5</button>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button id="survey-prev" class="btn btn-ghost">← Wstecz</button>
+        <span id="survey-counter" class="counter"></span>
+        <button id="survey-next" class="btn btn-primary" disabled>Dalej →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       EKRAN 4: Scenariusze sytuacyjne (SJT)
+  ══════════════════════════════════════ -->
+  <div id="screen-sjt" class="screen">
+    <div class="container">
+      <div class="progress-bar"><div class="progress-fill" id="sjt-progress" style="width:45%"></div></div>
+      <div class="screen-label">Scenariusze sytuacyjne — część 2 z 3</div>
+      <span class="scenario-badge">Scenariusz</span>
+      <h2 id="sjt-scenario-text"></h2>
+      <p class="instruction">Wybierz odpowiedź, która najlepiej opisuje to, jak zazwyczaj postępujesz w podobnych sytuacjach.</p>
+
+      <div id="sjt-options" class="options-list"></div>
+
+      <div class="nav-buttons">
+        <button id="sjt-prev" class="btn btn-ghost">← Wstecz</button>
+        <span id="sjt-counter" class="counter"></span>
+        <button id="sjt-next" class="btn btn-primary" disabled>Dalej →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       EKRAN 5: Pytania otwarte
+  ══════════════════════════════════════ -->
+  <div id="screen-open" class="screen">
+    <div class="container">
+      <div class="progress-bar"><div class="progress-fill" id="open-progress" style="width:75%"></div></div>
+      <div class="screen-label">Pytania otwarte — część 3 z 3</div>
+      <h2 id="open-question-text"></h2>
+      <p class="instruction">Napisz swobodnie i konkretnie — nie ma złych odpowiedzi. Możesz pisać krótko lub długo, pominąć to pytanie klikając Dalej.</p>
+
+      <textarea id="open-answer" placeholder="Twoja odpowiedź…"></textarea>
+
+      <div class="nav-buttons">
+        <button id="open-prev" class="btn btn-ghost">← Wstecz</button>
+        <span id="open-counter" class="counter"></span>
+        <button id="open-next" class="btn btn-primary">Dalej →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       EKRAN 6: Raport końcowy
+  ══════════════════════════════════════ -->
+  <div id="screen-report" class="screen">
+    <div class="container-wide">
+
+      <div class="report-header">
+        <div class="logo">◆</div>
+        <h1>Raport — Profil Pracy i Mocnych Stron</h1>
+        <div id="report-meta" class="report-meta"></div>
+        <div class="report-actions">
+          <button id="btn-print"   class="btn btn-outline">🖨 Drukuj / Zapisz PDF</button>
+          <button id="btn-copy"    class="btn btn-outline">📋 Kopiuj raport</button>
+          <button id="btn-restart" class="btn btn-ghost btn-small">Rozpocznij od nowa</button>
+        </div>
+      </div>
+
+      <div class="report-disclaimer">
+        Ten raport jest narzędziem do rozmowy — nie oceną, nie diagnozą i nie decyzją rekrutacyjną.
+        Wyniki opisują tendencje i obszary do eksploracji w rozmowie, nie definiują osoby.
+      </div>
+
+      <section class="report-section">
+        <h2>Top 5 — Obszary mocnych stron</h2>
+        <p class="section-desc">Kategorie, w których odpowiedzi wskazują na wyraźne zasoby i spójne tendencje.</p>
+        <div id="report-strengths"></div>
+      </section>
+
+      <section class="report-section">
+        <h2>Top 3 — Obszary do pogłębienia</h2>
+        <p class="section-desc">Kategorie warte eksploracji w rozmowie — mogą wskazywać na wyzwania, nierozwinięte zasoby lub obszary wymagające wsparcia.</p>
+        <div id="report-risks"></div>
+      </section>
+
+      <section class="report-section">
+        <h2>Styl współpracy</h2>
+        <p class="section-desc">Dominujący wzorzec oparty na układzie wyników — punkt wyjścia do rozmowy, nie etykieta.</p>
+        <div id="report-style"></div>
+      </section>
+
+      <section class="report-section">
+        <h2>Profil wszystkich kategorii</h2>
+        <p class="section-desc">Wyniki we wszystkich 8 obszarach. Wynik powyżej 70% — obszar zasobu. 45–70% — obszar neutralny. Poniżej 45% — obszar do eksploracji.</p>
+        <div id="report-chart"></div>
+      </section>
+
+      <section class="report-section">
+        <h2>Rekomendacje dla osoby prowadzącej rozmowę</h2>
+        <p class="section-desc">Sugestie dotyczące kierunku rozmowy na podstawie profilu wyników.</p>
+        <div id="report-recommendations"></div>
+      </section>
+
+      <section class="report-section">
+        <h2>Pytania pogłębiające</h2>
+        <p class="section-desc">Sugerowane pytania do rozmowy — szczególnie dla obszarów ryzyka i wiodącej mocnej strony.</p>
+        <div id="report-deepdive"></div>
+      </section>
+
+      <section class="report-section">
+        <h2>Odpowiedzi na pytania otwarte</h2>
+        <p class="section-desc">Do wglądu osoby prowadzącej rozmowę. Traktuj jako materiał pomocniczy, nie podsumowanie.</p>
+        <div id="report-open-answers"></div>
+      </section>
+
+      <div class="report-footer">
+        <p>Wygenerowano: <span id="report-date"></span></p>
+        <p>Profil Pracy i Mocnych Stron — MVP · Narzędzie wewnętrzne · Działa offline</p>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- #app -->
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
