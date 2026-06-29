@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Mapa Potencjału · v5</title>
 <style>
 :root {
@@ -21,8 +21,8 @@
   --sh: 0 2px 10px rgba(0,0,0,.09);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth}
-body{font-family:Georgia,serif;background:var(--paper);color:var(--text);line-height:1.6;min-height:100vh}
+html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:Georgia,serif;background:var(--paper);color:var(--text);line-height:1.6;min-height:100vh;overflow-x:hidden}
 .screen{display:none;min-height:100vh;animation:fadeUp .25s ease}
 .screen.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -50,7 +50,7 @@ p{color:var(--muted);margin-bottom:.75rem}
 .disc li{padding:.3rem 0 .3rem 1.1rem;position:relative;font-size:.88rem;color:var(--muted)}
 .disc li::before{content:'·';position:absolute;left:0;color:var(--accent);font-weight:700}
 /* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;font-size:1rem;font-weight:600;transition:all .15s;text-decoration:none;gap:.4rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;font-size:1rem;font-weight:600;transition:all .15s;text-decoration:none;gap:.4rem;min-height:44px}
 .btn-primary{background:var(--accent);color:#fff;padding:.85rem 2rem}
 .btn-primary:hover{background:var(--accent-l)}
 .btn-primary:disabled{background:var(--border);color:var(--muted);cursor:not-allowed}
@@ -70,7 +70,7 @@ p{color:var(--muted);margin-bottom:.75rem}
 /* AB Questions */
 .ab-stem{font-size:.85rem;color:var(--muted);font-style:italic;margin-bottom:.9rem}
 .ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.5rem}
-.ab-btn{background:white;border:2.5px solid var(--border);border-radius:var(--r);padding:1.1rem .9rem;cursor:pointer;font-family:inherit;font-size:.92rem;line-height:1.45;color:var(--text);transition:all .2s;text-align:left;width:100%;display:flex;flex-direction:column;gap:.45rem}
+.ab-btn{background:white;border:2.5px solid var(--border);border-radius:var(--r);padding:1.1rem .9rem;cursor:pointer;font-family:inherit;font-size:.92rem;line-height:1.45;color:var(--text);transition:all .2s;text-align:left;width:100%;display:flex;flex-direction:column;gap:.45rem;min-height:44px;-webkit-tap-highlight-color:transparent}
 .ab-btn:hover{border-color:var(--accent);background:var(--accent-pale)}
 .ab-btn.sel{border-color:var(--accent);background:var(--accent);color:white}
 .ab-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .55rem;border-radius:20px;align-self:flex-start;background:var(--accent-pale);color:var(--accent)}
@@ -78,7 +78,7 @@ p{color:var(--muted);margin-bottom:.75rem}
 .ab-hint{font-size:.77rem;color:var(--muted);text-align:center;margin-bottom:1rem}
 /* Scenario options */
 .opts{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.25rem}
-.opt-btn{background:white;border:2.5px solid var(--border);border-radius:var(--r);padding:.9rem 1.1rem;cursor:pointer;font-family:inherit;font-size:.92rem;line-height:1.45;color:var(--text);text-align:left;transition:all .2s;display:flex;align-items:flex-start;gap:.7rem;width:100%}
+.opt-btn{background:white;border:2.5px solid var(--border);border-radius:var(--r);padding:.9rem 1.1rem;cursor:pointer;font-family:inherit;font-size:.92rem;line-height:1.45;color:var(--text);text-align:left;transition:all .2s;display:flex;align-items:flex-start;gap:.7rem;width:100%;min-height:44px;-webkit-tap-highlight-color:transparent}
 .opt-btn:hover{border-color:var(--accent);background:var(--accent-pale)}
 .opt-btn.sel{border-color:var(--accent);background:var(--accent);color:white}
 .opt-l{font-size:.72rem;font-weight:800;background:var(--border);color:var(--muted);border-radius:50%;width:1.5rem;height:1.5rem;min-width:1.5rem;display:flex;align-items:center;justify-content:center;margin-top:.07rem}
@@ -87,7 +87,8 @@ p{color:var(--muted);margin-bottom:.75rem}
 .sc-badge.p2{background:#e8f0ed;color:var(--accent)}
 /* Nav */
 .nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem;gap:.5rem}
-.counter{font-size:.82rem;color:var(--muted);white-space:nowrap}
+.nav .btn{min-height:44px}
+.counter{font-size:.82rem;color:var(--muted);white-space:nowrap;text-align:center;flex:1}
 /* Restore */
 .restore{background:var(--accent-pale);border:1.5px solid var(--accent);border-radius:var(--r);padding:.9rem 1.1rem;margin-bottom:1.5rem;font-size:.88rem;color:var(--accent);display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .restore button{background:var(--accent);color:white;border:none;border-radius:6px;padding:.35rem .85rem;cursor:pointer;font-size:.82rem;font-family:inherit;font-weight:600}
@@ -119,6 +120,7 @@ p{color:var(--muted);margin-bottom:.75rem}
 .gem-chk strong{color:var(--gem)}
 /* Role fit */
 .role-cards{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+@media(max-width:480px){.role-cards{grid-template-columns:1fr}}
 .role-card{background:white;border:2.5px solid var(--border);border-radius:var(--r);padding:1rem;transition:all .2s;cursor:pointer}
 .role-card:hover{border-color:var(--accent)}
 .role-card.top{border-color:var(--accent);background:var(--accent-pale)}
@@ -180,14 +182,41 @@ p{color:var(--muted);margin-bottom:.75rem}
   .gem-card,.dd-item,.task,.beh-card{break-inside:avoid}
 }
 /* Mobile */
-@media(max-width:520px){
-  h1{font-size:1.4rem}h2{font-size:1.15rem}
+@media(max-width:640px){
+  .container,.container-wide{padding:1.5rem .85rem}
+  h1{font-size:1.35rem;line-height:1.25}
+  h2{font-size:1.1rem}
+  .logo{font-size:1.6rem}
   .ab-grid{grid-template-columns:1fr}
   .gem-grid{grid-template-columns:1fr}
   .adapt-grid{grid-template-columns:1fr}
-  .role-cards{grid-template-columns:1fr 1fr}
-  .r-actions{flex-direction:column}
+  .role-cards{grid-template-columns:1fr}
+  .r-actions{flex-direction:column;align-items:stretch}
   .r-actions .btn{width:100%}
+  .nav{flex-wrap:wrap;gap:.4rem}
+  .nav .btn{flex:1;min-width:0;font-size:.88rem;padding:.7rem .6rem}
+  .nav .counter{width:100%;text-align:center;order:-1;font-size:.75rem}
+  .progress-label{flex-wrap:wrap;gap:.3rem}
+  .phase-tag{font-size:.68rem}
+  .q-count{font-size:.72rem}
+  .ab-btn{padding:.9rem .75rem;font-size:.88rem}
+  .opt-btn{padding:.8rem .85rem;font-size:.88rem}
+  .btn-primary{font-size:.95rem}
+  .btn-lg{padding:.9rem 1.5rem}
+  .disc{padding:1rem 1rem}
+  .r-header{padding:1.25rem 0}
+  .r-disc{font-size:.82rem}
+  .gem-hd{padding:.75rem .9rem}
+  .gem-bd{padding:.9rem}
+  .gem-nm{font-size:.97rem}
+  .restore{flex-direction:column;align-items:flex-start;gap:.5rem}
+  .p2-intro{padding:1.1rem 1rem}
+  .role-card{padding:.85rem}
+  .role-icon{font-size:1.4rem}
+  .tags{gap:.3rem}
+  .tag{font-size:.78rem;padding:.28rem .65rem}
+  .dd-q{font-size:.88rem}
+  .beh-text{font-size:.87rem}
 }
 </style>
 </head>
