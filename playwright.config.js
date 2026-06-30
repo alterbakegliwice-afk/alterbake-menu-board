@@ -10,7 +10,7 @@ export default defineConfig({
   snapshotDir: "./tests/snapshots",
   updateSnapshots: "missing",
   use: {
-    baseURL: `file://${resolve(__dirname, "alterbake-menu/index.html")}`,
+        baseURL: `file://${resolve(__dirname, "index.html")}`,
     launchOptions: {
       executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
     },
