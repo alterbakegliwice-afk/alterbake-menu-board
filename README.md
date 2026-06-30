@@ -11,7 +11,7 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 
 ## Test na iPadzie
 
-1. Umieść cały folder `alterbake-menu` na serwerze, dysku lokalnym albo w prostym hostingu statycznym.
+1. Umieść pliki z katalogu głównego repozytorium (`index.html`, `styles.css`, `products.json`) na serwerze, dysku lokalnym albo w prostym hostingu statycznym.
 2. Otwórz `index.html` w Safari na iPadzie.
 3. Sprawdź widok w orientacji poziomej.
 4. Obróć iPada do orientacji pionowej i odśwież stronę.
