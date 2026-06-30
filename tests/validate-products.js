@@ -6,7 +6,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const PRODUCTS_PATH = resolve(__dirname, "../alterbake-menu/products.json");
+const PRODUCTS_PATH = resolve(__dirname, "../products.json");
 
 const VALID_CATEGORIES = new Set(["polecane", "słodkie", "chleby", "na-wagę"]);
 const VALID_TAGS = new Set([
