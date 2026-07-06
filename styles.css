@@ -363,8 +363,18 @@ h1 {
   cursor: pointer;
 }
 
-.edit-mode .menu-item {
+.edit-banner .edit-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+.edit-mode .menu-item,
+.edit-mode .feature {
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .edit-mode .menu-item:active {

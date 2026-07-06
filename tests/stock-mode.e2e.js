@@ -18,7 +18,7 @@ test("edit mode is hidden by default and opens after 5 logo taps", async ({ page
   await page.goto(INDEX);
   await expect(page.locator(".edit-banner")).toBeHidden();
   await enterEditMode(page);
-  await page.locator(".edit-banner button").click();
+  await page.locator(".edit-banner .btn-exit").click();
   await expect(page.locator(".edit-banner")).toBeHidden();
 });
 
@@ -69,4 +69,78 @@ test("morning sold-out item (no price in HTML) is not toggleable", async ({ page
   const orkiszowy = page.locator('.menu-item:has(h3:has-text("Orkiszowy"))').first();
   await orkiszowy.click();
   await expect(orkiszowy.locator(".status-badge")).toHaveText("WYPRZEDANE");
+});
+
+test("long-press toggles the gold highlight and survives reload", async ({ page }) => {
+  await page.goto(INDEX);
+  await enterEditMode(page);
+  const item = page.locator(ITEM).first();
+  await expect(item).not.toHaveClass(/highlight/);
+
+  // Przytrzymanie (mousedown -> 600 ms -> mouseup) przelacza wyroznienie...
+  await item.click({ delay: 600 });
+  await expect(item).toHaveClass(/highlight/);
+  // ...i NIE zmienia statusu (klik po przytrzymaniu jest ignorowany).
+  await expect(item.locator(".status-badge")).toHaveCount(0);
+
+  await page.reload();
+  await expect(page.locator(ITEM).first()).toHaveClass(/highlight/);
+
+  // Przytrzymanie raz jeszcze wylacza wyroznienie.
+  await enterEditMode(page);
+  await page.locator(ITEM).first().click({ delay: 600 });
+  await expect(page.locator(ITEM).first()).not.toHaveClass(/highlight/);
+});
+
+test("tapping the feature panel cycles the bake of the day and back", async ({ page }) => {
+  await page.goto(INDEX);
+  await enterEditMode(page);
+  const feature = page.locator(".feature");
+  const originalTitle = await feature.locator("h2").textContent();
+
+  // Pierwsze stukniecie: pierwszy dostepny produkt z kolumn.
+  await feature.click();
+  await expect(feature.locator("h2")).toHaveText("Kołocz z serem");
+  await expect(feature.locator(".feature-price strong")).toHaveText("12 zł");
+
+  // Wybor przezywa odswiezenie strony.
+  await page.reload();
+  await expect(page.locator(".feature h2")).toHaveText("Kołocz z serem");
+
+  // Cykl przez wszystkie dostepne produkty wraca do oryginalu.
+  await enterEditMode(page);
+  const eligible = await page.locator(".menu-item:not(.sold-out) .item-price strong").count();
+  for (let i = 0; i < eligible; i++) await page.locator(".feature").click();
+  await expect(page.locator(".feature h2")).toHaveText(originalTitle);
+});
+
+test("marking the featured product sold out restores the original feature", async ({ page }) => {
+  await page.goto(INDEX);
+  await enterEditMode(page);
+  const feature = page.locator(".feature");
+  const originalTitle = await feature.locator("h2").textContent();
+
+  await feature.click(); // wypiek dnia -> "Kołocz z serem"
+  const koloc = page.locator('.menu-item:has(h3:text-is("Kołocz z serem"))').first();
+  await koloc.click(); // -> OSTATNIE SZTUKI
+  await koloc.click(); // -> WYPRZEDANE
+  await expect(feature.locator("h2")).toHaveText(originalTitle);
+});
+
+test("evening mode swaps the masthead message and survives reload", async ({ page }) => {
+  await page.goto(INDEX);
+  await expect(page.locator(".today strong")).toHaveText("świeże od 8:00");
+  await enterEditMode(page);
+
+  await page.locator(".edit-banner .btn-evening").click();
+  await expect(page.locator(".today strong")).toHaveText("ostatnie wypieki");
+  await expect(page.locator(".edit-banner .btn-evening")).toHaveText("Dzień");
+
+  await page.reload();
+  await expect(page.locator(".today strong")).toHaveText("ostatnie wypieki");
+
+  // Powrot do trybu dziennego.
+  await enterEditMode(page);
+  await page.locator(".edit-banner .btn-evening").click();
+  await expect(page.locator(".today strong")).toHaveText("świeże od 8:00");
 });
