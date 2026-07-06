@@ -9,8 +9,8 @@
   --olive: #5c6040;
   --brick: #9f432b;
   --shadow: rgba(36, 27, 17, 0.06);
-  --radius: 28px;
-  --radius-sm: 18px;
+  --radius: 22px;
+  --radius-sm: 14px;
 }
 
 * {
@@ -35,15 +35,15 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
+/* Tryb kioskowy: calosc miesci sie na ekranie iPada 1024x768 bez przewijania. */
 .board {
   min-height: 100vh;
-  padding: 36px 40px 34px;
+  padding: 22px 28px 18px;
   background: transparent;
 }
 
 .masthead,
 .feature,
-.recommendations,
 .menu-grid,
 .notice {
   width: 100%;
@@ -54,9 +54,9 @@ body {
 
 .masthead {
   display: table;
-  margin-bottom: 24px;
-  border-bottom: 3px solid var(--ink);
-  padding-bottom: 18px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px;
 }
 
 .masthead > div {
@@ -77,8 +77,8 @@ p {
 
 h1 {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 76px;
-  line-height: 0.92;
+  font-size: 46px;
+  line-height: 0.94;
   letter-spacing: -0.015em;
 }
 
@@ -86,39 +86,39 @@ h1 {
 .section-kicker,
 .today span {
   color: var(--olive);
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .brand-line {
-  margin-top: 9px;
+  margin-top: 6px;
   color: var(--olive);
-  font-size: 24px;
+  font-size: 17px;
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.15;
 }
 
 .today strong {
   display: block;
-  margin-top: 8px;
+  margin-top: 5px;
   color: var(--ink);
-  font-size: 31px;
+  font-size: 20px;
   line-height: 1.05;
 }
 
 .feature {
   display: table;
-  margin-bottom: 24px;
-  padding: 30px 34px;
+  margin-bottom: 16px;
+  padding: 16px 26px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: var(--radius);
   background:
     radial-gradient(560px 300px at 12% 0%, rgba(255, 214, 154, 0.22), transparent 60%),
     linear-gradient(135deg, #a84a2e 0%, #93381f 100%);
   color: var(--panel);
-  box-shadow: 0 26px 44px -26px rgba(120, 44, 22, 0.55);
+  box-shadow: 0 20px 36px -22px rgba(120, 44, 22, 0.55);
 }
 
 .feature-copy,
@@ -132,30 +132,30 @@ h1 {
 }
 
 .feature h2 {
-  margin-top: 8px;
+  margin-top: 4px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 54px;
-  line-height: 1;
+  font-size: 30px;
+  line-height: 1.02;
   letter-spacing: -0.01em;
 }
 
 .feature p {
   max-width: 680px;
-  margin-top: 12px;
+  margin-top: 5px;
   color: #f8ead8;
-  font-size: 26px;
-  line-height: 1.28;
+  font-size: 17px;
+  line-height: 1.25;
 }
 
 .feature-price {
-  min-width: 230px;
+  min-width: 150px;
   text-align: right;
 }
 
 .feature-price strong {
   display: block;
   color: #fffaf2;
-  font-size: 68px;
+  font-size: 36px;
   line-height: 1;
   letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
@@ -163,113 +163,35 @@ h1 {
 
 .feature-price span {
   display: block;
-  margin-top: 9px;
+  margin-top: 4px;
   color: #f4d69a;
-  font-size: 23px;
+  font-size: 14px;
   font-weight: 900;
   line-height: 1;
 }
 
+/* Sekcja "Dzis polecamy" nie miesci sie w trybie kioskowym; polecane
+   produkty sa wyroznione zlotem w kolumnach. Tresc zyje dalej w
+   products.json i materialach marketingowych. */
 .recommendations {
-  margin-bottom: 24px;
-  border: 0;
-  padding: 12px 0 24px;
-  background: transparent;
-  box-shadow: none;
-}
-
-.recommendations-heading {
-  width: 100%;
-  margin-bottom: 18px;
-  color: var(--ink);
-  text-align: center;
-}
-
-.recommendations-heading h2 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 42px;
-  line-height: 1;
-  letter-spacing: -0.01em;
-}
-
-.recommendations-heading h2::before,
-.recommendations-heading h2::after {
-  content: "";
-  display: inline-block;
-  width: 52px;
-  height: 1px;
-  margin: 0 18px;
-  background: var(--line);
-  vertical-align: middle;
-}
-
-.recommendation-list {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-  border-spacing: 14px 0;
-}
-
-.recommendation-card {
-  display: table-cell;
-  width: 33.333%;
-  padding: 22px 24px 20px;
-  border: 1px solid rgba(165, 160, 120, 0.38);
-  border-radius: 24px;
-  background: rgba(255, 249, 238, 0.72);
-  box-shadow:
-    0 18px 32px -24px rgba(36, 27, 17, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  vertical-align: top;
-}
-
-.recommendation-card span {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 15px;
-  padding: 8px 16px;
-  border: 1px solid rgba(165, 160, 120, 0.55);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--olive);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.recommendation-card h3 {
-  color: var(--ink);
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-}
-
-.recommendation-card p {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 21px;
-  line-height: 1.24;
+  display: none;
 }
 
 .menu-grid {
   display: table;
   table-layout: fixed;
-  border-spacing: 16px 0;
+  border-spacing: 14px 0;
 }
 
 .menu-column {
   display: table-cell;
   width: 33.333%;
-  padding: 24px 24px 18px;
+  padding: 14px 18px 10px;
   border: 1px solid rgba(165, 160, 120, 0.4);
   border-radius: var(--radius);
   background: rgba(255, 249, 238, 0.78);
   box-shadow:
-    0 26px 44px -30px rgba(36, 27, 17, 0.45),
+    0 20px 36px -26px rgba(36, 27, 17, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
   vertical-align: top;
 }
@@ -280,8 +202,8 @@ h1 {
 }
 
 .column-heading {
-  margin-bottom: 12px;
-  padding-bottom: 14px;
+  margin-bottom: 6px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -289,7 +211,7 @@ h1 {
   display: block;
   margin-top: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 38px;
+  font-size: 24px;
   line-height: 1;
   letter-spacing: 0.06em;
 }
@@ -313,7 +235,7 @@ h1 {
 .menu-item {
   display: block;
   width: 100%;
-  padding: 20px 0;
+  padding: 11px 0;
   border-bottom: 1px solid rgba(216, 207, 185, 0.85);
 }
 
@@ -322,7 +244,7 @@ h1 {
 }
 
 .menu-item h3 {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.01em;
@@ -331,11 +253,11 @@ h1 {
 }
 
 .item-desc {
-  margin-top: 9px;
+  margin-top: 4px;
   color: #453f36;
-  font-size: 21px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.28;
+  line-height: 1.25;
   hyphens: auto;
   overflow-wrap: break-word;
 }
@@ -344,8 +266,8 @@ h1 {
   display: flex;
   justify-content: flex-end;
   align-items: baseline;
-  gap: 9px;
-  margin-top: 10px;
+  gap: 7px;
+  margin-top: 5px;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -355,7 +277,7 @@ h1 {
 }
 
 .item-price strong {
-  font-size: 40px;
+  font-size: 27px;
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -364,16 +286,16 @@ h1 {
 
 .item-price span {
   color: var(--olive);
-  font-size: 18px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.08;
 }
 
 /* Wyrozniona pozycja: zloty pasek i cieply poblysk zamiast lamliwej kreski. */
 .menu-item.highlight {
-  margin: 0 -14px;
-  padding: 20px 14px 20px 10px;
-  border-left: 4px solid var(--gold);
+  margin: 0 -10px;
+  padding: 11px 10px 11px 7px;
+  border-left: 3px solid var(--gold);
   border-radius: var(--radius-sm);
   background: linear-gradient(120deg, rgba(188, 141, 63, 0.16), rgba(188, 141, 63, 0.04) 70%);
 }
@@ -384,13 +306,13 @@ h1 {
 
 .status-badge {
   display: inline-block;
-  margin-left: 8px;
-  padding: 5px 13px;
+  margin-left: 7px;
+  padding: 3px 10px;
   border: 1px solid var(--brick);
   border-radius: 999px;
   background: rgba(255, 249, 238, 0.7);
   color: var(--brick);
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.08em;
@@ -399,11 +321,11 @@ h1 {
 }
 
 .notice {
-  margin-top: 28px;
-  padding: 18px 0 0;
+  margin-top: 14px;
+  padding: 10px 0 0;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 19px;
+  font-size: 13px;
   font-weight: 600;
   text-align: center;
 }
@@ -505,71 +427,81 @@ h1 {
   }
 }
 
-@media (max-width: 900px) {
+/* iPad w pionie (621-999px): trzy kolumny zostaja, typografia rosnie,
+   zeby wykorzystac wyzszy ekran. */
+@media (min-width: 621px) and (max-width: 999px) {
   .board {
-    padding: 24px;
+    padding: 26px 26px 20px;
   }
 
   h1 {
-    font-size: 56px;
-  }
-
-  .today strong {
-    font-size: 25px;
-  }
-
-  .feature h2 {
-    font-size: 44px;
-  }
-
-  .feature p {
-    font-size: 22px;
-  }
-
-  .feature-price strong {
     font-size: 54px;
   }
 
-  .recommendations,
-  .recommendations-heading,
-  .recommendations-heading h2 {
-    display: block;
-    width: 100%;
+  .brand-line {
+    font-size: 19px;
   }
 
-  .recommendation-list {
-    display: block;
-    width: 100%;
-    border-spacing: 0;
+  .today strong {
+    font-size: 23px;
   }
 
-  .recommendation-card {
-    display: block;
-    width: 100%;
-    margin-bottom: 14px;
+  .feature {
+    padding: 20px 28px;
   }
 
-  .recommendations-heading h2::before,
-  .recommendations-heading h2::after {
-    width: 32px;
-    margin: 0 12px;
+  .feature h2 {
+    font-size: 36px;
   }
 
-  .menu-grid,
-  .menu-column {
-    display: block;
-    width: 100%;
+  .feature p {
+    font-size: 19px;
   }
 
-  .menu-grid {
-    border-spacing: 0;
+  .feature-price strong {
+    font-size: 42px;
+  }
+
+  .column-heading h2 {
+    font-size: 27px;
   }
 
   .menu-column {
-    margin-bottom: 18px;
+    padding: 16px 20px 12px;
+  }
+
+  .menu-item {
+    padding: 14px 0;
+  }
+
+  .menu-item.highlight {
+    padding: 14px 10px 14px 7px;
+  }
+
+  .menu-item h3 {
+    font-size: 27px;
+  }
+
+  .item-desc {
+    margin-top: 5px;
+    font-size: 18px;
+  }
+
+  .item-price strong {
+    font-size: 31px;
+  }
+
+  .item-price span {
+    font-size: 14px;
+  }
+
+  .notice {
+    font-size: 14px;
   }
 }
 
+/* Ponizej 620px (telefony) kolumny ukladaja sie jedna pod druga.
+   iPad w pionie (768px) zachowuje uklad trzech kolumn. */
 @media (max-width: 620px) {
   .board {
     padding: 18px;
@@ -591,59 +523,57 @@ h1 {
   }
 
   .masthead .today {
-    margin-top: 16px;
+    margin-top: 12px;
   }
 
   h1 {
-    font-size: 48px;
+    font-size: 42px;
   }
 
   .brand-line {
-    font-size: 21px;
-  }
-
-  .feature {
-    padding: 22px;
-    border-radius: 22px;
-  }
-
-  .feature-price {
-    margin-top: 18px;
-  }
-
-  .menu-column {
-    padding: 20px;
-    border-radius: 22px;
-  }
-
-  .column-heading h2 {
-    font-size: 36px;
-  }
-
-  .recommendations-heading h2::before,
-  .recommendations-heading h2::after {
-    display: none;
-  }
-
-  .menu-item.highlight {
-    margin: 0 -10px;
-    padding: 20px 10px 20px 8px;
-  }
-
-  .menu-item h3 {
-    font-size: 28px;
-  }
-
-  .item-price strong {
-    font-size: 36px;
-  }
-
-  .item-price span {
     font-size: 16px;
   }
 
-  .notice {
-    font-size: 18px;
-    line-height: 1.3;
+  .feature {
+    padding: 18px 20px;
+  }
+
+  .feature-price {
+    margin-top: 12px;
+  }
+
+  .menu-grid,
+  .menu-column {
+    display: block;
+    width: 100%;
+  }
+
+  .menu-grid {
+    border-spacing: 0;
+  }
+
+  .menu-column {
+    margin-bottom: 14px;
+    padding: 16px 18px 12px;
+  }
+
+  .menu-item {
+    padding: 14px 0;
+  }
+
+  .menu-item.highlight {
+    padding: 14px 10px 14px 7px;
+  }
+
+  .menu-item h3 {
+    font-size: 26px;
+  }
+
+  .item-desc {
+    font-size: 17px;
+  }
+
+  .item-price strong {
+    font-size: 30px;
   }
 }

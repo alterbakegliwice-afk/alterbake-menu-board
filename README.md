@@ -13,9 +13,11 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 
 1. Umieść cały folder `alterbake-menu` na serwerze, dysku lokalnym albo w prostym hostingu statycznym.
 2. Otwórz `index.html` w Safari na iPadzie.
-3. Sprawdź widok w orientacji poziomej.
-4. Obróć iPada do orientacji pionowej i odśwież stronę.
+3. Sprawdź widok w orientacji poziomej - całe menu mieści się na jednym ekranie, bez przewijania.
+4. Obróć iPada do orientacji pionowej i odśwież stronę - również bez przewijania.
 5. Stań 1-2 metry od ekranu i sprawdź, czy nazwy produktów, ceny i jednostki są czytelne.
+
+Uwaga: sekcja "Dziś polecamy" jest ukryta na ekranie (tryb kioskowy) - polecane produkty są wyróżnione złotym paskiem w kolumnach. Treść sekcji żyje dalej w `products.json` i materiałach marketingowych.
 
 ## Dodanie do ekranu początkowego
 
