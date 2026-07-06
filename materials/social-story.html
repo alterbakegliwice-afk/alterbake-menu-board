@@ -28,7 +28,11 @@
         display: flex;
         flex-direction: column;
         padding: 96px 88px;
-        background: var(--paper);
+        background:
+          radial-gradient(900px 700px at 90% -8%, rgba(188, 141, 63, 0.2), transparent 62%),
+          radial-gradient(800px 650px at -10% 42%, rgba(119, 123, 85, 0.14), transparent 58%),
+          radial-gradient(760px 760px at 55% 112%, rgba(159, 67, 43, 0.14), transparent 62%),
+          linear-gradient(175deg, #f8f0e1 0%, #f2e7d2 100%);
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       }
@@ -91,10 +95,15 @@
         align-items: baseline;
         gap: 26px;
         margin-top: 26px;
-        padding: 44px 56px;
-        background: var(--brick);
+        padding: 44px 64px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        background:
+          radial-gradient(420px 200px at 15% 0%, rgba(255, 214, 154, 0.25), transparent 60%),
+          linear-gradient(135deg, #a84a2e 0%, #93381f 100%);
         color: #fffaf2;
         width: fit-content;
+        box-shadow: 0 40px 70px -40px rgba(120, 44, 22, 0.6);
       }
 
       .price-panel strong {
