@@ -6,38 +6,59 @@
 <title>Mapa Potencjału · v6</title>
 <style>
 :root{
-  --bg:#111111;--surf:#1a1a1a;--surf2:#202020;
-  --border:#2b2b2b;--border2:#383838;
-  --text:#d8d4c4;--muted:#7a7a6a;--muted2:#4a4a40;
+  --bg:#0e0e0e;--surf:#181818;--surf2:#1e1e1e;
+  --border:#272727;--border2:#333;
+  --text:#d8d4c4;--muted:#7a7a6a;--muted2:#484840;
   --acc:#c87d3a;--acc-l:#d4893e;--acc-pale:rgba(200,125,58,.12);
-  --green:#3a8b5a;--green-pale:rgba(58,139,90,.15);
-  --red:#9b4040;--red-pale:rgba(155,64,64,.15);
+  --green:#3a8b5a;--green-pale:rgba(58,139,90,.14);
+  --red:#9b4040;--red-pale:rgba(155,64,64,.14);
   --r:2px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:'Courier New',Courier,monospace;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;overflow-x:hidden}
-.screen{display:none;min-height:100vh;animation:fadeUp .2s ease}
+body{
+  font-family:'Courier New',Courier,monospace;
+  background:var(--bg);color:var(--text);
+  line-height:1.6;min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(circle at 1px 1px,rgba(200,125,58,.055) 1px,transparent 0);
+  background-size:28px 28px;
+}
+.screen{display:none;min-height:100vh;animation:fadeUp .22s ease}
 .screen.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .q-wrap{animation:fadeUp .18s ease}
-.container{max-width:660px;margin:0 auto;padding:2rem 1.25rem}
-.container-wide{max-width:900px;margin:0 auto;padding:2rem 1.25rem}
+.container{max-width:660px;margin:0 auto;padding:2rem 1.25rem;position:relative;z-index:1}
+.container-wide{max-width:960px;margin:0 auto;padding:2rem 1.25rem;position:relative;z-index:1}
 
-/* Topbar */
-.topbar{background:var(--surf);border-bottom:1px solid var(--border);padding:.55rem 1.25rem;display:flex;align-items:baseline;gap:.5rem;position:sticky;top:0;z-index:10}
+/* ── TOPBAR ── */
+.topbar{
+  background:rgba(24,24,24,.96);border-bottom:1px solid var(--border);
+  padding:.55rem 1.25rem;display:flex;align-items:center;gap:.5rem;
+  position:sticky;top:0;z-index:10;
+  box-shadow:0 0 24px rgba(200,125,58,.07);
+  backdrop-filter:blur(6px);
+}
 .brand{font-size:.72rem;font-weight:700;letter-spacing:.18em;color:var(--text);text-transform:uppercase}
 .brand-acc{color:var(--acc)}
 .brand-sub{font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:.6rem}
+.status-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink-dot 2.4s ease-in-out infinite}
+.topbar-date{font-size:.58rem;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase}
+@keyframes blink-dot{0%,100%{opacity:1}50%{opacity:.25}}
 
-h1{font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.3;letter-spacing:.03em}
-h2{font-size:.68rem;font-weight:700;color:var(--muted);margin-bottom:.7rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:.4rem}
-h3{font-size:.72rem;font-weight:700;color:var(--acc);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.1em}
-p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
-.screen-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:.4rem}
+/* ── TYPOGRAPHY ── */
+h1{font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.3;letter-spacing:.02em}
+h2{font-size:.66rem;font-weight:700;color:var(--muted);margin-bottom:.7rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:.38rem}
+h3{font-size:.7rem;font-weight:700;color:var(--acc);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.1em}
+p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
+.screen-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted2);margin-bottom:.35rem}
 .subtitle{font-size:.8rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.6}
 
-/* Progress */
+/* ── CURSOR ── */
+.cursor{display:inline-block;width:7px;height:.95em;background:var(--acc);animation:cursor-blink .9s step-end infinite;vertical-align:text-bottom;margin-left:2px}
+@keyframes cursor-blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── PROGRESS ── */
 .progress-wrap{margin-bottom:1.5rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}
 .progress-bar{height:2px;background:var(--border2);overflow:hidden;margin-top:.45rem}
 .progress-fill{height:100%;background:var(--acc);transition:width .4s ease}
@@ -45,20 +66,20 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .phase-tag{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--acc);border:1px solid var(--acc);padding:.15rem .5rem;border-radius:var(--r)}
 .q-count{font-size:.65rem;color:var(--muted);letter-spacing:.06em}
 
-/* Disclaimer */
+/* ── DISCLAIMER ── */
 .disc{background:var(--surf);border:1px solid var(--border);border-left:2px solid var(--acc);border-radius:var(--r);padding:1rem 1.15rem;margin-bottom:1.6rem}
 .disc h3{margin-bottom:.5rem}
 .disc ul{list-style:none;padding:0}
 .disc li{padding:.22rem 0 .22rem 1.1rem;position:relative;font-size:.78rem;color:var(--muted)}
 .disc li::before{content:'>';position:absolute;left:0;color:var(--acc);font-weight:700}
 
-/* Buttons */
+/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:color .13s,border-color .13s,box-shadow .2s;gap:.4rem;min-height:44px;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
-.btn::before{content:'';position:absolute;bottom:-110%;left:50%;transform:translateX(-50%);width:130%;padding-bottom:130%;border-radius:50%;pointer-events:none;transition:bottom .45s cubic-bezier(.23,1,.32,1),opacity .3s}
+.btn::before{content:'';position:absolute;bottom:-110%;left:50%;transform:translateX(-50%);width:130%;padding-bottom:130%;border-radius:50%;pointer-events:none;transition:bottom .45s cubic-bezier(.23,1,.32,1)}
 .btn:hover::before{bottom:-20%}
 .btn-primary{background:var(--acc);color:var(--bg);padding:.8rem 1.75rem;border:1px solid var(--acc)}
 .btn-primary::before{background:rgba(255,255,255,.14)}
-.btn-primary:hover{box-shadow:0 0 16px rgba(200,125,58,.35)}
+.btn-primary:hover{box-shadow:0 0 18px rgba(200,125,58,.38)}
 .btn-ghost{background:transparent;color:var(--muted);padding:.65rem 1rem;border:1px solid var(--border2)}
 .btn-ghost::before{background:rgba(255,255,255,.04)}
 .btn-ghost:hover{color:var(--text);border-color:var(--muted)}
@@ -74,7 +95,7 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 #btn-start:hover::after{animation:none}
 @keyframes pulse-ring{0%{opacity:.7;transform:scale(1)}70%{opacity:0;transform:scale(1.06)}100%{opacity:0;transform:scale(1.06)}}
 
-/* Form */
+/* ── FORM ── */
 .field{margin-bottom:1.05rem}
 .field label{display:block;font-size:.62rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.12em}
 .field input,.field select{width:100%;border:1px solid var(--border2);border-radius:var(--r);padding:.6rem .85rem;font-family:inherit;font-size:.84rem;color:var(--text);background:var(--surf);transition:border-color .18s;appearance:none}
@@ -82,11 +103,9 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .field-note{font-size:.68rem;color:var(--muted2);margin-top:.2rem;line-height:1.4}
 .field select option{background:var(--surf)}
 
-/* Statement card */
+/* ── STATEMENT ── */
 .stmt-card{background:var(--surf);border:1px solid var(--border);border-left:2px solid var(--acc);border-radius:var(--r);padding:1.2rem 1.15rem;margin-bottom:.7rem;font-size:.95rem;line-height:1.72;color:var(--text)}
 .scale-hint{font-size:.6rem;color:var(--muted2);text-align:center;margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.1em}
-
-/* Scale buttons */
 .scale-opts{display:flex;flex-direction:column;gap:.38rem;margin-bottom:1.15rem}
 .scale-btn{display:flex;align-items:center;gap:.8rem;padding:.82rem 1rem;border:1px solid var(--border2);border-radius:var(--r);background:var(--surf);cursor:pointer;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;transition:color .14s,border-color .14s,background .14s;min-height:50px;width:100%;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
 .scale-btn::before{content:'';position:absolute;bottom:-110%;left:50%;transform:translateX(-50%);width:140%;padding-bottom:100%;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;transition:bottom .4s cubic-bezier(.23,1,.32,1)}
@@ -100,16 +119,27 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .scale-btn.sel-dk .scale-ico{background:var(--muted2);color:var(--text)}
 .scale-btn.sel-disagree .scale-ico{background:var(--red);color:#fff}
 
-/* Nav */
+/* ── NAV ── */
 .nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.15rem;gap:.5rem;border-top:1px solid var(--border);padding-top:.9rem}
 .nav .btn{min-height:44px}
 .counter{font-size:.65rem;color:var(--muted);text-align:center;flex:1;letter-spacing:.06em}
 
-/* Restore */
+/* ── RESTORE ── */
 .restore{background:var(--surf);border:1px solid var(--border);border-left:2px solid var(--acc);border-radius:var(--r);padding:.8rem 1rem;margin-bottom:1.35rem;font-size:.75rem;color:var(--acc);display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;letter-spacing:.04em;text-transform:uppercase}
 .restore button{background:var(--acc);color:var(--bg);border:none;border-radius:var(--r);padding:.32rem .8rem;cursor:pointer;font-size:.68rem;font-family:inherit;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 
-/* Report */
+/* ── LOADING SCREEN ── */
+#screen-loading{display:none}
+#screen-loading.active{display:flex;align-items:center;justify-content:center}
+.loading-wrap{text-align:center;max-width:340px;padding:2rem}
+.loading-icon{font-size:2rem;color:var(--acc);margin-bottom:1.2rem;animation:spin-icon 3s linear infinite}
+@keyframes spin-icon{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.loading-msg{font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:1.2rem}
+.loading-track{height:2px;background:var(--border2);border-radius:2px;overflow:hidden}
+.loading-fill{height:100%;background:var(--acc);width:0;animation:loading-grow 1.1s cubic-bezier(.23,1,.32,1) forwards}
+@keyframes loading-grow{from{width:0}to{width:100%}}
+
+/* ── REPORT HEADER ── */
 .r-header{padding:1.25rem 0 1rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
 .r-meta{font-size:.68rem;color:var(--muted);margin:.45rem 0 .85rem;letter-spacing:.08em;text-transform:uppercase}
 .r-actions{display:flex;gap:.45rem;flex-wrap:wrap}
@@ -117,8 +147,40 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .r-section{margin-bottom:2rem}
 .sdesc{font-size:.72rem;color:var(--muted2);margin-bottom:.9rem;line-height:1.5}
 
-/* Talent cards */
-.talent-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:.75rem}
+/* ── OVERALL CARD ── */
+.overall-card{background:var(--surf);border:1px solid var(--border);border-left:2px solid var(--acc);border-radius:var(--r);padding:1.1rem 1.2rem;margin-bottom:1.25rem;display:flex;gap:1.4rem;align-items:center}
+.overall-ring{flex-shrink:0}
+.overall-stats{flex:1;min-width:0}
+.overall-title{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:.35rem}
+.overall-level{font-size:1.05rem;font-weight:700;letter-spacing:.04em;margin-bottom:.7rem}
+.dist-bar{display:flex;height:5px;border-radius:var(--r);overflow:hidden;gap:1px;margin-bottom:.45rem;background:var(--border2)}
+.dist-seg{height:100%;transition:width .9s cubic-bezier(.23,1,.32,1)}
+.dist-legend{display:flex;gap:.85rem;flex-wrap:wrap}
+.dist-item{font-size:.6rem;color:var(--muted);display:flex;align-items:center;gap:.3rem;text-transform:uppercase;letter-spacing:.06em}
+.dist-dot{width:6px;height:6px;border-radius:50%}
+
+/* ── CATEGORY + RADAR LAYOUT ── */
+.cat-radar-wrap{display:grid;grid-template-columns:1fr 280px;gap:1rem;margin-bottom:1.5rem;align-items:start}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.cat-panel{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.75rem .85rem;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease}
+.cat-panel.visible{opacity:1;transform:translateY(0)}
+.cat-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:.55rem}
+.cat-name{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.cat-signal{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.1rem .4rem;border-radius:var(--r)}
+.cat-talents{display:flex;flex-direction:column;gap:.38rem}
+.cat-row{display:flex;align-items:center;gap:.45rem}
+.cat-tn{font-size:.6rem;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1;text-transform:uppercase;letter-spacing:.03em}
+.cat-track{width:52px;flex-shrink:0;height:3px;background:var(--border2);border-radius:2px;overflow:hidden}
+.cat-fill{height:100%;border-radius:2px;width:0;transition:width .85s cubic-bezier(.23,1,.32,1)}
+.cat-val{font-size:.6rem;color:var(--muted);min-width:20px;text-align:right;flex-shrink:0}
+
+/* ── RADAR ── */
+.radar-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.9rem;display:flex;flex-direction:column;align-items:center}
+.radar-hd{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:.75rem;font-weight:700;align-self:flex-start}
+
+/* ── TALENT CARDS (top 5) ── */
+.talent-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:.75rem;opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
+.talent-card.visible{opacity:1;transform:translateY(0)}
 .talent-hd{padding:.7rem .95rem;display:flex;align-items:center;gap:.6rem;border-bottom:1px solid var(--border)}
 .talent-hd.strong{border-left:3px solid #5ab87a}
 .talent-hd.moderate{border-left:3px solid var(--acc)}
@@ -129,8 +191,8 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .talent-nm{font-size:.85rem;font-weight:700;flex:1;text-transform:uppercase;letter-spacing:.05em;color:var(--text)}
 .talent-grp{font-size:.58rem;color:var(--muted);margin-top:.06rem;text-transform:uppercase;letter-spacing:.1em}
 .talent-badge{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.13rem .48rem;border-radius:var(--r);white-space:nowrap;align-self:flex-start;margin-top:.04rem}
-.talent-badge.strong{background:#5ab87a;color:var(--bg)}
-.talent-badge.moderate{background:var(--acc);color:var(--bg)}
+.talent-badge.strong{background:#5ab87a;color:var(--bg);box-shadow:0 0 8px rgba(90,184,122,.35)}
+.talent-badge.moderate{background:var(--acc);color:var(--bg);box-shadow:0 0 8px rgba(200,125,58,.3)}
 .talent-badge.slight{background:var(--muted2);color:var(--text)}
 .talent-badge.weak{background:#a08030;color:var(--bg)}
 .talent-badge.low{background:var(--red);color:var(--text)}
@@ -142,16 +204,18 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .talent-shadow{background:var(--surf2);border-radius:var(--r);padding:.5rem .75rem;font-size:.75rem;color:var(--muted);border-left:2px solid #a08030;margin-top:.4rem;line-height:1.5}
 .talent-growth{background:var(--acc-pale);border-radius:var(--r);border-left:2px solid var(--acc);padding:.5rem .75rem;font-size:.75rem;color:var(--acc);margin-top:.4rem;line-height:1.5}
 
-/* Weakness cards (compact) */
-.weak-card{background:var(--surf);border:1px solid var(--border);border-left:2px solid #a08030;border-radius:var(--r);padding:.7rem .85rem;margin-bottom:.45rem;display:flex;align-items:flex-start;gap:.6rem}
+/* ── WEAKNESS CARDS ── */
+.weak-card{background:var(--surf);border:1px solid var(--border);border-left:2px solid #a08030;border-radius:var(--r);padding:.7rem .85rem;margin-bottom:.45rem;display:flex;align-items:flex-start;gap:.6rem;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease}
+.weak-card.visible{opacity:1;transform:translateY(0)}
 .weak-ico{font-size:.9rem;flex-shrink:0;margin-top:.1rem;color:var(--muted)}
 .weak-body{flex:1}
 .weak-nm{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.16rem;text-transform:uppercase;letter-spacing:.05em}
 .weak-growth{font-size:.74rem;color:var(--muted);line-height:1.5}
 
-/* Role cards */
+/* ── ROLE CARDS ── */
 .role-cards{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:1.25rem}
-.role-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.8rem}
+.role-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.8rem;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease}
+.role-card.visible{opacity:1;transform:translateY(0)}
 .role-card.top{border-color:var(--acc)}
 .role-rank{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.18rem}
 .role-rank.r1{color:var(--acc)}
@@ -159,48 +223,44 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .role-name{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.1rem;text-transform:uppercase;letter-spacing:.05em}
 .role-tag{font-size:.65rem;color:var(--muted);line-height:1.4}
 .fit-bar-wrap{margin-top:.45rem}
-.fit-bar{height:2px;background:var(--border2);overflow:hidden}
-.fit-fill{height:100%;background:var(--acc);transition:width .6s ease}
-.fit-pct{font-size:.62rem;color:var(--muted);margin-top:.18rem;letter-spacing:.06em}
+.fit-bar{height:3px;background:var(--border2);overflow:hidden;border-radius:1px}
+.fit-fill{height:100%;background:var(--acc);width:0;transition:width .9s cubic-bezier(.23,1,.32,1)}
+.fit-pct{font-size:.62rem;color:var(--muted);margin-top:.2rem;letter-spacing:.06em}
 
-/* Role recommendation */
+/* ── ROLE BANNERS ── */
 .role-rec{background:var(--surf);border:1px solid var(--border);border-left:2px solid var(--acc);border-radius:var(--r);padding:.85rem 1rem;margin-bottom:.85rem}
 .role-rec h3{margin-bottom:.2rem}
 .role-rec p{font-size:.74rem;color:var(--muted);margin:0}
 .role-change{background:var(--surf);border:1px solid var(--border);border-left:2px solid #a08030;border-radius:var(--r);padding:.75rem .95rem;margin-bottom:.85rem;font-size:.76rem;color:var(--muted)}
 .role-change strong{color:var(--text)}
 
-/* DD questions */
-.dd-item{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.7rem .85rem;margin-bottom:.4rem}
+/* ── DD QUESTIONS ── */
+.dd-item{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.7rem .85rem;margin-bottom:.4rem;opacity:0;transform:translateY(5px);transition:opacity .3s ease,transform .3s ease}
+.dd-item.visible{opacity:1;transform:translateY(0)}
 .dd-gem{font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:var(--acc);font-weight:700;margin-bottom:.18rem}
 .dd-q{font-size:.8rem;color:var(--text);font-style:italic;line-height:1.55}
 
-/* Divider */
+/* ── MISC ── */
 .divider{border:none;border-top:1px solid var(--border);margin:1.6rem 0}
-
-/* Footer */
 .r-footer{border-top:1px solid var(--border);padding-top:.9rem;margin-top:1.6rem;font-size:.62rem;color:var(--muted2);line-height:2;letter-spacing:.08em;text-transform:uppercase}
-
-/* Nodata */
 .nodata{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.9rem;color:var(--muted);font-size:.76rem;text-align:center}
 
-/* Tags */
-.tags{display:flex;flex-wrap:wrap;gap:.35rem}
-.tag{background:var(--acc-pale);color:var(--acc);border-radius:var(--r);padding:.22rem .6rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border:1px solid rgba(200,125,58,.3)}
-
-/* Print */
+/* ── PRINT ── */
 @media print{
   .topbar,.r-actions,#btn-restart,.restore,.nav{display:none!important}
   .screen{display:none!important}
   #screen-report{display:block!important}
-  body{background:white;color:black}
+  body{background:white;color:black;background-image:none}
   .talent-card,.weak-card,.dd-item{break-inside:avoid}
 }
 
-/* Mobile */
+/* ── MOBILE ── */
 @media(max-width:640px){
   .container,.container-wide{padding:1.15rem .75rem}
   h1{font-size:1.05rem}
+  .cat-radar-wrap{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:1fr}
+  .overall-card{flex-direction:column;gap:.75rem;align-items:flex-start}
   .talent-2col{grid-template-columns:1fr}
   .role-cards{grid-template-columns:1fr}
   .r-actions{flex-direction:column;align-items:stretch}
@@ -208,6 +268,7 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
   .nav .btn{flex:1;min-width:0;font-size:.72rem;padding:.62rem .45rem}
   .stmt-card{font-size:.88rem;padding:1rem .9rem}
   .scale-btn{font-size:.74rem;padding:.72rem .82rem}
+  .cat-track{width:36px}
 }
 </style>
 </head>
@@ -216,15 +277,19 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 <div class="topbar">
   <span class="brand">ALTER<span class="brand-acc">BAKE</span> OS</span>
   <span class="brand-sub">· Mapa Potencjału · v6</span>
+  <div class="topbar-right">
+    <div class="status-dot"></div>
+    <span class="topbar-date" id="topbar-date"></span>
+  </div>
 </div>
 
 <div id="app">
 
-<!-- START -->
+<!-- ══ START ══ -->
 <div id="screen-start" class="screen">
 <div class="container">
   <div class="screen-label" style="margin-top:.5rem">Narzędzie diagnostyczne</div>
-  <h1>Mapa Potencjału</h1>
+  <h1>Mapa Potencjału<span class="cursor"></span></h1>
   <p class="subtitle">32 stwierdzenia · 16 talentów · skala trzystopniowa.<br>Raport: Top 5 mocnych stron + Top 5 obszarów do wzmocnienia + dopasowanie do roli.</p>
   <div id="restore-box" class="restore" style="display:none">
     &gt; Znaleziono poprzednią sesję.
@@ -247,7 +312,7 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 </div>
 </div>
 
-<!-- CONTEXT -->
+<!-- ══ CONTEXT ══ -->
 <div id="screen-context" class="screen">
 <div class="container">
   <div class="progress-wrap">
@@ -282,7 +347,7 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 </div>
 </div>
 
-<!-- STATEMENTS -->
+<!-- ══ STATEMENTS ══ -->
 <div id="screen-statements" class="screen">
 <div class="container">
   <div class="progress-wrap">
@@ -293,18 +358,9 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
     <div class="stmt-card" id="stmt-text"></div>
     <p class="scale-hint">Wybierz odpowiedź która najlepiej opisuje jak zazwyczaj działasz.</p>
     <div class="scale-opts">
-      <button class="scale-btn" id="btn-agree">
-        <span class="scale-ico">✓</span>
-        <span>Zgadzam się</span>
-      </button>
-      <button class="scale-btn" id="btn-dk">
-        <span class="scale-ico">—</span>
-        <span>Nie wiem / trudno powiedzieć</span>
-      </button>
-      <button class="scale-btn" id="btn-disagree">
-        <span class="scale-ico">✕</span>
-        <span>Nie zgadzam się</span>
-      </button>
+      <button class="scale-btn" id="btn-agree"><span class="scale-ico">✓</span><span>Zgadzam się</span></button>
+      <button class="scale-btn" id="btn-dk"><span class="scale-ico">—</span><span>Nie wiem / trudno powiedzieć</span></button>
+      <button class="scale-btn" id="btn-disagree"><span class="scale-ico">✕</span><span>Nie zgadzam się</span></button>
     </div>
   </div>
   <div class="nav">
@@ -315,9 +371,19 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 </div>
 </div>
 
-<!-- REPORT -->
+<!-- ══ LOADING ══ -->
+<div id="screen-loading" class="screen">
+<div class="loading-wrap">
+  <div class="loading-icon">◆</div>
+  <div class="loading-msg">Analizuję dane<span class="cursor"></span></div>
+  <div class="loading-track"><div class="loading-fill"></div></div>
+</div>
+</div>
+
+<!-- ══ REPORT ══ -->
 <div id="screen-report" class="screen">
 <div class="container-wide">
+
   <div class="r-header">
     <div class="screen-label">Raport końcowy</div>
     <h1>Mapa Potencjału</h1>
@@ -328,9 +394,27 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
       <button id="btn-restart" class="btn btn-ghost btn-sm">Zacznij od nowa</button>
     </div>
   </div>
+
   <div class="r-disc">
     Raport zawiera <strong>hipotezy i sygnały</strong> — nie diagnozy ani decyzje rekrutacyjne. Każdy wynik to punkt wyjścia do rozmowy i obserwacji.
   </div>
+
+  <!-- Overall -->
+  <div id="r-overall"></div>
+
+  <!-- Category panels + Radar -->
+  <div class="cat-radar-wrap">
+    <div>
+      <h2>Profil kategorii</h2>
+      <div id="r-categories" class="cat-grid"></div>
+    </div>
+    <div class="radar-card">
+      <div class="radar-hd">Radar talentów</div>
+      <div id="r-radar"></div>
+    </div>
+  </div>
+
+  <hr class="divider">
 
   <section class="r-section">
     <h2>Top 5 — Najsilniejsze talenty</h2>
@@ -371,233 +455,90 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 
 </div><!-- #app -->
 <script>
-// ═══════════════════════════════════════
-// DATA — TALENTS
-// ═══════════════════════════════════════
-const TALENTS = {
-  precision:{
-    name:'Precyzja',icon:'◈',group:'Jakość i detal',
-    desc:'Naturalny perfekcjonizm w detalach. Błędy i niedoróbki są zauważane automatycznie, bez wysiłku.',
-    strength:'Kontrola jakości, finalizowanie projektów, praca z danymi, weryfikacja wyników.',
-    shadow:'Może spowalniać tempo i frustrować otoczenie preferujące "wystarczająco dobrze".',
-    growth:'Naucz się świadomie przełączać między trybem "precyzja" i "wystarczy" — zależnie od kontekstu i stawki.',
-    dd:['Opisz projekt z którego jesteś najbardziej zadowolony/a jakościowo. Co konkretnie sprawiło że tak jest?','Kiedy ostatnio poczułeś/aś że zadanie "wystarczy" — i nie drążyłeś/aś dalej? Co zadecydowało?'],
-  },
-  standards:{
-    name:'Standardy wewnętrzne',icon:'◆',group:'Jakość i detal',
-    desc:'Własne, wewnętrzne kryterium "dobrze" — niezależne od oczekiwań zewnętrznych i zewnętrznego nadzoru.',
-    strength:'Środowiska z dużą autonomią, praca bez stałej kontroli, role wymagające własnej inicjatywy jakościowej.',
-    shadow:'Frustracja gdy środowisko ma niższy standard. Ryzyko konfliktu z kulturą "tak jest OK".',
-    growth:'Odróżniaj własne standardy od wymagań sytuacji. Oba są ważne — w różnych momentach i kontekstach.',
-    dd:['Podaj przykład gdy Twój standard był wyższy niż oczekiwania zlecającego. Jak to rozwiązałeś/aś?','Co się dzieje gdy musisz oddać pracę którą oceniasz jako niewystarczającą?'],
-  },
-  empathy:{
-    name:'Empatia',icon:'◉',group:'Relacje i ludzie',
-    desc:'Naturalne wyczucie stanów emocjonalnych innych. Sygnały niewerbalne są czytelne bez wysiłku.',
-    strength:'Obsługa trudnych klientów, mediacja, budowanie zaufania, praca z osobami w stresie.',
-    shadow:'Ryzyko przejmowania emocji innych i przeciążenia przy wielu relacjach jednocześnie.',
-    growth:'Empatia to zasób — chroń go przez świadome ustalanie granic emocjonalnych.',
-    dd:['Jak rozpoznajesz że ktoś jest sfrustrowany zanim o tym powie? Podaj konkretną sytuację.','Kiedy kontakt z trudnymi emocjami innych daje Ci energię, a kiedy Cię wyczerpuje?'],
-  },
-  relations:{
-    name:'Relacyjność',icon:'◎',group:'Relacje i ludzie',
-    desc:'Naturalny talent budowania zaufania i więzi. Nowi ludzie otwierają się szybko.',
-    strength:'Networking wewnętrzny, praca z różnymi zespołami, onboarding, role wymagające współpracy.',
-    shadow:'Może poświęcać za dużo czasu na relacje kosztem zadań. Zbyt miękkie stawianie granic.',
-    growth:'Relacyjność bez asertywności bywa kosztowna. Rozwijaj równocześnie.',
-    dd:['Nowi ludzie dość szybko Ci ufają — co konkretnie robisz żeby to osiągnąć?','Kiedy ostatnio musiałeś/aś postawić granicę w relacji w pracy? Jak to zrobiłeś/aś?'],
-  },
-  consistency:{
-    name:'Konsekwencja',icon:'◫',group:'Rytm i struktura',
-    desc:'Stałe tempo jako fundament efektywności. Przewidywalność środowiska sprzyja wynikom.',
-    strength:'Procesy cykliczne, standaryzacja, praca wymagająca regularności i powtarzalności.',
-    shadow:'Może słabiej funkcjonować przy częstych, nagłych zmianach priorytetów.',
-    growth:'Trenuj elastyczność jako uzupełnienie konsekwencji — bez rezygnowania z rytmu.',
-    dd:['Jak wygląda Twój idealny dzień pracy? Co sprawia że idzie dobrze?','Co się dzieje z Twoją efektywnością gdy plan zmienia się kilka razy w ciągu dnia?'],
-  },
-  structure:{
-    name:'Strukturyzacja',icon:'⊡',group:'Rytm i struktura',
-    desc:'Naturalne porządkowanie chaosu. Systemy i procedury tworzą się instynktownie.',
-    strength:'Wdrażanie procesów, zarządzanie informacją, planowanie złożonych zadań, back-office.',
-    shadow:'Może frustrować środowisko odporne na porządek. Ryzyko nadmiernej proceduralizacji.',
-    growth:'Nie każdy kontekst wymaga struktury. Naucz się działać efektywnie w nieporządku gdy trzeba.',
-    dd:['Opisz system który stworzyłeś/aś żeby coś usprawnić. Jak do tego doszło?','Jak się czujesz gdy pracujesz w środowisku bez jasnych procedur?'],
-  },
-  curiosity:{
-    name:'Ciekawość poznawcza',icon:'◌',group:'Uczenie i rozwój',
-    desc:'Wewnętrzny napęd do eksploracji. Pogłębianie wiedzy nawet bez zewnętrznej potrzeby.',
-    strength:'Środowiska szybko się zmieniające, nowe wdrożenia, role wymagające samodzielnego uczenia się.',
-    shadow:'Ryzyko rozproszenia — zbyt wiele tematów naraz. Trudność z utrzymaniem monotonnych zadań.',
-    growth:'Zamień szerokość na głębokość w wybranych obszarach — tam gdzie ciekawość przynosi największy zwrot.',
-    dd:['Czego nauczyłeś/aś się samodzielnie w ostatnim roku, bez polecenia? Co Cię do tego skłoniło?','Kiedy coś Cię zaintryguje — jak długo i głęboko w to wchodzisz?'],
-  },
-  flexibility:{
-    name:'Elastyczność',icon:'◔',group:'Uczenie i rozwój',
-    desc:'Łatwe przestawianie się. Zmiany kontekstu nie kosztują — często aktywizują.',
-    strength:'Środowiska dynamiczne, praca z różnymi zadaniami i ludźmi, szybkie wdrożenie się w nowe miejsce.',
-    shadow:'Może nie budować głębokiej specjalizacji. Brak zakorzenienia w jednym obszarze.',
-    growth:'Elastyczność jest atutem — ale potrzebuje kotwicy w postaci kluczowej kompetencji.',
-    dd:['Opisz sytuację gdy musiałeś/aś szybko przestawić się na coś zupełnie innego. Co poczułeś/aś?','Co sprawia że czujesz się "u siebie" w nowym miejscu — jak szybko to osiągasz?'],
-  },
-  independence:{
-    name:'Niezależność',icon:'◐',group:'Autonomia i inicjatywa',
-    desc:'Działanie efektywne bez zewnętrznego nadzoru. Odpowiedzialność za wynik, nie tylko za wykonanie.',
-    strength:'Praca zdalna, samodzielne projekty, role z dużą swobodą i autonomią działania.',
-    shadow:'Może nie prosić o pomoc gdy potrzebuje. Ryzyko izolacji od zespołu.',
-    growth:'Niezależność wymaga równoważenia z proaktywnym informowaniem — nie czekaj aż ktoś zapyta.',
-    dd:['Opisz sytuację gdy musiałeś/aś pracować pod ścisłą kontrolą. Jak to przeżywałeś/aś?','Kiedy i w jakich okolicznościach prosisz o pomoc — co musi się stać żebyś się zdecydował/a?'],
-  },
-  initiative:{
-    name:'Inicjatywa',icon:'◒',group:'Autonomia i inicjatywa',
-    desc:'Działanie przed proszeniem. Szanse i problemy zauważane automatycznie.',
-    strength:'Projekty ulepszeniowe, środowiska otwarte na zmiany, role z realnym wpływem na procesy.',
-    shadow:'Może irytować otoczenie preferujące spokój i status quo. Ryzyko "zmieniania dla zmieniania".',
-    growth:'Inicjatywa bez sojuszników bywa nieskuteczna. Buduj poparcie zanim zadziałasz szerzej.',
-    dd:['Co ostatnio zmieniłeś/aś bez pytania o pozwolenie? Jak zareagowało otoczenie?','Kiedy inicjatywa Cię pobudza, a kiedy status quo akceptujesz bez problemu?'],
-  },
-  regulation:{
-    name:'Regulacja emocjonalna',icon:'◑',group:'Odporność i spokój',
-    desc:'Zachowanie spokoju pod tarciem bez wysiłku. Naturalna stabilizacja sytuacji w napięciu.',
-    strength:'Obsługa trudnych klientów i sytuacji, mediacja, zarządzanie kryzysowe, role wymagające stoicyzmu.',
-    shadow:'Może tłumić własne emocje zbyt długo. Ryzyko bycia "emocjonalnym śmietnikiem" zespołu.',
-    growth:'Spokój to zasób — odnawiaj go aktywnie, a nie tylko tłum to co niewygodne.',
-    dd:['Opisz najtrudniejszą sytuację emocjonalną w pracy — jak funkcjonowałeś/aś?','Co robisz po szczególnie napięciu dniu — jak się regenerujesz?'],
-  },
-  resilience:{
-    name:'Odporność',icon:'◓',group:'Odporność i spokój',
-    desc:'Szybki powrót po trudnościach. Porażka mobilizuje zamiast blokować.',
-    strength:'Środowiska wymagające, wysokie tempo pracy, duże zmiany organizacyjne, nowe wyzwania.',
-    shadow:'Może ignorować sygnały przeciążenia zbyt długo. Ryzyko wypalenia bez ostrzeżenia.',
-    growth:'Odporność ma swój próg. Naucz się rozpoznawać wczesne sygnały przeciążenia u siebie.',
-    dd:['Opisz trudną porażkę lub krytykę — co zrobiłeś/aś następnego dnia?','Jak długo zazwyczaj "zostajesz" w trudnej informacji zwrotnej zanim ruszysz dalej?'],
-  },
-  drive:{
-    name:'Motywacja wewnętrzna',icon:'◕',group:'Motywacja i sens',
-    desc:'Angażowanie się dla samego zadania — nie dla nagrody zewnętrznej ani czyjegoś oka.',
-    strength:'Środowiska z dużą autonomią, praca twórcza, długoterminowe projekty bez stałego feedbacku.',
-    shadow:'Może słabiej funkcjonować gdy praca jest rutynowa lub sterowana wyłącznie zewnętrznie.',
-    growth:'Szukaj kontekstów gdzie motywacja wewnętrzna i zewnętrzne wymagania się pokrywają.',
-    dd:['Kiedy ostatnio robiłeś/aś coś z pełnym zaangażowaniem? Co konkretnie sprawiło że tak było?','Podaj przykład zadania które zrobiłeś/aś dobrze mimo że nikt tego nie zauważył.'],
-  },
-  purpose:{
-    name:'Potrzeba sensu',icon:'●',group:'Motywacja i sens',
-    desc:'Energia z rozumienia "po co". Bez kontekstu i celu zaangażowanie spada wyraźnie.',
-    strength:'Role z widocznym wpływem, środowisko wyjaśniające decyzje, praca z realnym efektem.',
-    shadow:'Może kwestionować decyzje zamiast wdrażać, gdy nie rozumie sensu.',
-    growth:'Aktywnie szukaj kontekstu gdy go brakuje — nie czekaj aż przyjdzie sam.',
-    dd:['Kiedy miałeś/aś poczucie że praca nie ma sensu? Co wtedy zrobiłeś/aś?','Jak reagujesz gdy dostajesz zadanie bez wyjaśnienia po co — co robisz dalej?'],
-  },
-  influence:{
-    name:'Wpływ i perswazja',icon:'◖',group:'Komunikacja i wpływ',
-    desc:'Naturalna zdolność zmieniania zdania innych bez presji — przez argumenty i perspektywę.',
-    strength:'Negocjacje, sprzedaż wewnętrzna, zarządzanie zmianą, role liderskie i koordynacyjne.',
-    shadow:'Może nadmiernie inwestować w przekonywanie gdy szybsza byłaby decyzja.',
-    growth:'Wpływ bez empatii jest manipulacją. Rozwijaj rozumienie perspektywy drugiej strony.',
-    dd:['Opisz sytuację gdy przekonałeś/aś kogoś do swojego zdania. Jak to zrobiłeś/aś?','Kiedy rezygnujesz z przekonywania — co musi się stać żebyś odpuścił/a?'],
-  },
-  communication:{
-    name:'Komunikacja',icon:'◗',group:'Komunikacja i wpływ',
-    desc:'Jasność i precyzja w przekazie. Skomplikowane rzeczy stają się proste.',
-    strength:'Dokumentacja, szkolenia, prezentacje, środowiska wymagające klarowności i directness.',
-    shadow:'Directness bywa odbierany jako oschłość. Może nadmiernie upraszczać złożone sprawy.',
-    growth:'Komunikacja to dialog — upewnij się że nie mylisz "powiedziane" z "zrozumiane".',
-    dd:['Podaj przykład gdy wyjaśniłeś/aś coś trudnego tak żeby ktoś bez wiedzy zrozumiał.','Kiedy musiałeś/aś tłumaczyć co miałeś/aś na myśli — co sprawiło że przekaz był niejasny?'],
-  },
+// ═══════════ DATA — TALENTS ═══════════
+const TALENTS={
+  precision:{name:'Precyzja',icon:'◈',group:'Jakość i detal',desc:'Naturalny perfekcjonizm w detalach. Błędy i niedoróbki są zauważane automatycznie, bez wysiłku.',strength:'Kontrola jakości, finalizowanie projektów, praca z danymi, weryfikacja wyników.',shadow:'Może spowalniać tempo i frustrować otoczenie preferujące "wystarczająco dobrze".',growth:'Naucz się świadomie przełączać między trybem "precyzja" i "wystarczy" — zależnie od kontekstu i stawki.',dd:['Opisz projekt z którego jesteś najbardziej zadowolony/a jakościowo. Co konkretnie sprawiło że tak jest?','Kiedy ostatnio poczułeś/aś że zadanie "wystarczy" — i nie drążyłeś/aś dalej? Co zadecydowało?']},
+  standards:{name:'Standardy wewnętrzne',icon:'◆',group:'Jakość i detal',desc:'Własne, wewnętrzne kryterium "dobrze" — niezależne od oczekiwań zewnętrznych.',strength:'Środowiska z dużą autonomią, praca bez stałej kontroli, role wymagające własnej inicjatywy jakościowej.',shadow:'Frustracja gdy środowisko ma niższy standard. Ryzyko konfliktu z kulturą "tak jest OK".',growth:'Odróżniaj własne standardy od wymagań sytuacji. Oba są ważne — w różnych momentach.',dd:['Podaj przykład gdy Twój standard był wyższy niż oczekiwania zlecającego. Jak to rozwiązałeś/aś?','Co się dzieje gdy musisz oddać pracę którą oceniasz jako niewystarczającą?']},
+  empathy:{name:'Empatia',icon:'◉',group:'Relacje i ludzie',desc:'Naturalne wyczucie stanów emocjonalnych innych. Sygnały niewerbalne są czytelne bez wysiłku.',strength:'Obsługa trudnych klientów, mediacja, budowanie zaufania, praca z osobami w stresie.',shadow:'Ryzyko przejmowania emocji innych i przeciążenia przy wielu relacjach jednocześnie.',growth:'Empatia to zasób — chroń go przez świadome ustalanie granic emocjonalnych.',dd:['Jak rozpoznajesz że ktoś jest sfrustrowany zanim o tym powie? Podaj konkretną sytuację.','Kiedy kontakt z trudnymi emocjami innych daje Ci energię, a kiedy Cię wyczerpuje?']},
+  relations:{name:'Relacyjność',icon:'◎',group:'Relacje i ludzie',desc:'Naturalny talent budowania zaufania i więzi. Nowi ludzie otwierają się szybko.',strength:'Networking wewnętrzny, praca z różnymi zespołami, onboarding, role wymagające współpracy.',shadow:'Może poświęcać za dużo czasu na relacje kosztem zadań. Zbyt miękkie stawianie granic.',growth:'Relacyjność bez asertywności bywa kosztowna. Rozwijaj równocześnie.',dd:['Nowi ludzie dość szybko Ci ufają — co konkretnie robisz żeby to osiągnąć?','Kiedy ostatnio musiałeś/aś postawić granicę w relacji w pracy? Jak to zrobiłeś/aś?']},
+  consistency:{name:'Konsekwencja',icon:'◫',group:'Rytm i struktura',desc:'Stałe tempo jako fundament efektywności. Przewidywalność środowiska sprzyja wynikom.',strength:'Procesy cykliczne, standaryzacja, praca wymagająca regularności i powtarzalności.',shadow:'Może słabiej funkcjonować przy częstych, nagłych zmianach priorytetów.',growth:'Trenuj elastyczność jako uzupełnienie konsekwencji — bez rezygnowania z rytmu.',dd:['Jak wygląda Twój idealny dzień pracy? Co sprawia że idzie dobrze?','Co się dzieje z Twoją efektywnością gdy plan zmienia się kilka razy w ciągu dnia?']},
+  structure:{name:'Strukturyzacja',icon:'⊡',group:'Rytm i struktura',desc:'Naturalne porządkowanie chaosu. Systemy i procedury tworzą się instynktownie.',strength:'Wdrażanie procesów, zarządzanie informacją, planowanie złożonych zadań, back-office.',shadow:'Może frustrować środowisko odporne na porządek. Ryzyko nadmiernej proceduralizacji.',growth:'Nie każdy kontekst wymaga struktury. Naucz się działać efektywnie w nieporządku gdy trzeba.',dd:['Opisz system który stworzyłeś/aś żeby coś usprawnić. Jak do tego doszło?','Jak się czujesz gdy pracujesz w środowisku bez jasnych procedur?']},
+  curiosity:{name:'Ciekawość poznawcza',icon:'◌',group:'Uczenie i rozwój',desc:'Wewnętrzny napęd do eksploracji. Pogłębianie wiedzy nawet bez zewnętrznej potrzeby.',strength:'Środowiska szybko się zmieniające, nowe wdrożenia, role wymagające samodzielnego uczenia się.',shadow:'Ryzyko rozproszenia — zbyt wiele tematów naraz. Trudność z utrzymaniem monotonnych zadań.',growth:'Zamień szerokość na głębokość w wybranych obszarach — tam gdzie ciekawość przynosi największy zwrot.',dd:['Czego nauczyłeś/aś się samodzielnie w ostatnim roku, bez polecenia? Co Cię do tego skłoniło?','Kiedy coś Cię zaintryguje — jak długo i głęboko w to wchodzisz?']},
+  flexibility:{name:'Elastyczność',icon:'◔',group:'Uczenie i rozwój',desc:'Łatwe przestawianie się. Zmiany kontekstu nie kosztują — często aktywizują.',strength:'Środowiska dynamiczne, praca z różnymi zadaniami i ludźmi, szybkie wdrożenie się w nowe miejsce.',shadow:'Może nie budować głębokiej specjalizacji. Brak zakorzenienia w jednym obszarze.',growth:'Elastyczność jest atutem — ale potrzebuje kotwicy w postaci kluczowej kompetencji.',dd:['Opisz sytuację gdy musiałeś/aś szybko przestawić się na coś zupełnie innego. Co poczułeś/aś?','Co sprawia że czujesz się "u siebie" w nowym miejscu — jak szybko to osiągasz?']},
+  independence:{name:'Niezależność',icon:'◐',group:'Autonomia i inicjatywa',desc:'Działanie efektywne bez zewnętrznego nadzoru. Odpowiedzialność za wynik, nie tylko za wykonanie.',strength:'Praca zdalna, samodzielne projekty, role z dużą swobodą i autonomią działania.',shadow:'Może nie prosić o pomoc gdy potrzebuje. Ryzyko izolacji od zespołu.',growth:'Niezależność wymaga równoważenia z proaktywnym informowaniem — nie czekaj aż ktoś zapyta.',dd:['Opisz sytuację gdy musiałeś/aś pracować pod ścisłą kontrolą. Jak to przeżywałeś/aś?','Kiedy i w jakich okolicznościach prosisz o pomoc — co musi się stać żebyś się zdecydował/a?']},
+  initiative:{name:'Inicjatywa',icon:'◒',group:'Autonomia i inicjatywa',desc:'Działanie przed proszeniem. Szanse i problemy zauważane automatycznie.',strength:'Projekty ulepszeniowe, środowiska otwarte na zmiany, role z realnym wpływem na procesy.',shadow:'Może irytować otoczenie preferujące spokój i status quo. Ryzyko "zmieniania dla zmieniania".',growth:'Inicjatywa bez sojuszników bywa nieskuteczna. Buduj poparcie zanim zadziałasz szerzej.',dd:['Co ostatnio zmieniłeś/aś bez pytania o pozwolenie? Jak zareagowało otoczenie?','Kiedy inicjatywa Cię pobudza, a kiedy status quo akceptujesz bez problemu?']},
+  regulation:{name:'Regulacja emocjonalna',icon:'◑',group:'Odporność i spokój',desc:'Zachowanie spokoju pod tarciem bez wysiłku. Naturalna stabilizacja sytuacji w napięciu.',strength:'Obsługa trudnych klientów i sytuacji, mediacja, zarządzanie kryzysowe, role wymagające stoicyzmu.',shadow:'Może tłumić własne emocje zbyt długo. Ryzyko bycia "emocjonalnym śmietnikiem" zespołu.',growth:'Spokój to zasób — odnawiaj go aktywnie, a nie tylko tłum to co niewygodne.',dd:['Opisz najtrudniejszą sytuację emocjonalną w pracy — jak funkcjonowałeś/aś?','Co robisz po szczególnie napięciu dniu — jak się regenerujesz?']},
+  resilience:{name:'Odporność',icon:'◓',group:'Odporność i spokój',desc:'Szybki powrót po trudnościach. Porażka mobilizuje zamiast blokować.',strength:'Środowiska wymagające, wysokie tempo pracy, duże zmiany organizacyjne, nowe wyzwania.',shadow:'Może ignorować sygnały przeciążenia zbyt długo. Ryzyko wypalenia bez ostrzeżenia.',growth:'Odporność ma swój próg. Naucz się rozpoznawać wczesne sygnały przeciążenia u siebie.',dd:['Opisz trudną porażkę lub krytykę — co zrobiłeś/aś następnego dnia?','Jak długo zazwyczaj "zostajesz" w trudnej informacji zwrotnej zanim ruszysz dalej?']},
+  drive:{name:'Motywacja wewnętrzna',icon:'◕',group:'Motywacja i sens',desc:'Angażowanie się dla samego zadania — nie dla nagrody zewnętrznej ani czyjegoś oka.',strength:'Środowiska z dużą autonomią, praca twórcza, długoterminowe projekty bez stałego feedbacku.',shadow:'Może słabiej funkcjonować gdy praca jest rutynowa lub sterowana wyłącznie zewnętrznie.',growth:'Szukaj kontekstów gdzie motywacja wewnętrzna i zewnętrzne wymagania się pokrywają.',dd:['Kiedy ostatnio robiłeś/aś coś z pełnym zaangażowaniem? Co konkretnie sprawiło że tak było?','Podaj przykład zadania które zrobiłeś/aś dobrze mimo że nikt tego nie zauważył.']},
+  purpose:{name:'Potrzeba sensu',icon:'●',group:'Motywacja i sens',desc:'Energia z rozumienia "po co". Bez kontekstu i celu zaangażowanie spada wyraźnie.',strength:'Role z widocznym wpływem, środowisko wyjaśniające decyzje, praca z realnym efektem.',shadow:'Może kwestionować decyzje zamiast wdrażać, gdy nie rozumie sensu.',growth:'Aktywnie szukaj kontekstu gdy go brakuje — nie czekaj aż przyjdzie sam.',dd:['Kiedy miałeś/aś poczucie że praca nie ma sensu? Co wtedy zrobiłeś/aś?','Jak reagujesz gdy dostajesz zadanie bez wyjaśnienia po co — co robisz dalej?']},
+  influence:{name:'Wpływ i perswazja',icon:'◖',group:'Komunikacja i wpływ',desc:'Naturalna zdolność zmieniania zdania innych bez presji — przez argumenty i perspektywę.',strength:'Negocjacje, sprzedaż wewnętrzna, zarządzanie zmianą, role liderskie i koordynacyjne.',shadow:'Może nadmiernie inwestować w przekonywanie gdy szybsza byłaby decyzja.',growth:'Wpływ bez empatii jest manipulacją. Rozwijaj rozumienie perspektywy drugiej strony.',dd:['Opisz sytuację gdy przekonałeś/aś kogoś do swojego zdania. Jak to zrobiłeś/aś?','Kiedy rezygnujesz z przekonywania — co musi się stać żebyś odpuścił/a?']},
+  communication:{name:'Komunikacja',icon:'◗',group:'Komunikacja i wpływ',desc:'Jasność i precyzja w przekazie. Skomplikowane rzeczy stają się proste.',strength:'Dokumentacja, szkolenia, prezentacje, środowiska wymagające klarowności i directness.',shadow:'Directness bywa odbierany jako oschłość. Może nadmiernie upraszczać złożone sprawy.',growth:'Komunikacja to dialog — upewnij się że nie mylisz "powiedziane" z "zrozumiane".',dd:['Podaj przykład gdy wyjaśniłeś/aś coś trudnego tak żeby ktoś bez wiedzy zrozumiał.','Kiedy musiałeś/aś tłumaczyć co miałeś/aś na myśli — co sprawiło że przekaz był niejasny?']},
 };
 
-// ═══════════════════════════════════════
-// DATA — STATEMENTS (32)
-// Normal: agree=+2, dk=0, disagree=-1
-// Reversed: agree=-1, dk=0, disagree=+2
-// ═══════════════════════════════════════
-const STMTS = [
-  // Round 1 — Normal (0–15)
-  {t:'precision', r:false, txt:'Gdy kończę zadanie, naturalnie sprawdzam szczegóły — nawet gdy termin minął i nikt nie patrzy.'},
-  {t:'empathy',   r:false, txt:'Wyczuwam zmianę nastroju rozmówcy zanim mi o niej powie.'},
+const GROUPS=[
+  {name:'Jakość i detal',  short:'Jakość',    talents:['precision','standards'],    color:'#c87d3a'},
+  {name:'Relacje i ludzie',short:'Relacje',    talents:['empathy','relations'],      color:'#5ab87a'},
+  {name:'Rytm i struktura',short:'Rytm',       talents:['consistency','structure'],  color:'#5a8ab8'},
+  {name:'Uczenie i rozwój',short:'Uczenie',    talents:['curiosity','flexibility'],  color:'#a87ab8'},
+  {name:'Autonomia',       short:'Autonomia',  talents:['independence','initiative'],color:'#b8a05a'},
+  {name:'Odporność',       short:'Odporność',  talents:['regulation','resilience'],  color:'#5ab8b8'},
+  {name:'Motywacja i sens',short:'Motywacja',  talents:['drive','purpose'],          color:'#c85a8a'},
+  {name:'Komunikacja',     short:'Wpływ',      talents:['influence','communication'],color:'#7ab8c8'},
+];
+
+// ═══════════ STATEMENTS ═══════════
+const STMTS=[
+  {t:'precision', r:false,txt:'Gdy kończę zadanie, naturalnie sprawdzam szczegóły — nawet gdy termin minął i nikt nie patrzy.'},
+  {t:'empathy',   r:false,txt:'Wyczuwam zmianę nastroju rozmówcy zanim mi o niej powie.'},
   {t:'consistency',r:false,txt:'Działam najlepiej gdy mam ustalony rytm i wiem czego spodziewać się w ciągu dnia.'},
-  {t:'structure', r:false, txt:'Gdy wchodzę w chaotyczną sytuację, naturalnie zaczynam szukać jak ją ustrukturyzować.'},
+  {t:'structure', r:false,txt:'Gdy wchodzę w chaotyczną sytuację, naturalnie zaczynam szukać jak ją ustrukturyzować.'},
   {t:'independence',r:false,txt:'Działam efektywnie bez regularnego kontaktu z przełożonym — wystarczy mi jasny cel.'},
-  {t:'regulation', r:false,txt:'W napięciu lub konflikcie zachowuję spokój — nie muszę się do tego specjalnie zmuszać.'},
-  {t:'drive',      r:false,txt:'Angażuję się w pracę dlatego że jest wartościowa — nie dlatego że ktoś obserwuje lub nagradza.'},
-  {t:'influence',  r:false,txt:'Potrafię zmienić zdanie rozmówcy bez wywierania presji — przez argumenty lub zmianę perspektywy.'},
-  {t:'standards',  r:false,txt:'Mam własne kryterium "dobrze" — i bywa wyższe niż to, czego oczekuje otoczenie.'},
-  {t:'relations',  r:false,txt:'Nowi ludzie dość szybko mi ufają — mówię to na podstawie konkretnych obserwacji, nie przypuszczeń.'},
-  {t:'curiosity',  r:false,txt:'Gdy coś mnie zaintryguje, zagłębiam się — nawet jeśli nie jest to bezpośrednio potrzebne.'},
+  {t:'regulation',r:false,txt:'W napięciu lub konflikcie zachowuję spokój — nie muszę się do tego specjalnie zmuszać.'},
+  {t:'drive',     r:false,txt:'Angażuję się w pracę dlatego że jest wartościowa — nie dlatego że ktoś obserwuje lub nagradza.'},
+  {t:'influence', r:false,txt:'Potrafię zmienić zdanie rozmówcy bez wywierania presji — przez argumenty lub zmianę perspektywy.'},
+  {t:'standards', r:false,txt:'Mam własne kryterium "dobrze" — i bywa wyższe niż to, czego oczekuje otoczenie.'},
+  {t:'relations', r:false,txt:'Nowi ludzie dość szybko mi ufają — mówię to na podstawie konkretnych obserwacji, nie przypuszczeń.'},
+  {t:'curiosity', r:false,txt:'Gdy coś mnie zaintryguje, zagłębiam się — nawet jeśli nie jest to bezpośrednio potrzebne.'},
   {t:'flexibility',r:false,txt:'Nieoczekiwane zmiany planu nie wybijają mnie z rytmu na dłużej niż kilka minut.'},
-  {t:'initiative', r:false,txt:'Regularnie zgłaszam pomysły lub ulepszenia — bez proszenia i bez oczekiwania nagrody.'},
-  {t:'resilience', r:false,txt:'Po trudnym dniu lub porażce wracam do normalnego funkcjonowania stosunkowo szybko.'},
-  {t:'purpose',    r:false,txt:'Zanim zacznę coś robić, chcę rozumieć dlaczego to jest ważne — samo polecenie mi nie wystarczy.'},
+  {t:'initiative',r:false,txt:'Regularnie zgłaszam pomysły lub ulepszenia — bez proszenia i bez oczekiwania nagrody.'},
+  {t:'resilience',r:false,txt:'Po trudnym dniu lub porażce wracam do normalnego funkcjonowania stosunkowo szybko.'},
+  {t:'purpose',   r:false,txt:'Zanim zacznę coś robić, chcę rozumieć dlaczego to jest ważne — samo polecenie mi nie wystarczy.'},
   {t:'communication',r:false,txt:'Potrafię wyjaśnić skomplikowaną rzecz prosto — tak żeby osoba bez wiedzy w temacie zrozumiała.'},
-  // Round 2 — Reversed (16–31)
-  {t:'precision',  r:true, txt:'Zdarza mi się oddać pracę bez szczegółowego sprawdzenia — jeśli ogólnie wygląda dobrze, wystarczy.'},
-  {t:'empathy',    r:true, txt:'Mam trudność z oceną jak ktoś się czuje, jeśli wprost mi tego nie powie lub nie pokaże.'},
-  {t:'consistency',r:true, txt:'Nie potrzebuję ustalonego rytmu — spontaniczność i zmienność w pracy mi odpowiadają.'},
-  {t:'structure',  r:true, txt:'W nieuporządkowanych sytuacjach dobrze mi się pracuje — nie czuję potrzeby wprowadzania porządku.'},
+  {t:'precision', r:true, txt:'Zdarza mi się oddać pracę bez szczegółowego sprawdzenia — jeśli ogólnie wygląda dobrze, wystarczy.'},
+  {t:'empathy',   r:true, txt:'Mam trudność z oceną jak ktoś się czuje, jeśli wprost mi tego nie powie lub nie pokaże.'},
+  {t:'consistency',r:true,txt:'Nie potrzebuję ustalonego rytmu — spontaniczność i zmienność w pracy mi odpowiadają.'},
+  {t:'structure', r:true, txt:'W nieuporządkowanych sytuacjach dobrze mi się pracuje — nie czuję potrzeby wprowadzania porządku.'},
   {t:'independence',r:true,txt:'Wolę regularny kontakt z przełożonym — potwierdza że idę w dobrym kierunku.'},
-  {t:'regulation', r:true, txt:'Trudno mi zachować spokój gdy rozmówca jest bardzo emocjonalny lub agresywny.'},
-  {t:'drive',      r:true, txt:'Moje zaangażowanie rośnie wyraźnie gdy wiem że praca będzie oceniana lub doceniana przez innych.'},
-  {t:'influence',  r:true, txt:'Przekonywanie innych do swojego zdania jest dla mnie trudne — wolę dojść do kompromisu.'},
-  {t:'standards',  r:true, txt:'Wynik który spełnia formalne wymagania mi wystarczy — nie drążę dalej bez wyraźnego powodu.'},
-  {t:'relations',  r:true, txt:'Budowanie bliższych relacji w pracy zajmuje mi więcej czasu niż większości osób w moim otoczeniu.'},
-  {t:'curiosity',  r:true, txt:'Nowe tematy interesują mnie głównie wtedy gdy są potrzebne do zadania — nie eksploruję dla samej ciekawości.'},
-  {t:'flexibility',r:true, txt:'Wolę przewidywalne środowisko — duże nieoczekiwane zmiany mnie kosztują.'},
-  {t:'initiative', r:true, txt:'Wolę działać w wyznaczonym zakresie i nie wychodzić przed szereg bez wyraźnego zaproszenia.'},
-  {t:'resilience', r:true, txt:'Negatywna informacja zwrotna lub krytyka zostaje ze mną przez dłuższy czas.'},
-  {t:'purpose',    r:true, txt:'Dostaję zadanie i działam — rzadko pytam o szerszy kontekst jeśli zakres jest jasny.'},
+  {t:'regulation',r:true, txt:'Trudno mi zachować spokój gdy rozmówca jest bardzo emocjonalny lub agresywny.'},
+  {t:'drive',     r:true, txt:'Moje zaangażowanie rośnie wyraźnie gdy wiem że praca będzie oceniana lub doceniana przez innych.'},
+  {t:'influence', r:true, txt:'Przekonywanie innych do swojego zdania jest dla mnie trudne — wolę dojść do kompromisu.'},
+  {t:'standards', r:true, txt:'Wynik który spełnia formalne wymagania mi wystarczy — nie drążę dalej bez wyraźnego powodu.'},
+  {t:'relations', r:true, txt:'Budowanie bliższych relacji w pracy zajmuje mi więcej czasu niż większości osób w moim otoczeniu.'},
+  {t:'curiosity', r:true, txt:'Nowe tematy interesują mnie głównie wtedy gdy są potrzebne do zadania — nie eksploruję dla samej ciekawości.'},
+  {t:'flexibility',r:true,txt:'Wolę przewidywalne środowisko — duże nieoczekiwane zmiany mnie kosztują.'},
+  {t:'initiative',r:true, txt:'Wolę działać w wyznaczonym zakresie i nie wychodzić przed szereg bez wyraźnego zaproszenia.'},
+  {t:'resilience',r:true, txt:'Negatywna informacja zwrotna lub krytyka zostaje ze mną przez dłuższy czas.'},
+  {t:'purpose',   r:true, txt:'Dostaję zadanie i działam — rzadko pytam o szerszy kontekst jeśli zakres jest jasny.'},
   {t:'communication',r:true,txt:'Zdarza mi się że muszę tłumaczyć co miałem/am na myśli — mój przekaz bywa niejasny dla innych.'},
 ];
 
-// ═══════════════════════════════════════
-// DATA — ROLE PROFILES
-// ═══════════════════════════════════════
-const ROLES = {
-  retail:{
-    name:'Obsługa klienta',icon:'🏪',
-    tag:'Praca z klientem, emocje, zmienne sytuacje',
-    desc:'Środowisko wymagające empatii, spokoju emocjonalnego i łatwości w relacjach z różnymi ludźmi.',
-    weights:{empathy:3,regulation:3,relations:2,flexibility:2,resilience:1,communication:1},
-  },
-  production:{
-    name:'Produkcja / wytwarzanie',icon:'🔧',
-    tag:'Praca manualna, rytmiczna, wysokie standardy',
-    desc:'Środowisko wymagające precyzji, konsekwencji i wewnętrznej odpowiedzialności za jakość.',
-    weights:{precision:3,standards:3,consistency:2,resilience:1,independence:1},
-  },
-  coordination:{
-    name:'Koordynacja / lider zmiany',icon:'📋',
-    tag:'Wpływ na innych, inicjatywa, praca z ludźmi',
-    desc:'Rola z realnym wpływem — wymaga proaktywności, komunikacji i rozumienia szerszego kontekstu.',
-    weights:{initiative:3,influence:3,relations:2,communication:2,purpose:1,structure:1},
-  },
-  backoffice:{
-    name:'Back-office / wsparcie',icon:'💼',
-    tag:'Procesy, dane, precyzja, samodzielność',
-    desc:'Praca z procesami i informacją — wymaga dokładności, niezależności i chęci doskonalenia.',
-    weights:{precision:2,structure:3,independence:2,curiosity:2,standards:1},
-  },
+// ═══════════ ROLES ═══════════
+const ROLES={
+  retail:{name:'Obsługa klienta',icon:'🏪',tag:'Praca z klientem, emocje, zmienne sytuacje',desc:'Środowisko wymagające empatii, spokoju emocjonalnego i łatwości w relacjach.',weights:{empathy:3,regulation:3,relations:2,flexibility:2,resilience:1,communication:1}},
+  production:{name:'Produkcja / wytwarzanie',icon:'🔧',tag:'Praca manualna, rytmiczna, wysokie standardy',desc:'Środowisko wymagające precyzji, konsekwencji i wewnętrznej odpowiedzialności za jakość.',weights:{precision:3,standards:3,consistency:2,resilience:1,independence:1}},
+  coordination:{name:'Koordynacja / lider zmiany',icon:'📋',tag:'Wpływ na innych, inicjatywa, praca z ludźmi',desc:'Rola z realnym wpływem — wymaga proaktywności, komunikacji i rozumienia szerszego kontekstu.',weights:{initiative:3,influence:3,relations:2,communication:2,purpose:1,structure:1}},
+  backoffice:{name:'Back-office / wsparcie',icon:'💼',tag:'Procesy, dane, precyzja, samodzielność',desc:'Praca z procesami i informacją — wymaga dokładności, niezależności i chęci doskonalenia.',weights:{precision:2,structure:3,independence:2,curiosity:2,standards:1}},
 };
 
-// ═══════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════
+// ═══════════ STATE ═══════════
 const SK='map_pot_v6';
-function freshState(){
-  return{
-    screen:'start',
-    personal:{name:'',ivr:'',role:''},
-    answers:Array(STMTS.length).fill(null),
-    idx:0,
-    completedAt:null,
-  };
-}
+function freshState(){return{screen:'start',personal:{name:'',ivr:'',role:''},answers:Array(STMTS.length).fill(null),idx:0,completedAt:null};}
 let S=freshState();
 function save(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
 function load(){try{const r=localStorage.getItem(SK);if(r){S=JSON.parse(r);return true;}}catch(e){}return false;}
 function reset(){localStorage.removeItem(SK);S=freshState();}
 
-// ═══════════════════════════════════════
-// ROUTING
-// ═══════════════════════════════════════
+// ═══════════ ROUTING ═══════════
 function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById('screen-'+id);
@@ -605,114 +546,229 @@ function go(id){
   S.screen=id;save();
 }
 
-// ═══════════════════════════════════════
-// SCORING
-// ═══════════════════════════════════════
+// ═══════════ SCORING ═══════════
 function calcScores(answers){
-  const sc={};
-  Object.keys(TALENTS).forEach(t=>sc[t]=0);
+  const sc={};Object.keys(TALENTS).forEach(t=>sc[t]=0);
   STMTS.forEach((stmt,i)=>{
-    const a=answers[i];
-    if(a===null)return;
-    let v=0;
-    if(stmt.r){v=a==='agree'?-1:a==='disagree'?2:0;}
-    else{v=a==='agree'?2:a==='disagree'?-1:0;}
+    const a=answers[i];if(a===null)return;
+    let v=stmt.r?(a==='agree'?-1:a==='disagree'?2:0):(a==='agree'?2:a==='disagree'?-1:0);
     sc[stmt.t]=(sc[stmt.t]||0)+v;
   });
   return sc;
 }
-
-function sigLabel(sc){
-  if(sc>=4)return'strong';
-  if(sc>=2)return'moderate';
-  if(sc>=0)return'slight';
-  if(sc>=-1)return'weak';
-  return'low';
-}
-function sigText(sc){
-  if(sc>=4)return'Wyjątkowy talent';
-  if(sc>=2)return'Silny talent';
-  if(sc>=0)return'Umiarkowany sygnał';
-  if(sc>=-1)return'Słaby sygnał';
-  return'Obszar do wzmocnienia';
-}
-
+function sigLabel(sc){return sc>=4?'strong':sc>=2?'moderate':sc>=0?'slight':sc>=-1?'weak':'low';}
+function sigText(sc){return sc>=4?'Wyjątkowy':sc>=2?'Silny':sc>=0?'Umiarkowany':sc>=-1?'Słaby':'Obszar do wzm.';}
+function sigTextFull(sc){return sc>=4?'Wyjątkowy talent':sc>=2?'Silny talent':sc>=0?'Umiarkowany sygnał':sc>=-1?'Słaby sygnał':'Obszar do wzmocnienia';}
 function calcRoleFit(sc){
   const fit={};
   Object.entries(ROLES).forEach(([k,rp])=>{
     let total=0,maxP=0;
-    Object.entries(rp.weights).forEach(([t,w])=>{
-      total+=(sc[t]||0)*w;
-      maxP+=4*w;
-    });
+    Object.entries(rp.weights).forEach(([t,w])=>{total+=(sc[t]||0)*w;maxP+=4*w;});
     fit[k]={raw:total,pct:Math.max(0,Math.round((total/maxP)*100))};
   });
   return fit;
 }
 
-// ═══════════════════════════════════════
-// CONTEXT
-// ═══════════════════════════════════════
+// ═══════════ CONTEXT FORM ═══════════
 document.getElementById('form-ctx').addEventListener('submit',e=>{
   e.preventDefault();
   S.personal.name=document.getElementById('in-name').value.trim();
   S.personal.ivr=document.getElementById('in-ivr').value.trim();
   S.personal.role=document.getElementById('in-role').value;
-  S.idx=0;
-  save();renderStmt();go('statements');
+  S.idx=0;save();renderStmt();go('statements');
 });
 
-// ═══════════════════════════════════════
-// STATEMENTS
-// ═══════════════════════════════════════
+// ═══════════ STATEMENTS ═══════════
 function renderStmt(){
   const i=S.idx,tot=STMTS.length;
-  const pct=Math.round(5+(i/tot)*93);
-  document.getElementById('stmt-bar').style.width=pct+'%';
+  document.getElementById('stmt-bar').style.width=Math.round(5+(i/tot)*93)+'%';
   document.getElementById('stmt-count').textContent='Krok 2 z 2';
   document.getElementById('stmt-cnt').textContent=(i+1)+' / '+tot;
   document.getElementById('stmt-text').textContent=STMTS[i].txt;
   const a=S.answers[i];
-  const ba=document.getElementById('btn-agree');
-  const bd=document.getElementById('btn-dk');
-  const bx=document.getElementById('btn-disagree');
-  ba.className='scale-btn'+(a==='agree'?' sel-agree':'');
-  bd.className='scale-btn'+(a==='dk'?' sel-dk':'');
-  bx.className='scale-btn'+(a==='disagree'?' sel-disagree':'');
+  document.getElementById('btn-agree').className='scale-btn'+(a==='agree'?' sel-agree':'');
+  document.getElementById('btn-dk').className='scale-btn'+(a==='dk'?' sel-dk':'');
+  document.getElementById('btn-disagree').className='scale-btn'+(a==='disagree'?' sel-disagree':'');
   document.getElementById('stmt-next').disabled=a===null;
   document.getElementById('stmt-prev').disabled=i===0;
   animQ('stmt-wrap');
 }
-
 function pickStmt(val){
   S.answers[S.idx]=val;save();
-  const ba=document.getElementById('btn-agree');
-  const bd=document.getElementById('btn-dk');
-  const bx=document.getElementById('btn-disagree');
-  ba.className='scale-btn'+(val==='agree'?' sel-agree':'');
-  bd.className='scale-btn'+(val==='dk'?' sel-dk':'');
-  bx.className='scale-btn'+(val==='disagree'?' sel-disagree':'');
+  document.getElementById('btn-agree').className='scale-btn'+(val==='agree'?' sel-agree':'');
+  document.getElementById('btn-dk').className='scale-btn'+(val==='dk'?' sel-dk':'');
+  document.getElementById('btn-disagree').className='scale-btn'+(val==='disagree'?' sel-disagree':'');
   document.getElementById('stmt-next').disabled=false;
   setTimeout(()=>{
     if(S.idx<STMTS.length-1){S.idx++;renderStmt();}
-    else{S.completedAt=new Date().toISOString();save();buildReport();go('report');}
+    else{S.completedAt=new Date().toISOString();save();showLoading();}
   },350);
 }
-
 document.getElementById('btn-agree').addEventListener('click',()=>pickStmt('agree'));
 document.getElementById('btn-dk').addEventListener('click',()=>pickStmt('dk'));
 document.getElementById('btn-disagree').addEventListener('click',()=>pickStmt('disagree'));
 document.getElementById('stmt-next').addEventListener('click',()=>{
   if(S.idx<STMTS.length-1){S.idx++;renderStmt();}
-  else{S.completedAt=new Date().toISOString();save();buildReport();go('report');}
+  else{S.completedAt=new Date().toISOString();save();showLoading();}
 });
 document.getElementById('stmt-prev').addEventListener('click',()=>{
   if(S.idx>0){S.idx--;renderStmt();}else{go('context');}
 });
 
-// ═══════════════════════════════════════
-// REPORT
-// ═══════════════════════════════════════
+// ═══════════ LOADING ═══════════
+function showLoading(){
+  go('loading');
+  setTimeout(()=>{buildReport();go('report');},1150);
+}
+
+// ═══════════ REPORT — OVERALL ═══════════
+function buildOverall(sc){
+  const vals=Object.values(sc);
+  const strong=vals.filter(s=>s>=2).length;
+  const mod=vals.filter(s=>s>=0&&s<2).length;
+  const weak=vals.filter(s=>s<0).length;
+  const tot=vals.length;
+  let level,lc;
+  if(strong>=9){level='Profil wyjątkowy';lc='#5ab87a';}
+  else if(strong>=6){level='Profil silny';lc=var_acc();}
+  else if(strong>=3){level='Profil zrównoważony';lc='#5a8ab8';}
+  else{level='Profil w rozwoju';lc='#a08030';}
+
+  const pS=(strong/tot*100).toFixed(1),pM=(mod/tot*100).toFixed(1),pW=(weak/tot*100).toFixed(1);
+  const circ=2*Math.PI*26;
+  const ringFill=(strong/tot)*circ;
+
+  document.getElementById('r-overall').innerHTML=`
+    <div class="overall-card">
+      <div class="overall-ring">
+        <svg width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="26" fill="none" stroke="var(--border2)" stroke-width="3.5"/>
+          <circle cx="36" cy="36" r="26" fill="none" stroke="${lc}" stroke-width="3.5"
+            stroke-linecap="round" stroke-dasharray="${circ.toFixed(2)}" stroke-dashoffset="${circ.toFixed(2)}"
+            transform="rotate(-90 36 36)" id="overall-ring-arc"/>
+          <text x="36" y="33" text-anchor="middle" font-family="'Courier New',monospace" font-size="14" font-weight="700" fill="var(--text)">${strong}</text>
+          <text x="36" y="45" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" fill="var(--muted)">/ ${tot}</text>
+        </svg>
+      </div>
+      <div class="overall-stats">
+        <div class="overall-title">Ogólna ocena profilu</div>
+        <div class="overall-level" style="color:${lc}">${level}</div>
+        <div class="dist-bar">
+          <div class="dist-seg" id="ds-s" style="background:#5ab87a;width:0%"></div>
+          <div class="dist-seg" id="ds-m" style="background:var(--acc);width:0%"></div>
+          <div class="dist-seg" id="ds-w" style="background:#a08030;width:0%"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="dist-item"><span class="dist-dot" style="background:#5ab87a"></span>Silne: ${strong}</span>
+          <span class="dist-item"><span class="dist-dot" style="background:var(--acc)"></span>Umiarko.: ${mod}</span>
+          <span class="dist-item"><span class="dist-dot" style="background:#a08030"></span>Słabe: ${weak}</span>
+        </div>
+      </div>
+    </div>`;
+
+  setTimeout(()=>{
+    const arc=document.getElementById('overall-ring-arc');
+    if(arc){arc.style.transition='stroke-dashoffset 1.3s cubic-bezier(.23,1,.32,1)';arc.style.strokeDashoffset=(circ-ringFill).toFixed(2);}
+    const ds=document.getElementById('ds-s'),dm=document.getElementById('ds-m'),dw=document.getElementById('ds-w');
+    if(ds){ds.style.transition='width .9s .1s ease';ds.style.width=pS+'%';}
+    if(dm){dm.style.transition='width .9s .15s ease';dm.style.width=pM+'%';}
+    if(dw){dw.style.transition='width .9s .2s ease';dw.style.width=pW+'%';}
+  },80);
+}
+function var_acc(){return getComputedStyle(document.documentElement).getPropertyValue('--acc').trim()||'#c87d3a';}
+
+// ═══════════ REPORT — CATEGORIES ═══════════
+function buildCategories(sc){
+  const el=document.getElementById('r-categories');
+  el.innerHTML=GROUPS.map((g,gi)=>{
+    const t1=sc[g.talents[0]]||0,t2=sc[g.talents[1]]||0;
+    const avg=(t1+t2)/2;
+    const sl=sigLabel(avg),st=sigText(avg);
+    const bgMap={strong:'#5ab87a',moderate:'var(--acc)',slight:'var(--muted2)',weak:'#a08030',low:'var(--red)'};
+    const clrMap={strong:'var(--bg)',moderate:'var(--bg)',slight:'var(--text)',weak:'var(--bg)',low:'var(--text)'};
+    const pct1=Math.max(0,((t1+2)/6)*100).toFixed(1);
+    const pct2=Math.max(0,((t2+2)/6)*100).toFixed(1);
+    const n1=TALENTS[g.talents[0]].name,n2=TALENTS[g.talents[1]].name;
+    return`<div class="cat-panel" data-delay="${gi*60}">
+      <div class="cat-hd">
+        <div class="cat-name">${g.short}</div>
+        <div class="cat-signal" style="background:${bgMap[sl]};color:${clrMap[sl]}">${st}</div>
+      </div>
+      <div class="cat-talents">
+        <div class="cat-row">
+          <div class="cat-tn" title="${n1}">${n1}</div>
+          <div class="cat-track"><div class="cat-fill" style="background:${g.color}" data-w="${pct1}%"></div></div>
+          <div class="cat-val">${t1>=0?'+':''}${t1}</div>
+        </div>
+        <div class="cat-row">
+          <div class="cat-tn" title="${n2}">${n2}</div>
+          <div class="cat-track"><div class="cat-fill" style="background:${g.color}" data-w="${pct2}%"></div></div>
+          <div class="cat-val">${t2>=0?'+':''}${t2}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  el.querySelectorAll('.cat-panel').forEach(p=>{
+    const d=parseInt(p.dataset.delay)||0;
+    setTimeout(()=>{p.classList.add('visible');},100+d);
+  });
+  setTimeout(()=>{
+    el.querySelectorAll('.cat-fill').forEach((f,i)=>{
+      setTimeout(()=>{f.style.width=f.dataset.w;},i*40);
+    });
+  },200);
+}
+
+// ═══════════ REPORT — RADAR ═══════════
+function buildRadar(sc){
+  const n=GROUPS.length,maxR=78;
+  function xy(i,r){
+    const a=(i/n)*2*Math.PI-Math.PI/2;
+    return{x:+(r*Math.cos(a)).toFixed(2),y:+(r*Math.sin(a)).toFixed(2)};
+  }
+  const scores=GROUPS.map(g=>{
+    const s1=Math.min(4,Math.max(-2,sc[g.talents[0]]||0));
+    const s2=Math.min(4,Math.max(-2,sc[g.talents[1]]||0));
+    return Math.max(0.06,(s1+s2+4)/12);
+  });
+
+  const grid=[.25,.5,.75,1].map(f=>{
+    const pts=Array.from({length:n},(_,i)=>{const p=xy(i,f*maxR);return`${p.x},${p.y}`;}).join(' ');
+    return`<polygon points="${pts}" fill="none" stroke="${f===1?'var(--border2)':'var(--border)'}" stroke-width="${f===1?1:.5}"/>`;
+  }).join('');
+
+  const axes=GROUPS.map((_,i)=>{const p=xy(i,maxR);return`<line x1="0" y1="0" x2="${p.x}" y2="${p.y}" stroke="var(--border)" stroke-width=".5"/>`;}).join('');
+
+  const labels=GROUPS.map((g,i)=>{
+    const lp=xy(i,maxR+16);
+    const ad=(i/n)*360;
+    let anchor='middle';
+    if(ad>15&&ad<165)anchor='start';
+    if(ad>195&&ad<345)anchor='end';
+    return`<text x="${lp.x}" y="${lp.y}" text-anchor="${anchor}" dominant-baseline="middle" font-size="6.5" fill="var(--muted)" font-family="'Courier New',monospace" letter-spacing=".4">${g.short.toUpperCase()}</text>`;
+  }).join('');
+
+  const poly=scores.map((s,i)=>{const p=xy(i,s*maxR);return`${p.x},${p.y}`;}).join(' ');
+
+  const dots=scores.map((s,i)=>{
+    const p=xy(i,s*maxR);
+    return`<circle cx="${p.x}" cy="${p.y}" r="2.8" fill="${GROUPS[i].color}">
+      <animate attributeName="opacity" values="0;.9" begin="${.5+i*.07}s" dur=".3s" fill="freeze"/>
+    </circle>`;
+  }).join('');
+
+  document.getElementById('r-radar').innerHTML=`
+    <svg viewBox="-108 -108 216 216" style="width:100%;max-width:240px;display:block;margin:0 auto;overflow:visible">
+      ${grid}${axes}
+      <polygon points="${poly}" fill="rgba(200,125,58,.1)" stroke="rgba(200,125,58,.65)" stroke-width="1.5">
+        <animate attributeName="opacity" values="0;1" begin=".3s" dur=".7s" fill="freeze"/>
+      </polygon>
+      ${dots}${labels}
+    </svg>`;
+}
+
+// ═══════════ REPORT — FULL BUILD ═══════════
 function buildReport(){
   const sc=calcScores(S.answers);
   const sorted=Object.entries(sc).sort((a,b)=>b[1]-a[1]);
@@ -720,21 +776,18 @@ function buildReport(){
   const bot5=sorted.slice(-5).reverse();
 
   // Meta
-  const meta=[
-    S.personal.name,
-    S.personal.ivr?'Prowadzi: '+S.personal.ivr:'',
-    S.personal.role&&S.personal.role!=='other'&&ROLES[S.personal.role]?'Obecna rola: '+ROLES[S.personal.role].name:'',
-  ].filter(Boolean).join(' · ');
+  const meta=[S.personal.name,S.personal.ivr?'Prowadzi: '+S.personal.ivr:'',S.personal.role&&S.personal.role!=='other'&&ROLES[S.personal.role]?'Obecna rola: '+ROLES[S.personal.role].name:''].filter(Boolean).join(' · ');
   document.getElementById('r-meta').textContent=meta||'Bez danych osobowych';
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('pl-PL',{year:'numeric',month:'long',day:'numeric'});
 
+  buildOverall(sc);
+  buildCategories(sc);
+  buildRadar(sc);
+
   // Top 5 strengths
-  const strEl=document.getElementById('r-strengths');
-  strEl.innerHTML=top5.map(([tid,tscore])=>{
-    const tl=TALENTS[tid];
-    const sl=sigLabel(tscore);
-    const st=sigText(tscore);
-    return`<div class="talent-card">
+  document.getElementById('r-strengths').innerHTML=top5.map(([tid,tscore],si)=>{
+    const tl=TALENTS[tid],sl=sigLabel(tscore),st=sigTextFull(tscore);
+    return`<div class="talent-card" data-delay="${si*80}">
       <div class="talent-hd ${sl}">
         <span class="talent-ico">${tl.icon}</span>
         <div style="flex:1"><div class="talent-nm">${tl.name}</div><div class="talent-grp">${tl.group}</div></div>
@@ -752,13 +805,12 @@ function buildReport(){
   }).join('');
 
   // Top 5 weaknesses
-  const wkEl=document.getElementById('r-weaknesses');
-  wkEl.innerHTML=bot5.map(([tid,tscore])=>{
+  document.getElementById('r-weaknesses').innerHTML=bot5.map(([tid,tscore],wi)=>{
     const tl=TALENTS[tid];
-    return`<div class="weak-card">
+    return`<div class="weak-card" data-delay="${wi*60}">
       <span class="weak-ico">${tl.icon}</span>
       <div class="weak-body">
-        <div class="weak-nm">${tl.name} <span style="font-size:.65rem;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(${sigText(tscore)})</span></div>
+        <div class="weak-nm">${tl.name} <span style="font-size:.62rem;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(${sigTextFull(tscore)})</span></div>
         <div class="weak-growth">${tl.growth}</div>
       </div>
     </div>`;
@@ -767,131 +819,98 @@ function buildReport(){
   // Role fit
   const fit=calcRoleFit(sc);
   const rankedRoles=Object.entries(fit).sort((a,b)=>b[1].pct-a[1].pct);
-  const topRole=rankedRoles[0][0];
-  const topRoleData=ROLES[topRole];
+  const topRole=rankedRoles[0][0],topRD=ROLES[topRole];
+  document.getElementById('r-role-rec').innerHTML=`<div class="role-rec"><h3>${topRD.icon} Najsilniejsze dopasowanie: ${topRD.name}</h3><p>${topRD.desc}</p></div>`;
 
-  // Recommendation banner
-  document.getElementById('r-role-rec').innerHTML=`
-    <div class="role-rec">
-      <h3>${topRoleData.icon} Najsilniejsze dopasowanie: ${topRoleData.name}</h3>
-      <p>${topRoleData.desc}</p>
-    </div>`;
-
-  // Role change hint
-  const curRole=S.personal.role;
-  const rcEl=document.getElementById('r-role-change');
+  const curRole=S.personal.role,rcEl=document.getElementById('r-role-change');
   if(curRole&&curRole!=='other'&&curRole!==''&&ROLES[curRole]){
-    if(curRole===topRole){
-      rcEl.innerHTML=`<div class="role-rec" style="border-left-color:var(--green)"><h3 style="color:var(--green)">✓ Profil pasuje do obecnej roli</h3><p>Talenty kandydata dobrze wspierają środowisko ${ROLES[curRole].name}.</p></div>`;
-    } else {
-      rcEl.innerHTML=`<div class="role-change">⚑ <strong>Warto rozważyć:</strong> Profil talentów wyraźnie mocniej pasuje do roli <strong>${topRoleData.name}</strong> niż do obecnej roli <strong>${ROLES[curRole].name}</strong>. Punkt do rozmowy — nie do decyzji.</div>`;
-    }
-  } else { rcEl.innerHTML=''; }
+    if(curRole===topRole){rcEl.innerHTML=`<div class="role-rec" style="border-left-color:var(--green)"><h3 style="color:var(--green)">✓ Profil pasuje do obecnej roli</h3><p>Talenty kandydata dobrze wspierają środowisko ${ROLES[curRole].name}.</p></div>`;}
+    else{rcEl.innerHTML=`<div class="role-change">⚑ <strong>Warto rozważyć:</strong> Profil talentów wyraźnie mocniej pasuje do roli <strong>${topRD.name}</strong> niż do obecnej roli <strong>${ROLES[curRole].name}</strong>. Punkt do rozmowy — nie do decyzji.</div>`;}
+  }else{rcEl.innerHTML='';}
 
-  // Role cards
-  const rcCards=document.getElementById('r-roles');
-  rcCards.innerHTML='';
+  const rcCards=document.getElementById('r-roles');rcCards.innerHTML='';
   rankedRoles.forEach(([key,data],idx)=>{
-    const rp=ROLES[key];
-    const isTop=idx===0;
+    const rp=ROLES[key],isTop=idx===0;
     const card=document.createElement('div');
     card.className='role-card'+(isTop?' top':'');
-    card.innerHTML=`
-      <div class="role-rank ${isTop?'r1':''}">${isTop?'★ Najlepsze dopasowanie':'#'+(idx+1)}</div>
+    card.dataset.delay=idx*70;
+    card.innerHTML=`<div class="role-rank ${isTop?'r1':''}">${isTop?'★ Najlepsze dopasowanie':'#'+(idx+1)}</div>
       <span class="role-icon">${rp.icon}</span>
       <div class="role-name">${rp.name}</div>
       <div class="role-tag">${rp.tag}</div>
       <div class="fit-bar-wrap">
-        <div class="fit-bar"><div class="fit-fill" style="width:${data.pct}%"></div></div>
-        <div class="fit-pct">${data.pct}% dopasowania</div>
+        <div class="fit-bar"><div class="fit-fill" data-w="${data.pct}%"></div></div>
+        <div class="fit-pct" id="pct-${key}">0%</div>
       </div>`;
     rcCards.appendChild(card);
   });
 
-  // Deep-dive questions
+  // Deep-dive
   const ddEl=document.getElementById('r-dd');
   const ddItems=[];
-  top5.slice(0,3).forEach(([tid])=>{
-    const tl=TALENTS[tid];
-    (tl.dd||[]).forEach(q=>ddItems.push({name:tl.name,q}));
-  });
-  const roleQs={
-    retail:['Opisz najtrudniejszą sytuację z klientem — co konkretnie zrobiłeś/aś?','Jak się czujesz po bardzo intensywnym dniu kontaktu z klientami?'],
-    production:['Opisz sytuację gdy musiałeś/aś podjąć decyzję o jakości bez możliwości konsultacji.','Co jest dla Ciebie najtrudniejsze w pracy pod presją czasu bez straty jakości?'],
-    coordination:['Opisz sytuację gdy musiałeś/aś podjąć niepopularną decyzję w zespole.','Co sprawia że ktoś Ci ufa jako koordynatorowi — co konkretnie robisz?'],
-    backoffice:['Opisz sytuację gdy odkryłeś/aś poważny błąd w danych lub dokumentacji.','Kiedy ostatnio usprawnił(a)eś jakiś proces? Jak do tego doszło?'],
-  };
-  const rqs=roleQs[topRole]||[];
-  rqs.forEach(q=>ddItems.push({name:topRoleData.name,q}));
-  ddEl.innerHTML=ddItems.slice(0,7).map(d=>`
-    <div class="dd-item">
-      <div class="dd-gem">${d.name}</div>
-      <div class="dd-q">${d.q}</div>
-    </div>`).join('');
+  top5.slice(0,3).forEach(([tid])=>{TALENTS[tid].dd.forEach(q=>ddItems.push({name:TALENTS[tid].name,q}));});
+  const roleQs={retail:['Opisz najtrudniejszą sytuację z klientem — co konkretnie zrobiłeś/aś?','Jak się czujesz po bardzo intensywnym dniu kontaktu z klientami?'],production:['Opisz sytuację gdy musiałeś/aś podjąć decyzję o jakości bez możliwości konsultacji.','Co jest dla Ciebie najtrudniejsze w pracy pod presją czasu bez straty jakości?'],coordination:['Opisz sytuację gdy musiałeś/aś podjąć niepopularną decyzję w zespole.','Co sprawia że ktoś Ci ufa jako koordynatorowi — co konkretnie robisz?'],backoffice:['Opisz sytuację gdy odkryłeś/aś poważny błąd w danych lub dokumentacji.','Kiedy ostatnio usprawnił(a)eś jakiś proces? Jak do tego doszło?']};
+  (roleQs[topRole]||[]).forEach(q=>ddItems.push({name:topRD.name,q}));
+  ddEl.innerHTML=ddItems.slice(0,7).map(d=>`<div class="dd-item"><div class="dd-gem">${d.name}</div><div class="dd-q">${d.q}</div></div>`).join('');
+
+  // Staggered reveal + bar animations
+  setTimeout(()=>{
+    document.querySelectorAll('.talent-card,.weak-card,.role-card,.dd-item').forEach(el=>{
+      const d=parseInt(el.dataset.delay)||0;
+      setTimeout(()=>el.classList.add('visible'),d);
+    });
+    document.querySelectorAll('.fit-fill').forEach(f=>{
+      const w=f.dataset.w,key=f.closest('.role-card')?.querySelector('.fit-pct')?.id?.replace('pct-','');
+      setTimeout(()=>{
+        f.style.width=w;
+        if(key){countUp(document.getElementById('pct-'+key),parseInt(w));}
+      },200);
+    });
+  },100);
 }
 
-// ═══════════════════════════════════════
-// REPORT ACTIONS
-// ═══════════════════════════════════════
-function copyReport(){
-  const el=document.getElementById('screen-report');
-  const lines=[];
-  el.querySelectorAll('h1,h2,h3,.talent-nm,.talent-desc,.t2-val,.talent-growth,.weak-nm,.weak-growth,.role-name,.dd-q,.r-meta').forEach(e=>{
-    const t=e.textContent.trim();if(t)lines.push(t);
-  });
-  const txt=lines.join('\n');
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(()=>alert('Raport skopiowany.'));
-  } else {
-    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Skopiowano.');
+// ═══════════ COUNT-UP ═══════════
+function countUp(el,target,dur=900){
+  if(!el)return;
+  let start=null;
+  function step(ts){
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/dur,1);
+    el.textContent=Math.round(p*target)+'%';
+    if(p<1)requestAnimationFrame(step);
   }
+  requestAnimationFrame(step);
 }
 
+// ═══════════ REPORT ACTIONS ═══════════
+function copyReport(){
+  const lines=[];
+  document.getElementById('screen-report').querySelectorAll('h1,h2,h3,.talent-nm,.talent-desc,.t2-val,.talent-growth,.weak-nm,.weak-growth,.role-name,.dd-q,.r-meta').forEach(e=>{const t=e.textContent.trim();if(t)lines.push(t);});
+  const txt=lines.join('\n');
+  if(navigator.clipboard?.writeText){navigator.clipboard.writeText(txt).then(()=>alert('Skopiowano.'));}
+  else{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Skopiowano.');}
+}
 document.getElementById('r-print').addEventListener('click',()=>window.print());
 document.getElementById('r-copy').addEventListener('click',copyReport);
-document.getElementById('btn-restart').addEventListener('click',()=>{
-  if(confirm('Zresetować wszystkie dane i zacząć od nowa?')){reset();go('start');document.getElementById('restore-box').style.display='none';}
-});
+document.getElementById('btn-restart').addEventListener('click',()=>{if(confirm('Zresetować wszystkie dane i zacząć od nowa?')){reset();go('start');document.getElementById('restore-box').style.display='none';}});
 
-// ═══════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════
-function animQ(id){
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.classList.remove('q-wrap');void el.offsetWidth;el.classList.add('q-wrap');
-}
+// ═══════════ UTILS ═══════════
+function animQ(id){const el=document.getElementById(id);if(!el)return;el.classList.remove('q-wrap');void el.offsetWidth;el.classList.add('q-wrap');}
+function addRipple(btn){btn.addEventListener('click',function(e){const r=document.createElement('span');r.className='btn-ripple';const rect=this.getBoundingClientRect();r.style.left=(e.clientX-rect.left)+'px';r.style.top=(e.clientY-rect.top)+'px';this.appendChild(r);setTimeout(()=>r.remove(),560);});}
 
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
+// ═══════════ INIT ═══════════
 document.getElementById('btn-start').addEventListener('click',()=>go('context'));
 document.getElementById('btn-reset').addEventListener('click',()=>{if(confirm('Usunąć wszystkie dane?')){reset();document.getElementById('restore-box').style.display='none';}});
 document.getElementById('btn-restore').addEventListener('click',()=>{
-  const s=S.screen;
-  if(s==='report'){buildReport();go('report');}
-  else if(s==='statements'){renderStmt();go('statements');}
+  if(S.screen==='report'){buildReport();go('report');}
+  else if(S.screen==='statements'){renderStmt();go('statements');}
   else{go('context');}
 });
 
-function addRipple(btn){
-  btn.addEventListener('click',function(e){
-    const r=document.createElement('span');
-    r.className='btn-ripple';
-    const rect=this.getBoundingClientRect();
-    r.style.left=(e.clientX-rect.left)+'px';
-    r.style.top=(e.clientY-rect.top)+'px';
-    this.appendChild(r);
-    setTimeout(()=>r.remove(),560);
-  });
-}
-
 function init(){
-  const had=load();
-  go('start');
-  if(had&&S.screen!=='start'){
-    document.getElementById('restore-box').style.display='flex';
-  }
+  document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('pl-PL',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const had=load();go('start');
+  if(had&&S.screen!=='start')document.getElementById('restore-box').style.display='flex';
   document.querySelectorAll('.btn,.scale-btn').forEach(addRipple);
 }
 init();
