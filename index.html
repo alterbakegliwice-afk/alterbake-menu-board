@@ -69,6 +69,10 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.84rem}
 .btn-sm{font-size:.68rem;padding:.38rem .75rem;min-height:36px}
 .btn-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.18);animation:liq-ripple .55s cubic-bezier(.23,1,.32,1) forwards;pointer-events:none;transform:translate(-50%,-50%)}
 @keyframes liq-ripple{from{width:0;height:0;opacity:.7}to{width:220px;height:220px;opacity:0}}
+#btn-start{overflow:visible}
+#btn-start::after{content:'';position:absolute;inset:-4px;border:1.5px solid var(--acc);border-radius:var(--r);pointer-events:none;animation:pulse-ring 2.2s ease-out infinite}
+#btn-start:hover::after{animation:none}
+@keyframes pulse-ring{0%{opacity:.7;transform:scale(1)}70%{opacity:0;transform:scale(1.06)}100%{opacity:0;transform:scale(1.06)}}
 
 /* Form */
 .field{margin-bottom:1.05rem}
