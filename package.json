@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "test": "node tests/validate-products.js && node tests/validate-html-sync.js && node tests/validate-root-sync.js && node tests/validate-html.js && npx playwright test --config playwright.config.js",
-    "test:update-snapshots": "npx playwright test --config playwright.config.js --update-snapshots"
+    "test:update-snapshots": "npx playwright test --config playwright.config.js --update-snapshots",
+    "materials": "node tests/render-materials.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",

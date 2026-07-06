@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <title>AlterBake - Instagram Post (1080x1080)</title>
+    <!--
+      SZABLON: Post na Instagram / Facebook (1080x1080).
+      Jak zrobic grafike: otworz w przegladarce i zrob zrzut ekranu,
+      albo uzyj skryptu tests/render-materials.js (npm run materials).
+      Edytuj liste produktow w sekcji <body>.
+    -->
+    <style>
+      :root {
+        --ink: #211f1a;
+        --paper: #f5eddf;
+        --panel: #fff9ee;
+        --line: #a5a078;
+        --line-soft: #d8cfb9;
+        --gold: #bc8d3f;
+        --olive: #777b55;
+        --brick: #9f432b;
+      }
+
+      * { box-sizing: border-box; margin: 0; }
+
+      body {
+        width: 1080px;
+        height: 1080px;
+        display: flex;
+        flex-direction: column;
+        padding: 80px 84px 64px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      }
+
+      .kicker {
+        color: var(--olive);
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-bottom: 5px solid var(--ink);
+        padding-bottom: 30px;
+      }
+
+      .masthead h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 76px;
+        line-height: 1;
+      }
+
+      .heading {
+        margin: 52px 0 12px;
+        text-align: center;
+      }
+
+      .heading h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 84px;
+        line-height: 1;
+      }
+
+      .heading h2::before,
+      .heading h2::after {
+        content: "";
+        display: inline-block;
+        width: 90px;
+        height: 2px;
+        margin: 0 30px;
+        background: var(--line);
+        vertical-align: middle;
+      }
+
+      .items {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 40px;
+        padding: 34px 0;
+        border-bottom: 2px solid var(--line-soft);
+      }
+
+      .item:last-child { border-bottom: 0; }
+
+      .item h3 {
+        font-size: 56px;
+        font-weight: 650;
+        line-height: 1.05;
+      }
+
+      .item h3::before {
+        content: "";
+        display: inline-block;
+        width: 26px;
+        height: 7px;
+        margin-right: 20px;
+        background: var(--gold);
+        vertical-align: middle;
+      }
+
+      .item p {
+        margin-top: 12px;
+        color: #453f36;
+        font-size: 32px;
+      }
+
+      .item .price {
+        white-space: nowrap;
+        text-align: right;
+      }
+
+      .item .price strong {
+        display: block;
+        font-size: 64px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .item .price span {
+        display: block;
+        margin-top: 8px;
+        color: var(--olive);
+        font-size: 26px;
+        font-weight: 800;
+      }
+
+      .footer {
+        border-top: 3px solid var(--line);
+        padding-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 32px;
+        font-weight: 800;
+      }
+
+      .footer .hours { color: var(--olive); }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <h1>AlterBake</h1>
+      <p class="kicker">GLIWICE &middot; OD PONAD 100 LAT</p>
+    </header>
+
+    <div class="heading">
+      <h2>Dziś polecamy</h2>
+    </div>
+
+    <section class="items">
+      <article class="item">
+        <div>
+          <h3>Chleb firmowy</h3>
+          <p>Zakwas pszenny i żyto. Prosto z pieca.</p>
+        </div>
+        <div class="price"><strong>19 zł</strong><span>/ bochenek</span></div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>Jagodzianka</h3>
+          <p>Pełna jagód, masła i kruszonki.</p>
+        </div>
+        <div class="price"><strong>16 zł</strong><span>/ szt.</span></div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>Chałka maślana</h3>
+          <p>Miękka, zaplatana ręcznie.</p>
+        </div>
+        <div class="price"><strong>18 zł</strong><span>/ szt.</span></div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>@alterbake.gliwice</span>
+      <span class="hours">ŚWIEŻE OD 8:00</span>
+    </footer>
+  </body>
+</html>

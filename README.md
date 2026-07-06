@@ -52,6 +52,24 @@ Produkty są opisane w `products.json`. Plik jest przygotowany tak, żeby można
 
 Ważne: aktualny widok `index.html` jest statyczny dla maksymalnej niezawodności na starszym iPadzie. Po zmianie danych w `products.json` przenieś te same treści do odpowiednich produktów w `index.html`.
 
+## Materiały sprzedażowe i marketingowe
+
+W katalogu `materials/` są szablony w tej samej stylistyce co tablica:
+
+- `ulotka-a4.html` - ulotka-cennik A4 do druku (z sekcją "Dlaczego my").
+- `social-story.html` - Instagram Story 1080x1920 z wypiekiem dnia.
+- `social-post.html` - post Instagram/Facebook 1080x1080 "Dziś polecamy".
+
+Gotowe PNG: `npm run materials` (pliki trafiają do `materials/out/`). Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
+
+Sama tablica ma też układ do druku - wystarczy otworzyć `index.html` i wybrać Drukuj, a menu ułoży się jako czysty cennik A4.
+
+Więcej pomysłów na wykorzystanie projektu: `docs/MARKETING.md`.
+
+## Testy
+
+`npm test` uruchamia walidację danych (`products.json`), spójności JSON z HTML, poprawności HTML oraz testy wizualne (zrzuty ekranu dla iPada i mniejszych ekranów). Po celowej zmianie wyglądu odśwież bazowe zrzuty: `npm run test:update-snapshots`.
+
 ## Brak zależności
 
-Projekt używa tylko HTML i CSS. Nie ma backendu, frameworków, baz danych, logowania, analityki ani usług zewnętrznych.
+Sama tablica używa tylko HTML i CSS. Nie ma backendu, frameworków, baz danych, logowania, analityki ani usług zewnętrznych. Node.js jest potrzebny wyłącznie deweloperom do testów i generowania grafik - nic z `node_modules` nie trafia na iPada.

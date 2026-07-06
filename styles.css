@@ -384,10 +384,10 @@ h1 {
 .status-badge {
   display: inline-block;
   margin-left: 8px;
-  padding: 3px 7px;
-  border: 1px solid var(--line);
-  color: var(--olive);
-  font-size: 12px;
+  padding: 4px 9px;
+  border: 1px solid #9f432b;
+  color: #9f432b;
+  font-size: 15px;
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.08em;
@@ -470,6 +470,87 @@ h1 {
 
   .item-copy h3 {
     max-width: none;
+  }
+}
+
+/* Druk: tablica staje sie czystym cennikiem A4 (Safari: Udostepnij -> Drukuj). */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  body,
+  .board {
+    min-height: auto;
+    padding: 0;
+    background: #fff;
+  }
+
+  .board {
+    box-shadow: none;
+  }
+
+  .feature,
+  .recommendations {
+    display: none;
+  }
+
+  h1 {
+    font-size: 44pt;
+  }
+
+  .brand-line {
+    font-size: 13pt;
+  }
+
+  .today strong {
+    font-size: 14pt;
+  }
+
+  .menu-grid,
+  .menu-column {
+    display: block;
+    width: 100%;
+  }
+
+  .menu-column {
+    margin-bottom: 8mm;
+    border: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .column-heading h2 {
+    font-size: 22pt;
+  }
+
+  .menu-item {
+    min-height: 0;
+    padding: 4mm 0;
+  }
+
+  .item-copy h3 {
+    max-width: none;
+    font-size: 14pt;
+  }
+
+  .item-copy p {
+    font-size: 10.5pt;
+  }
+
+  .item-price strong {
+    font-size: 15pt;
+  }
+
+  .item-price span {
+    font-size: 9.5pt;
+  }
+
+  .notice {
+    font-size: 10pt;
   }
 }
 
