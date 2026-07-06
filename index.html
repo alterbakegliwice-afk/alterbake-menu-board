@@ -253,23 +253,26 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
 .cred-val{font-size:.62rem;font-weight:700;white-space:nowrap}
 .cred-warn{margin-bottom:.9rem;padding:.5rem .85rem;border-left:2px solid #c85a5a;font-size:.67rem;color:#c87a7a;background:rgba(200,90,90,.06);border-radius:0 var(--r) var(--r) 0;line-height:1.5}
 
-/* ── INTERVIEWER MODE ── */
-.ivr-toggle-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem}
-.ivr-toggle{background:var(--surf);border:1px solid var(--border2);border-radius:var(--r);padding:.38rem .85rem;font-size:.6rem;font-family:inherit;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:border-color .14s,color .14s;position:relative;overflow:hidden}
-.ivr-toggle::before{content:'';position:absolute;bottom:-110%;left:50%;transform:translateX(-50%);width:140%;padding-bottom:100%;border-radius:50%;background:rgba(200,125,58,.07);pointer-events:none;transition:bottom .4s cubic-bezier(.23,1,.32,1)}
-.ivr-toggle:hover::before{bottom:-10%}
-.ivr-toggle.on{border-color:var(--acc);color:var(--acc)}
-.ivr-panel{display:none;animation:fadeUp .18s ease}
-.ivr-panel.open{display:block}
-.ivr-block{margin-bottom:1.1rem}
-.ivr-bhead{font-size:.57rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);margin-bottom:.55rem;padding-bottom:.25rem;border-bottom:1px solid var(--border)}
-.ivr-row{display:flex;gap:.55rem;margin-bottom:.5rem;align-items:flex-start}
-.ivr-tag{font-size:.52rem;letter-spacing:.07em;text-transform:uppercase;padding:.15rem .38rem;border-radius:var(--r);white-space:nowrap;flex-shrink:0;margin-top:.14rem;font-weight:700}
-.ivr-tag.probe{background:rgba(90,184,122,.09);color:#5ab87a;border:1px solid rgba(90,184,122,.25)}
-.ivr-tag.verify{background:rgba(200,125,58,.09);color:var(--acc);border:1px solid rgba(200,125,58,.25)}
-.ivr-tag.watch{background:rgba(200,90,90,.09);color:#c87a7a;border:1px solid rgba(200,90,90,.25)}
-.ivr-qtext{font-size:.74rem;color:var(--text);line-height:1.5}
-.ivr-hint{font-size:.61rem;color:var(--muted);margin-top:.1rem;font-style:italic}
+/* ── SYNC STATUS ── */
+.sync-bar{display:flex;align-items:center;gap:.55rem;padding:.5rem .85rem;border-radius:var(--r);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem;border:1px solid var(--border)}
+.sync-bar.idle{display:none}
+.sync-bar.sending{border-color:var(--acc);color:var(--acc);background:rgba(200,125,58,.06)}
+.sync-bar.ok{border-color:#5ab87a;color:#5ab87a;background:rgba(90,184,122,.06)}
+.sync-bar.err{border-color:#c87a7a;color:#c87a7a;background:rgba(200,90,90,.06)}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;animation:none}
+.sync-bar.sending .sync-dot{animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* ── SETTINGS OVERLAY ── */
+.cfg-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;align-items:center;justify-content:center;padding:1.5rem}
+.cfg-overlay.open{display:flex}
+.cfg-panel{background:var(--surf);border:1px solid var(--border);border-left:2px solid var(--acc);border-radius:var(--r);padding:1.4rem 1.5rem;max-width:480px;width:100%}
+.cfg-title{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:1.1rem}
+.cfg-label{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.4rem}
+.cfg-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:.65rem .8rem;font-family:inherit;font-size:.72rem;color:var(--text);margin-bottom:.85rem;outline:none}
+.cfg-input:focus{border-color:var(--acc)}
+.cfg-hint{font-size:.6rem;color:var(--muted2);line-height:1.55;margin-bottom:1rem;border-left:1px solid var(--border2);padding-left:.6rem}
+.cfg-actions{display:flex;gap:.5rem;justify-content:flex-end}
 
 /* ── GAP ANALYSIS ── */
 .gap-wrap{margin-top:.85rem;padding:.8rem .9rem;background:var(--surf);border:1px solid var(--border);border-radius:var(--r)}
@@ -315,8 +318,28 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
   <span class="brand">ALTER<span class="brand-acc">BAKE</span> OS</span>
   <span class="brand-sub">· Mapa Potencjału · v6</span>
   <div class="topbar-right">
+    <button id="btn-cfg" title="Ustawienia synchronizacji" style="background:none;border:none;cursor:pointer;color:var(--muted);font-family:inherit;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .4rem;border-radius:var(--r);transition:color .14s">⚙ Sync</button>
     <div class="status-dot"></div>
     <span class="topbar-date" id="topbar-date"></span>
+  </div>
+</div>
+
+<!-- Settings overlay -->
+<div class="cfg-overlay" id="cfg-overlay">
+  <div class="cfg-panel">
+    <div class="cfg-title">⚙ Konfiguracja synchronizacji</div>
+    <label class="cfg-label" for="cfg-url">Google Apps Script URL</label>
+    <input class="cfg-input" id="cfg-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" spellcheck="false"/>
+    <p class="cfg-hint">
+      Utwórz nowy Google Apps Script w swoim arkuszu, wklej kod z instrukcji poniżej i opublikuj jako aplikację internetową (Wdróż → Nowe wdrożenie → Aplikacja internetowa → Dostęp: Wszyscy). Wklej tutaj wygenerowany URL.<br><br>
+      Wyniki będą wysyłane automatycznie po ukończeniu testu.
+    </p>
+    <label class="cfg-label" for="cfg-sheet-id">ID arkusza Google (do eksportu raportu)</label>
+    <input class="cfg-input" id="cfg-sheet-id" type="text" placeholder="Opcjonalne — ID z URL arkusza" autocomplete="off"/>
+    <div class="cfg-actions">
+      <button class="btn btn-ghost btn-sm" id="cfg-cancel">Anuluj</button>
+      <button class="btn btn-sm" id="cfg-save">Zapisz</button>
+    </div>
   </div>
 </div>
 
@@ -427,13 +450,15 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
     <div id="r-meta" class="r-meta"></div>
     <div class="r-actions">
       <button id="r-print" class="btn btn-outline">Drukuj / PDF</button>
+      <button id="r-download" class="btn btn-outline">Pobierz HTML</button>
       <button id="r-copy" class="btn btn-outline">Kopiuj raport</button>
       <button id="btn-restart" class="btn btn-ghost btn-sm">Zacznij od nowa</button>
     </div>
   </div>
 
+  <div id="r-sync" class="sync-bar idle"><div class="sync-dot"></div><span id="r-sync-msg">Synchronizacja...</span></div>
   <div class="r-disc">
-    Raport zawiera <strong>hipotezy i sygnały</strong> — nie diagnozy ani decyzje rekrutacyjne. Każdy wynik to punkt wyjścia do rozmowy i obserwacji.
+    Raport zawiera <strong>hipotezy i sygnały</strong> — nie diagnozy ani wyroki. Każdy wynik to punkt wyjścia do refleksji i rozmowy.
   </div>
 
   <!-- Overall -->
@@ -480,15 +505,9 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
   </section>
 
   <section class="r-section">
-    <div class="ivr-toggle-row">
-      <div>
-        <h2 style="margin:0">Rozmowa pogłębiająca</h2>
-        <p class="sdesc" style="margin-top:.3rem;margin-bottom:0">Pytania weryfikujące sygnały. Słuchaj konkretów, nie deklaracji.</p>
-      </div>
-      <button class="ivr-toggle" id="ivr-toggle">◈ Tryb prowadzącego</button>
-    </div>
+    <h2>Pytania do refleksji</h2>
+    <p class="sdesc">Wróć do tych pytań samodzielnie lub w rozmowie z mentorem. Szukaj konkretnych przykładów — nie ogólnych przekonań.</p>
     <div id="r-dd"></div>
-    <div id="r-ivr" class="ivr-panel"></div>
   </section>
 
   <div class="r-footer">
@@ -862,46 +881,103 @@ function buildGap(sc,topRole){
   },300);
 }
 
-// ═══════════ REPORT — INTERVIEWER MODE ═══════════
-function buildIvrMode(sc,topRole){
-  const top3=Object.entries(sc).sort((a,b)=>b[1]-a[1]).slice(0,3);
-  const bot3=Object.entries(sc).sort((a,b)=>a[1]-b[1]).filter(([,s])=>s<0).slice(0,3);
-  let html='';
-  html+=`<div class="ivr-block"><div class="ivr-bhead">Eksploruj — mocne sygnały</div>`;
-  top3.forEach(([tid,tscore])=>{
-    const tl=TALENTS[tid];
-    tl.dd.forEach((q,qi)=>{
-      html+=`<div class="ivr-row"><span class="ivr-tag probe">${qi===0?'Eksploruj':'Pogłęb'}</span><div><div class="ivr-qtext">${q}</div><div class="ivr-hint">${tl.name} · ${sigTextFull(tscore)}</div></div></div>`;
-    });
-  });
-  html+='</div>';
-  if(bot3.length){
-    html+=`<div class="ivr-block"><div class="ivr-bhead">Weryfikuj — słabe sygnały i cienie</div>`;
-    bot3.forEach(([tid,tscore])=>{
-      const tl=TALENTS[tid];
-      html+=`<div class="ivr-row"><span class="ivr-tag watch">Sprawdź</span><div><div class="ivr-qtext">${tl.dd[0]}</div><div class="ivr-hint">${tl.name} · ${sigTextFull(tscore)} · Cień: ${tl.shadow}</div></div></div>`;
-    });
-    html+='</div>';
-  }
-  const roleQs={
-    retail:['Opisz najtrudniejszą sytuację z klientem który był wyraźnie niezadowolony — co konkretnie zrobiłeś/aś i jak się skończyło?','Po bardzo intensywnym dniu kontaktu z klientami — jak się czujesz i co robisz żeby się zregenerować?','Kiedy ostatnio ktoś wyraził Ci wdzięczność za to jak się nim zajęłaś/zajął — co konkretnie zrobiłeś/aś?'],
-    production:['Podaj przykład gdy musiałeś/aś zdecydować o jakości bez możliwości konsultacji — co wybrałeś/aś i dlaczego?','Jak reagujesz gdy coś jest zatrzymane z powodu Twojego błędu — co robisz jako pierwsze?','Opisz swój "system" kontroli — jak wiesz że praca jest dobrze zrobiona bez zewnętrznej weryfikacji?'],
-    coordination:['Opisz sytuację gdy musiałeś/aś podjąć niepopularną decyzję w zespole — jak to zrobiłeś/aś i jak zareagowali?','Kto w poprzednim miejscu pracy uważał Cię za osobę do której przychodzi się po radę? Co konkretnie robiłeś/aś?','Kiedy widzisz problem w procesie — ile czasu upływa zanim coś z tym zrobisz? Podaj konkretny przykład.'],
-    backoffice:['Opisz sytuację gdy odkryłeś/aś poważny błąd w danych lub dokumentacji — jak do tego doszło i co zrobiłeś/aś?','Kiedy ostatnio stworzyłeś/aś lub usprawniłeś/aś jakiś system lub procedurę? Co Cię do tego skłoniło?','Jak organizujesz pracę gdy masz kilka równoległych zadań z podobnym priorytetem i żadne nie może czekać?'],
+// ═══════════ CONFIG ═══════════
+const CFG_KEY='map_pot_cfg';
+function getCfg(){try{return JSON.parse(localStorage.getItem(CFG_KEY)||'{}')}catch(e){return{}}}
+function saveCfg(c){localStorage.setItem(CFG_KEY,JSON.stringify(c))}
+
+// ═══════════ SYNC TO GOOGLE SHEETS ═══════════
+async function syncToSheets(sc,fit){
+  const cfg=getCfg();
+  const bar=document.getElementById('r-sync'),msg=document.getElementById('r-sync-msg');
+  if(!cfg.sheetsUrl){bar.className='sync-bar idle';return;}
+  bar.className='sync-bar sending';msg.textContent='Wysyłanie do arkusza...';
+  const row={
+    timestamp:new Date().toISOString(),
+    name:S.personal.name||'—',
+    role_context:S.personal.role||'—',
+    ...Object.fromEntries(Object.entries(sc)),
+    retail_fit:fit.retail?.pct||0,
+    production_fit:fit.production?.pct||0,
+    coordination_fit:fit.coordination?.pct||0,
+    backoffice_fit:fit.backoffice?.pct||0,
+    dk_count:S.answers.filter(a=>a==='dk').length,
+    answers:S.answers.map(a=>a||'?').join(','),
   };
-  const rqs=roleQs[topRole]||[];
-  if(rqs.length){
-    html+=`<div class="ivr-block"><div class="ivr-bhead">Pytania kontekstowe — rola: ${ROLES[topRole].name}</div>`;
-    rqs.forEach(q=>{html+=`<div class="ivr-row"><span class="ivr-tag verify">Rola</span><div class="ivr-qtext">${q}</div></div>`;});
-    html+='</div>';
+  try{
+    await fetch(cfg.sheetsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(row)});
+    bar.className='sync-bar ok';msg.textContent='Zsynchronizowano z arkuszem ✓';
+    setTimeout(()=>{bar.className='sync-bar idle';},5000);
+  }catch(e){
+    bar.className='sync-bar err';msg.textContent='Błąd synchronizacji — sprawdź URL w ustawieniach';
+    setTimeout(()=>{bar.className='sync-bar idle';},7000);
   }
-  html+=`<div class="ivr-block"><div class="ivr-bhead">Cień — potencjalne koszty do zaobserwowania</div>`;
-  top3.forEach(([tid])=>{
+}
+
+// ═══════════ DOWNLOAD REPORT AS HTML ═══════════
+function downloadReport(){
+  const sc=calcScores(S.answers);
+  const fit=calcRoleFit(sc);
+  const rankedRoles=Object.entries(fit).sort((a,b)=>b[1].pct-a[1].pct);
+  const topRole=rankedRoles[0][0];
+  const sorted=Object.entries(sc).sort((a,b)=>b[1]-a[1]);
+  const name=S.personal.name||'Wyniki';
+  const date=new Date().toLocaleDateString('pl-PL',{year:'numeric',month:'long',day:'numeric'});
+
+  let html=`<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><title>Mapa Potencjału — ${name}</title>
+<style>
+body{font-family:'Courier New',monospace;background:#fff;color:#111;max-width:720px;margin:2rem auto;padding:1.5rem 2rem;font-size:14px;line-height:1.6}
+h1{font-size:1.4rem;margin-bottom:.3rem}h2{font-size:1rem;margin:1.4rem 0 .4rem;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid #ccc;padding-bottom:.2rem}
+.meta{color:#666;font-size:.8rem;margin-bottom:1.2rem}.date{color:#999;font-size:.75rem}
+table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:.85rem}
+td,th{padding:.35rem .6rem;border:1px solid #ddd;text-align:left}th{background:#f5f5f5;font-weight:700;text-transform:uppercase;font-size:.72rem;letter-spacing:.06em}
+.strong{color:#2a7a4a;font-weight:700}.moderate{color:#888}.weak{color:#a04040}
+.bar{height:6px;background:#eee;border-radius:3px;margin:.15rem 0}<div style="height:100%;background:#c87d3a;border-radius:3px"></div>
+.dd-q{background:#f9f9f9;border-left:3px solid #c87d3a;padding:.5rem .8rem;margin:.3rem 0;font-style:italic;font-size:.85rem}
+footer{margin-top:2rem;padding-top:.8rem;border-top:1px solid #eee;color:#aaa;font-size:.7rem}
+</style></head><body>
+<h1>Mapa Potencjału</h1>
+<div class="meta">${name}${S.personal.role&&ROLES[S.personal.role]?' · '+ROLES[S.personal.role].name:''}</div>
+<div class="date">Wygenerowano: ${date}</div>
+<h2>Profil talentów</h2>
+<table><tr><th>Talent</th><th>Kategoria</th><th>Wynik</th><th>Sygnał</th></tr>`;
+
+  sorted.forEach(([tid,tscore])=>{
     const tl=TALENTS[tid];
-    html+=`<div class="ivr-row"><span class="ivr-tag watch">Cień</span><div><div class="ivr-qtext">${tl.shadow}</div><div class="ivr-hint">${tl.name}</div></div></div>`;
+    const cls=tscore>=2?'strong':tscore>=0?'moderate':'weak';
+    html+=`<tr><td>${tl.name}</td><td>${tl.group}</td><td class="${cls}">${tscore>=0?'+':''}${tscore}</td><td>${sigTextFull(tscore)}</td></tr>`;
   });
-  html+='</div>';
-  document.getElementById('r-ivr').innerHTML=html;
+  html+='</table>';
+
+  html+=`<h2>Dopasowanie do roli</h2><table><tr><th>Rola</th><th>Dopasowanie</th></tr>`;
+  rankedRoles.forEach(([k,d])=>{
+    html+=`<tr><td>${ROLES[k].name}</td><td>${d.pct}%</td></tr>`;
+  });
+  html+='</table>';
+
+  html+=`<h2>Top 5 mocnych stron</h2>`;
+  sorted.slice(0,5).forEach(([tid,tscore])=>{
+    const tl=TALENTS[tid];
+    html+=`<p><strong>${tl.name}</strong> (${sigTextFull(tscore)}) — ${tl.desc}</p>
+    <p style="font-size:.82rem;color:#555"><em>Jak to wykorzystać:</em> ${tl.strength}</p>
+    <p style="font-size:.82rem;color:#555"><em>Kierunek rozwoju:</em> ${tl.growth}</p>`;
+  });
+
+  html+=`<h2>Pytania do refleksji</h2>`;
+  sorted.slice(0,3).forEach(([tid])=>{
+    const tl=TALENTS[tid];
+    tl.dd.forEach(q=>{html+=`<div class="dd-q">${tl.name}: ${q}</div>`;});
+  });
+
+  html+=`<footer>Mapa Potencjału · v6 · Alterbake · ${date}</footer></body></html>`;
+
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`mapa-potencjalu-${(name).replace(/\s+/g,'-').toLowerCase()}-${new Date().toISOString().slice(0,10)}.html`;
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(url);document.body.removeChild(a);},500);
 }
 
 // ═══════════ REPORT — FULL BUILD ═══════════
@@ -960,7 +1036,7 @@ function buildReport(){
   document.getElementById('r-role-rec').innerHTML=`<div class="role-rec"><h3>${topRD.icon} Najsilniejsze dopasowanie: ${topRD.name}</h3><p>${topRD.desc}</p></div>`;
 
   buildGap(sc,topRole);
-  buildIvrMode(sc,topRole);
+  syncToSheets(sc,fit);
 
   const curRole=S.personal.role,rcEl=document.getElementById('r-role-change');
   if(curRole&&curRole!=='other'&&curRole!==''&&ROLES[curRole]){
@@ -1031,14 +1107,26 @@ function copyReport(){
   else{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Skopiowano.');}
 }
 document.getElementById('r-print').addEventListener('click',()=>window.print());
-document.getElementById('ivr-toggle').addEventListener('click',function(){
-  this.classList.toggle('on');
-  const p=document.getElementById('r-ivr');
-  p.classList.toggle('open');
-  this.textContent=p.classList.contains('open')?'◈ Ukryj tryb prowadzącego':'◈ Tryb prowadzącego';
-});
+document.getElementById('r-download').addEventListener('click',downloadReport);
 document.getElementById('r-copy').addEventListener('click',copyReport);
 document.getElementById('btn-restart').addEventListener('click',()=>{if(confirm('Zresetować wszystkie dane i zacząć od nowa?')){reset();go('start');document.getElementById('restore-box').style.display='none';}});
+
+// Config panel
+document.getElementById('btn-cfg').addEventListener('click',()=>{
+  const cfg=getCfg();
+  document.getElementById('cfg-url').value=cfg.sheetsUrl||'';
+  document.getElementById('cfg-sheet-id').value=cfg.sheetId||'';
+  document.getElementById('cfg-overlay').classList.add('open');
+});
+document.getElementById('cfg-cancel').addEventListener('click',()=>document.getElementById('cfg-overlay').classList.remove('open'));
+document.getElementById('cfg-save').addEventListener('click',()=>{
+  const url=document.getElementById('cfg-url').value.trim();
+  const sheetId=document.getElementById('cfg-sheet-id').value.trim();
+  saveCfg({sheetsUrl:url,sheetId});
+  document.getElementById('cfg-overlay').classList.remove('open');
+  if(url){const b=document.getElementById('btn-cfg');b.style.color='var(--acc)';}
+});
+document.getElementById('cfg-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('cfg-overlay'))document.getElementById('cfg-overlay').classList.remove('open');});
 
 // ═══════════ UTILS ═══════════
 function animQ(id){const el=document.getElementById(id);if(!el)return;el.classList.remove('q-wrap');void el.offsetWidth;el.classList.add('q-wrap');}
@@ -1058,6 +1146,7 @@ function init(){
   const had=load();go('start');
   if(had&&S.screen!=='start')document.getElementById('restore-box').style.display='flex';
   document.querySelectorAll('.btn,.scale-btn').forEach(addRipple);
+  if(getCfg().sheetsUrl)document.getElementById('btn-cfg').style.color='var(--acc)';
 }
 init();
 </script>
