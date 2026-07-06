@@ -85,6 +85,29 @@ data.products.forEach((p, i) => {
     `${label}: "soldOut" is a boolean`,
     `${label}: "soldOut" must be boolean (got ${JSON.stringify(p.soldOut)})`);
 
+  // stockLevel must be one of the known values and agree with soldOut
+  const VALID_LEVELS = ["dostępne", "ostatnie-sztuki", "wyprzedane"];
+  check(VALID_LEVELS.includes(p.stockLevel),
+    `${label}: stockLevel "${p.stockLevel}" is valid`,
+    `${label}: unknown stockLevel "${p.stockLevel}" (expected one of: ${VALID_LEVELS.join(", ")})`);
+  check((p.stockLevel === "wyprzedane") === (p.soldOut === true),
+    `${label}: stockLevel agrees with soldOut`,
+    `${label}: stockLevel "${p.stockLevel}" contradicts soldOut=${p.soldOut}`);
+
+  // ostatnie-sztuki: still purchasable, must carry a badge and a price
+  if (p.stockLevel === "ostatnie-sztuki") {
+    check(typeof p.status === "string" && p.status.trim().length > 0,
+      `${label}: low-stock product has a status badge`,
+      `${label}: low-stock product must have a non-empty "status" (e.g. "OSTATNIE SZTUKI")`);
+  }
+
+  // dostępne: no badge
+  if (p.stockLevel === "dostępne") {
+    check(!p.status || p.status.trim() === "",
+      `${label}: available product has empty status`,
+      `${label}: available product must have an empty "status" (got "${p.status}")`);
+  }
+
   // category must be one of the known values
   check(VALID_CATEGORIES.has(p.category),
     `${label}: category "${p.category}" is valid`,

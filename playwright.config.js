@@ -6,7 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   testDir: "./tests",
-  testMatch: "**/*.visual.js",
+  testMatch: ["**/*.visual.js", "**/*.e2e.js"],
   snapshotDir: "./tests/snapshots",
   updateSnapshots: "missing",
   use: {

@@ -6,8 +6,26 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 
 - `index.html` - gotowy widok menu.
 - `styles.css` - wygląd i responsywność.
+- `board.js` - tryb obsługi: statusy dostępności zmieniane stuknięciami na iPadzie.
 - `products.json` - prosta lista produktów do edycji.
 - `products.sample.json` - zapasowy przykład danych.
+
+## Statusy dostępności w ciągu dnia
+
+Pieczywo wyprzedaje się po południu, a nie rano - dlatego statusy można zmieniać bezpośrednio na iPadzie przy ladzie, bez edycji plików:
+
+1. Stuknij 5 razy szybko w logo `AlterBake` - włączy się tryb edycji (pasek na dole ekranu).
+2. Stukaj w produkt, żeby przełączać stan: dostępne → `OSTATNIE SZTUKI` → `WYPRZEDANE` → dostępne.
+3. Stuknij `Zakończ` (albo odczekaj 45 sekund) - tryb się wyłączy.
+
+Zasady działania:
+
+- Statusy zapisują się w pamięci iPada (localStorage) i przeżywają odświeżenie strony. Działa offline, bez żadnego serwera.
+- Następnego dnia statusy kasują się same - rano tablica startuje od stanu z `index.html` (świeży wypiek).
+- Produkty wyprzedane "od rana" (bez ceny w HTML, jak Orkiszowy) nie są przełączalne stuknięciami - wracają na ladę przez edycję `products.json` i `index.html`.
+- Bez `board.js` tablica działa normalnie jako czysty statyczny HTML.
+
+W danych (`products.json`) poziom zapasu opisuje pole `stockLevel`: `dostępne`, `ostatnie-sztuki` albo `wyprzedane` (musi zgadzać się z `soldOut`; testy tego pilnują).
 
 ## Test na iPadzie
 

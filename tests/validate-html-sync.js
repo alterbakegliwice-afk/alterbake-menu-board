@@ -48,8 +48,8 @@ for (const p of data.products) {
     else fail(`${label}: price "${p.price}" NOT found in HTML`);
   }
 
-  // Sold-out products: status badge must appear near the product name.
-  if (p.soldOut && p.status) {
+  // Any status badge (WYPRZEDANE, OSTATNIE SZTUKI, ...) must appear in the HTML.
+  if (p.status) {
     const statusPresent = html.includes(p.status);
     if (statusPresent) pass(`${label}: status badge "${p.status}" found in HTML`);
     else fail(`${label}: status badge "${p.status}" NOT found in HTML`);

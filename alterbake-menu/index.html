@@ -7,6 +7,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Menu AlterBake</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Tryb obslugi (statusy dostepnosci w ciagu dnia). Bez tego pliku
+         tablica dziala normalnie jako czysty statyczny HTML. -->
+    <script src="board.js" defer></script>
   </head>
   <body>
     <main class="board" aria-label="Menu AlterBake">
@@ -95,8 +98,8 @@
             </div>
           </article>
 
-          <article class="menu-item">
-            <h3>Jagodzianka</h3>
+          <article class="menu-item stock-low">
+            <h3>Jagodzianka <span class="status-badge low">OSTATNIE SZTUKI</span></h3>
             <p class="item-desc">Pełna jagód, masła i kruszonki.</p>
             <div class="item-price">
               <strong>16 zł</strong>

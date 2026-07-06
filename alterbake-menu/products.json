@@ -7,7 +7,8 @@
     "category": "Sekcja menu: polecane, słodkie, chleby albo na-wagę.",
     "tag": "Opcjonalna etykieta: Ciepłe, Na słodko, Do domu, Dziś, Limit, Nowość albo Bestseller.",
     "soldOut": "true oznacza produkt wyprzedany; false oznacza produkt dostępny.",
-    "status": "Krótki status, np. WYPRZEDANE. Używaj tylko gdy soldOut ma wartość true."
+    "stockLevel": "Poziom zapasu: dostępne, ostatnie-sztuki albo wyprzedane. Musi zgadzać się z soldOut (wyprzedane = soldOut true).",
+    "status": "Krótka plakietka, np. WYPRZEDANE albo OSTATNIE SZTUKI. Zostaw pustą przy stockLevel dostępne."
   },
   "products": [
     {
@@ -18,6 +19,7 @@
       "category": "polecane",
       "tag": "Ciepłe",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -28,6 +30,7 @@
       "category": "polecane",
       "tag": "Na słodko",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -38,6 +41,7 @@
       "category": "polecane",
       "tag": "Do domu",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -48,6 +52,7 @@
       "category": "słodkie",
       "tag": "Dziś",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -58,7 +63,8 @@
       "category": "słodkie",
       "tag": "Bestseller",
       "soldOut": false,
-      "status": ""
+      "stockLevel": "ostatnie-sztuki",
+      "status": "OSTATNIE SZTUKI"
     },
     {
       "name": "Chałka maślana",
@@ -68,6 +74,7 @@
       "category": "słodkie",
       "tag": "",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -78,6 +85,7 @@
       "category": "chleby",
       "tag": "Dziś",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -88,6 +96,7 @@
       "category": "chleby",
       "tag": "",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -98,6 +107,7 @@
       "category": "chleby",
       "tag": "",
       "soldOut": true,
+      "stockLevel": "wyprzedane",
       "status": "WYPRZEDANE"
     },
     {
@@ -108,6 +118,7 @@
       "category": "na-wagę",
       "tag": "",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -118,6 +129,7 @@
       "category": "na-wagę",
       "tag": "Dziś",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -128,6 +140,7 @@
       "category": "na-wagę",
       "tag": "",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     }
   ]
