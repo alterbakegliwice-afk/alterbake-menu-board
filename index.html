@@ -245,6 +245,43 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
 .r-footer{border-top:1px solid var(--border);padding-top:.9rem;margin-top:1.6rem;font-size:.62rem;color:var(--muted2);line-height:2;letter-spacing:.08em;text-transform:uppercase}
 .nodata{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:.9rem;color:var(--muted);font-size:.76rem;text-align:center}
 
+/* ── CREDIBILITY ── */
+.cred-wrap{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;padding:.55rem .85rem;background:var(--surf);border:1px solid var(--border);border-radius:var(--r)}
+.cred-label{font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.cred-track{flex:1;height:3px;background:var(--border2);border-radius:2px;overflow:hidden}
+.cred-fill{height:100%;border-radius:2px;transition:width 1.1s ease}
+.cred-val{font-size:.62rem;font-weight:700;white-space:nowrap}
+.cred-warn{margin-bottom:.9rem;padding:.5rem .85rem;border-left:2px solid #c85a5a;font-size:.67rem;color:#c87a7a;background:rgba(200,90,90,.06);border-radius:0 var(--r) var(--r) 0;line-height:1.5}
+
+/* ── INTERVIEWER MODE ── */
+.ivr-toggle-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem}
+.ivr-toggle{background:var(--surf);border:1px solid var(--border2);border-radius:var(--r);padding:.38rem .85rem;font-size:.6rem;font-family:inherit;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:border-color .14s,color .14s;position:relative;overflow:hidden}
+.ivr-toggle::before{content:'';position:absolute;bottom:-110%;left:50%;transform:translateX(-50%);width:140%;padding-bottom:100%;border-radius:50%;background:rgba(200,125,58,.07);pointer-events:none;transition:bottom .4s cubic-bezier(.23,1,.32,1)}
+.ivr-toggle:hover::before{bottom:-10%}
+.ivr-toggle.on{border-color:var(--acc);color:var(--acc)}
+.ivr-panel{display:none;animation:fadeUp .18s ease}
+.ivr-panel.open{display:block}
+.ivr-block{margin-bottom:1.1rem}
+.ivr-bhead{font-size:.57rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);margin-bottom:.55rem;padding-bottom:.25rem;border-bottom:1px solid var(--border)}
+.ivr-row{display:flex;gap:.55rem;margin-bottom:.5rem;align-items:flex-start}
+.ivr-tag{font-size:.52rem;letter-spacing:.07em;text-transform:uppercase;padding:.15rem .38rem;border-radius:var(--r);white-space:nowrap;flex-shrink:0;margin-top:.14rem;font-weight:700}
+.ivr-tag.probe{background:rgba(90,184,122,.09);color:#5ab87a;border:1px solid rgba(90,184,122,.25)}
+.ivr-tag.verify{background:rgba(200,125,58,.09);color:var(--acc);border:1px solid rgba(200,125,58,.25)}
+.ivr-tag.watch{background:rgba(200,90,90,.09);color:#c87a7a;border:1px solid rgba(200,90,90,.25)}
+.ivr-qtext{font-size:.74rem;color:var(--text);line-height:1.5}
+.ivr-hint{font-size:.61rem;color:var(--muted);margin-top:.1rem;font-style:italic}
+
+/* ── GAP ANALYSIS ── */
+.gap-wrap{margin-top:.85rem;padding:.8rem .9rem;background:var(--surf);border:1px solid var(--border);border-radius:var(--r)}
+.gap-title{font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:.7rem}
+.gap-row{display:flex;align-items:center;gap:.65rem;margin-bottom:.3rem}
+.gap-tname{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:5.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gap-track{flex:1;height:4px;background:var(--border2);border-radius:2px;position:relative}
+.gap-now{height:100%;background:var(--acc);border-radius:2px;transition:width .9s ease}
+.gap-mark{position:absolute;right:0;top:-4px;height:12px;width:2px;background:#5ab87a;border-radius:1px}
+.gap-delta{font-size:.6rem;color:#5ab87a;min-width:2rem;text-align:right;font-weight:700}
+.gap-action{font-size:.64rem;color:var(--muted);margin:.15rem 0 .75rem 6.45rem;padding:.35rem .6rem;border-left:2px solid var(--border2);line-height:1.45}
+
 /* ── PRINT ── */
 @media print{
   .topbar,.r-actions,#btn-restart,.restore,.nav{display:none!important}
@@ -401,6 +438,7 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
 
   <!-- Overall -->
   <div id="r-overall"></div>
+  <div id="r-cred"></div>
 
   <!-- Category panels + Radar -->
   <div class="cat-radar-wrap">
@@ -438,12 +476,19 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
     <div id="r-role-rec"></div>
     <div id="r-role-change"></div>
     <div id="r-roles" class="role-cards"></div>
+    <div id="r-gap"></div>
   </section>
 
   <section class="r-section">
-    <h2>Pytania do rozmowy pogłębiającej</h2>
-    <p class="sdesc">Sugerowane pytania weryfikujące sygnały z raportu. Słuchaj konkretów, nie deklaracji.</p>
+    <div class="ivr-toggle-row">
+      <div>
+        <h2 style="margin:0">Rozmowa pogłębiająca</h2>
+        <p class="sdesc" style="margin-top:.3rem;margin-bottom:0">Pytania weryfikujące sygnały. Słuchaj konkretów, nie deklaracji.</p>
+      </div>
+      <button class="ivr-toggle" id="ivr-toggle">◈ Tryb prowadzącego</button>
+    </div>
     <div id="r-dd"></div>
+    <div id="r-ivr" class="ivr-panel"></div>
   </section>
 
   <div class="r-footer">
@@ -768,6 +813,97 @@ function buildRadar(sc){
     </svg>`;
 }
 
+// ═══════════ REPORT — CREDIBILITY ═══════════
+function buildCredibility(answers){
+  const tot=answers.length;
+  const dkCount=answers.filter(a=>a==='dk').length;
+  const agreeCount=answers.filter(a=>a==='agree').length;
+  const disagreeCount=answers.filter(a=>a==='disagree').length;
+  const engaged=Math.round((agreeCount+disagreeCount)/tot*100);
+  const dkPct=Math.round(dkCount/tot*100);
+  let color,label;
+  if(dkPct<=25){color='#5ab87a';label='Wysoka ('+engaged+'% precyzyjnych odpowiedzi)';}
+  else if(dkPct<=50){color='var(--acc)';label='Umiarkowana ('+dkPct+'% "Nie wiem")';}
+  else{color='#c87a7a';label='Niska — '+dkPct+'% "Nie wiem"';}
+  const warn=dkPct>50?`<div class="cred-warn">⚠ Wysoki odsetek odpowiedzi "Nie wiem" (${dkPct}%) obniża wartość diagnostyczną profilu. Zachęć kandydata do ponownego wypełnienia z większą precyzją lub potraktuj wyniki jako wstępną hipotezę.</div>`:'';
+  document.getElementById('r-cred').innerHTML=`
+    <div class="cred-wrap">
+      <span class="cred-label">Wiarygodność profilu</span>
+      <div class="cred-track"><div class="cred-fill" id="cred-fill" style="background:${color};width:0%"></div></div>
+      <span class="cred-val" style="color:${color}">${label}</span>
+    </div>${warn}`;
+  setTimeout(()=>{const f=document.getElementById('cred-fill');if(f)f.style.width=engaged+'%';},200);
+}
+
+// ═══════════ REPORT — GAP ANALYSIS ═══════════
+function buildGap(sc,topRole){
+  const rp=ROLES[topRole];if(!rp)return;
+  const gaps=Object.entries(rp.weights)
+    .map(([t,w])=>({t,w,score:sc[t]||0,gap:Math.max(0,4-(sc[t]||0))}))
+    .filter(x=>x.score<4)
+    .sort((a,b)=>(b.gap*b.w)-(a.gap*a.w))
+    .slice(0,4);
+  if(!gaps.length){document.getElementById('r-gap').innerHTML='';return;}
+  const rows=gaps.map(({t,score,gap})=>{
+    const pct=Math.max(0,((score+2)/6)*100).toFixed(0);
+    const tl=TALENTS[t];
+    return`<div class="gap-row" data-pct="${pct}">
+      <div class="gap-tname">${tl.name}</div>
+      <div class="gap-track"><div class="gap-now" style="width:0%"></div><div class="gap-mark"></div></div>
+      <div class="gap-delta">+${gap}</div>
+    </div>
+    <div class="gap-action">${tl.growth}</div>`;
+  }).join('');
+  document.getElementById('r-gap').innerHTML=`<div class="gap-wrap"><div class="gap-title">Mapa luk — co wzmocnić pod rolę: ${rp.name}</div>${rows}</div>`;
+  setTimeout(()=>{
+    document.querySelectorAll('#r-gap .gap-row').forEach(row=>{
+      const f=row.querySelector('.gap-now');if(f)f.style.width=row.dataset.pct+'%';
+    });
+  },300);
+}
+
+// ═══════════ REPORT — INTERVIEWER MODE ═══════════
+function buildIvrMode(sc,topRole){
+  const top3=Object.entries(sc).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const bot3=Object.entries(sc).sort((a,b)=>a[1]-b[1]).filter(([,s])=>s<0).slice(0,3);
+  let html='';
+  html+=`<div class="ivr-block"><div class="ivr-bhead">Eksploruj — mocne sygnały</div>`;
+  top3.forEach(([tid,tscore])=>{
+    const tl=TALENTS[tid];
+    tl.dd.forEach((q,qi)=>{
+      html+=`<div class="ivr-row"><span class="ivr-tag probe">${qi===0?'Eksploruj':'Pogłęb'}</span><div><div class="ivr-qtext">${q}</div><div class="ivr-hint">${tl.name} · ${sigTextFull(tscore)}</div></div></div>`;
+    });
+  });
+  html+='</div>';
+  if(bot3.length){
+    html+=`<div class="ivr-block"><div class="ivr-bhead">Weryfikuj — słabe sygnały i cienie</div>`;
+    bot3.forEach(([tid,tscore])=>{
+      const tl=TALENTS[tid];
+      html+=`<div class="ivr-row"><span class="ivr-tag watch">Sprawdź</span><div><div class="ivr-qtext">${tl.dd[0]}</div><div class="ivr-hint">${tl.name} · ${sigTextFull(tscore)} · Cień: ${tl.shadow}</div></div></div>`;
+    });
+    html+='</div>';
+  }
+  const roleQs={
+    retail:['Opisz najtrudniejszą sytuację z klientem który był wyraźnie niezadowolony — co konkretnie zrobiłeś/aś i jak się skończyło?','Po bardzo intensywnym dniu kontaktu z klientami — jak się czujesz i co robisz żeby się zregenerować?','Kiedy ostatnio ktoś wyraził Ci wdzięczność za to jak się nim zajęłaś/zajął — co konkretnie zrobiłeś/aś?'],
+    production:['Podaj przykład gdy musiałeś/aś zdecydować o jakości bez możliwości konsultacji — co wybrałeś/aś i dlaczego?','Jak reagujesz gdy coś jest zatrzymane z powodu Twojego błędu — co robisz jako pierwsze?','Opisz swój "system" kontroli — jak wiesz że praca jest dobrze zrobiona bez zewnętrznej weryfikacji?'],
+    coordination:['Opisz sytuację gdy musiałeś/aś podjąć niepopularną decyzję w zespole — jak to zrobiłeś/aś i jak zareagowali?','Kto w poprzednim miejscu pracy uważał Cię za osobę do której przychodzi się po radę? Co konkretnie robiłeś/aś?','Kiedy widzisz problem w procesie — ile czasu upływa zanim coś z tym zrobisz? Podaj konkretny przykład.'],
+    backoffice:['Opisz sytuację gdy odkryłeś/aś poważny błąd w danych lub dokumentacji — jak do tego doszło i co zrobiłeś/aś?','Kiedy ostatnio stworzyłeś/aś lub usprawniłeś/aś jakiś system lub procedurę? Co Cię do tego skłoniło?','Jak organizujesz pracę gdy masz kilka równoległych zadań z podobnym priorytetem i żadne nie może czekać?'],
+  };
+  const rqs=roleQs[topRole]||[];
+  if(rqs.length){
+    html+=`<div class="ivr-block"><div class="ivr-bhead">Pytania kontekstowe — rola: ${ROLES[topRole].name}</div>`;
+    rqs.forEach(q=>{html+=`<div class="ivr-row"><span class="ivr-tag verify">Rola</span><div class="ivr-qtext">${q}</div></div>`;});
+    html+='</div>';
+  }
+  html+=`<div class="ivr-block"><div class="ivr-bhead">Cień — potencjalne koszty do zaobserwowania</div>`;
+  top3.forEach(([tid])=>{
+    const tl=TALENTS[tid];
+    html+=`<div class="ivr-row"><span class="ivr-tag watch">Cień</span><div><div class="ivr-qtext">${tl.shadow}</div><div class="ivr-hint">${tl.name}</div></div></div>`;
+  });
+  html+='</div>';
+  document.getElementById('r-ivr').innerHTML=html;
+}
+
 // ═══════════ REPORT — FULL BUILD ═══════════
 function buildReport(){
   const sc=calcScores(S.answers);
@@ -781,6 +917,7 @@ function buildReport(){
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('pl-PL',{year:'numeric',month:'long',day:'numeric'});
 
   buildOverall(sc);
+  buildCredibility(S.answers);
   buildCategories(sc);
   buildRadar(sc);
 
@@ -821,6 +958,9 @@ function buildReport(){
   const rankedRoles=Object.entries(fit).sort((a,b)=>b[1].pct-a[1].pct);
   const topRole=rankedRoles[0][0],topRD=ROLES[topRole];
   document.getElementById('r-role-rec').innerHTML=`<div class="role-rec"><h3>${topRD.icon} Najsilniejsze dopasowanie: ${topRD.name}</h3><p>${topRD.desc}</p></div>`;
+
+  buildGap(sc,topRole);
+  buildIvrMode(sc,topRole);
 
   const curRole=S.personal.role,rcEl=document.getElementById('r-role-change');
   if(curRole&&curRole!=='other'&&curRole!==''&&ROLES[curRole]){
@@ -891,6 +1031,12 @@ function copyReport(){
   else{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Skopiowano.');}
 }
 document.getElementById('r-print').addEventListener('click',()=>window.print());
+document.getElementById('ivr-toggle').addEventListener('click',function(){
+  this.classList.toggle('on');
+  const p=document.getElementById('r-ivr');
+  p.classList.toggle('open');
+  this.textContent=p.classList.contains('open')?'◈ Ukryj tryb prowadzącego':'◈ Tryb prowadzącego';
+});
 document.getElementById('r-copy').addEventListener('click',copyReport);
 document.getElementById('btn-restart').addEventListener('click',()=>{if(confirm('Zresetować wszystkie dane i zacząć od nowa?')){reset();go('start');document.getElementById('restore-box').style.display='none';}});
 
