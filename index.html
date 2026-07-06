@@ -253,6 +253,18 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
 .cred-val{font-size:.62rem;font-weight:700;white-space:nowrap}
 .cred-warn{margin-bottom:.9rem;padding:.5rem .85rem;border-left:2px solid #c85a5a;font-size:.67rem;color:#c87a7a;background:rgba(200,90,90,.06);border-radius:0 var(--r) var(--r) 0;line-height:1.5}
 
+/* ── ARCHETYPE ── */
+.arch-card{display:flex;gap:1.2rem;align-items:flex-start;background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:1.25rem;position:relative;overflow:hidden}
+.arch-card::before{content:'';position:absolute;inset:0;opacity:.045;pointer-events:none}
+.arch-ico{font-size:2.2rem;flex-shrink:0;line-height:1;margin-top:.1rem}
+.arch-body{flex:1;min-width:0}
+.arch-label{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+.arch-name{font-size:1.25rem;font-weight:700;letter-spacing:.04em;margin-bottom:.4rem}
+.arch-desc{font-size:.76rem;color:var(--muted);line-height:1.6;margin-bottom:.6rem}
+.arch-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.arch-tag{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .5rem;border-radius:var(--r);border:1px solid}
+.arch-challenge{margin-top:.6rem;font-size:.67rem;color:var(--muted2);padding:.4rem .65rem;border-left:2px solid var(--border2);line-height:1.5}
+
 /* ── SYNC STATUS ── */
 .sync-bar{display:flex;align-items:center;gap:.55rem;padding:.5rem .85rem;border-radius:var(--r);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem;border:1px solid var(--border)}
 .sync-bar.idle{display:none}
@@ -379,16 +391,12 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
     <div class="progress-label"><span class="phase-tag">Dane wstępne</span><span class="q-count">Krok 1 z 2</span></div>
     <div class="progress-bar"><div class="progress-fill" style="width:3%"></div></div>
   </div>
-  <h2>Kontekst rozmowy</h2>
-  <p class="subtitle">Pojawi się wyłącznie w raporcie końcowym.</p>
+  <h2>Dane wstępne</h2>
+  <p class="subtitle">Pojawią się wyłącznie w raporcie końcowym i arkuszu.</p>
   <form id="form-ctx">
     <div class="field">
       <label for="in-name">Imię i nazwisko <span style="color:var(--muted2);font-weight:400">(opcjonalnie)</span></label>
       <input type="text" id="in-name" placeholder="np. Jan Kowalski" autocomplete="name">
-    </div>
-    <div class="field">
-      <label for="in-ivr">Osoba prowadząca rozmowę <span style="color:var(--muted2);font-weight:400">(opcjonalnie)</span></label>
-      <input type="text" id="in-ivr" placeholder="np. Anna Nowak">
     </div>
     <div class="field">
       <label for="in-role">Obecna rola / stanowisko <span style="color:var(--muted2);font-weight:400">(opcjonalnie)</span></label>
@@ -451,7 +459,8 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
     <div class="r-actions">
       <button id="r-print" class="btn btn-outline">Drukuj / PDF</button>
       <button id="r-download" class="btn btn-outline">Pobierz HTML</button>
-      <button id="r-copy" class="btn btn-outline">Kopiuj raport</button>
+      <button id="r-share" class="btn btn-outline">Skopiuj link</button>
+      <button id="r-copy" class="btn btn-outline">Kopiuj tekst</button>
       <button id="btn-restart" class="btn btn-ghost btn-sm">Zacznij od nowa</button>
     </div>
   </div>
@@ -460,6 +469,9 @@ p{color:var(--muted);margin-bottom:.7rem;font-size:.83rem}
   <div class="r-disc">
     Raport zawiera <strong>hipotezy i sygnały</strong> — nie diagnozy ani wyroki. Każdy wynik to punkt wyjścia do refleksji i rozmowy.
   </div>
+
+  <!-- Archetype -->
+  <div id="r-archetype"></div>
 
   <!-- Overall -->
   <div id="r-overall"></div>
@@ -586,6 +598,40 @@ const STMTS=[
   {t:'communication',r:true,txt:'Zdarza mi się że muszę tłumaczyć co miałem/am na myśli — mój przekaz bywa niejasny dla innych.'},
 ];
 
+// ═══════════ ARCHETYPES ═══════════
+const ARCHETYPES=[
+  {id:'craftsman',name:'Rzemieślnik',icon:'◈',color:'#c87d3a',
+   core:['precision','standards','consistency'],
+   desc:'Praca dobrze zrobiona to Twój wewnętrzny standard — niezależnie od tego kto patrzy i czy ktokolwiek to doceni. Błędy i niedoróbki są dla Ciebie widoczne automatycznie.',
+   fit:'Środowiska gdzie jakość ma znaczenie: produkcja, finalizowanie projektów, kontrola standardów, dane.',
+   challenge:'Momenty gdy "wystarczająco dobrze" jest strategicznie lepsze niż "doskonale".'},
+  {id:'connector',name:'Łącznik',icon:'◉',color:'#5ab87a',
+   core:['empathy','relations','communication'],
+   desc:'Ludzie otwierają się przy Tobie szybciej niż przy innych — wyczuwasz ich stany emocjonalne i tłumaczysz złożone rzeczy w sposób zrozumiały.',
+   fit:'Obsługa klienta, mediacja, role wymagające budowania zaufania i współpracy.',
+   challenge:'Gdy własne granice emocjonalne schodzą na dalszy plan wobec potrzeb innych.'},
+  {id:'guardian',name:'Strażnik',icon:'◑',color:'#5ab8b8',
+   core:['regulation','resilience','independence'],
+   desc:'Spokój pod presją i szybki powrót do formy po trudnościach. Działasz bez nadzoru i naturalnie stabilizujesz środowisko wokół siebie.',
+   fit:'Zarządzanie kryzysowe, praca pod presją, role wymagające stoicyzmu i autonomii działania.',
+   challenge:'Zbyt długie ignorowanie własnych sygnałów przeciążenia.'},
+  {id:'builder',name:'Budowniczy',icon:'◒',color:'#b8a05a',
+   core:['initiative','structure','drive'],
+   desc:'Widzisz co można ulepszyć i zaczynasz działać zanim ktoś poprosi. Budowanie systemów i tworzenie porządku z chaosu daje Ci energię.',
+   fit:'Projekty ulepszeniowe, nowe inicjatywy, środowiska otwarte na zmiany i realny wpływ.',
+   challenge:'Inicjatywa bez sojuszników i bez poparcia może irytować zamiast wprowadzać zmianę.'},
+  {id:'explorer',name:'Odkrywca',icon:'◌',color:'#a87ab8',
+   core:['curiosity','flexibility','purpose'],
+   desc:'Uczysz się sam z siebie, adaptujesz się szybko w nowych kontekstach i potrzebujesz rozumieć "po co" zanim zaczniesz.',
+   fit:'Dynamiczne środowiska, nowe wdrożenia, role wymagające samodzielnego uczenia się i adaptacji.',
+   challenge:'Szerokość zainteresowań bez kotwicy w kluczowej kompetencji bywa kosztowna długofalowo.'},
+  {id:'influencer',name:'Lider wpływu',icon:'◖',color:'#c85a8a',
+   core:['influence','initiative','relations'],
+   desc:'Zmieniasz zdanie innych bez presji — przez argumenty, perspektywę i zaufanie które budujesz naturalnie. Uruchamiasz działania zanim ktoś Cię o to poprosi.',
+   fit:'Koordynacja zespołu, zarządzanie zmianą, role liderskie i sprzedaż wewnętrzna.',
+   challenge:'Nadmierne inwestowanie w przekonywanie tam gdzie szybsza byłaby decyzja.'},
+];
+
 // ═══════════ ROLES ═══════════
 const ROLES={
   retail:{name:'Obsługa klienta',icon:'🏪',tag:'Praca z klientem, emocje, zmienne sytuacje',desc:'Środowisko wymagające empatii, spokoju emocjonalnego i łatwości w relacjach.',weights:{empathy:3,regulation:3,relations:2,flexibility:2,resilience:1,communication:1}},
@@ -637,7 +683,6 @@ function calcRoleFit(sc){
 document.getElementById('form-ctx').addEventListener('submit',e=>{
   e.preventDefault();
   S.personal.name=document.getElementById('in-name').value.trim();
-  S.personal.ivr=document.getElementById('in-ivr').value.trim();
   S.personal.role=document.getElementById('in-role').value;
   S.idx=0;save();renderStmt();go('statements');
 });
@@ -840,17 +885,29 @@ function buildCredibility(answers){
   const disagreeCount=answers.filter(a=>a==='disagree').length;
   const engaged=Math.round((agreeCount+disagreeCount)/tot*100);
   const dkPct=Math.round(dkCount/tot*100);
+
+  // Consistency check: same talent answered "agree" both on normal AND reversed = contradictory signal
+  let inconsistent=0;
+  for(let i=0;i<16;i++){
+    const norm=answers[i],rev=answers[i+16];
+    if((norm==='agree'&&rev==='agree')||(norm==='disagree'&&rev==='disagree'))inconsistent++;
+  }
+
   let color,label;
-  if(dkPct<=25){color='#5ab87a';label='Wysoka ('+engaged+'% precyzyjnych odpowiedzi)';}
-  else if(dkPct<=50){color='var(--acc)';label='Umiarkowana ('+dkPct+'% "Nie wiem")';}
-  else{color='#c87a7a';label='Niska — '+dkPct+'% "Nie wiem"';}
-  const warn=dkPct>50?`<div class="cred-warn">⚠ Wysoki odsetek odpowiedzi "Nie wiem" (${dkPct}%) obniża wartość diagnostyczną profilu. Zachęć kandydata do ponownego wypełnienia z większą precyzją lub potraktuj wyniki jako wstępną hipotezę.</div>`:'';
+  if(dkPct<=25&&inconsistent<=2){color='#5ab87a';label='Wysoka';}
+  else if(dkPct<=50&&inconsistent<=4){color='var(--acc)';label='Umiarkowana';}
+  else{color='#c87a7a';label='Niska';}
+
+  const warns=[];
+  if(dkPct>50)warns.push(`⚠ Wysokie "Nie wiem": ${dkPct}% — wyniki są mniej precyzyjne. Rozważ powtórzenie testu z większą uważnością.`);
+  if(inconsistent>2)warns.push(`⚠ Sprzeczne odpowiedzi dla ${inconsistent} talentów — te same cechy ocenione przeciwstawnie w pytaniach prostych i odwróconych. Może wskazywać na autoprezentację zamiast samooceny.`);
+
   document.getElementById('r-cred').innerHTML=`
     <div class="cred-wrap">
-      <span class="cred-label">Wiarygodność profilu</span>
+      <span class="cred-label">Wiarygodność</span>
       <div class="cred-track"><div class="cred-fill" id="cred-fill" style="background:${color};width:0%"></div></div>
-      <span class="cred-val" style="color:${color}">${label}</span>
-    </div>${warn}`;
+      <span class="cred-val" style="color:${color}">${label} · ${engaged}% precyzyjnych · ${inconsistent} sprzecznych par</span>
+    </div>${warns.map(w=>`<div class="cred-warn">${w}</div>`).join('')}`;
   setTimeout(()=>{const f=document.getElementById('cred-fill');if(f)f.style.width=engaged+'%';},200);
 }
 
@@ -879,6 +936,57 @@ function buildGap(sc,topRole){
       const f=row.querySelector('.gap-now');if(f)f.style.width=row.dataset.pct+'%';
     });
   },300);
+}
+
+// ═══════════ ARCHETYPE ═══════════
+function buildArchetype(sc){
+  const scored=ARCHETYPES.map(a=>{
+    const sum=a.core.reduce((s,t)=>s+(sc[t]||0),0);
+    return{...a,score:sum/a.core.length};
+  }).sort((a,b)=>b.score-a.score);
+  const top=scored[0];
+  const runner=scored[1];
+  if(top.score<0){document.getElementById('r-archetype').innerHTML='';return;}
+  const tags=[
+    {label:'Fit: '+top.fit.split(',')[0].trim(),color:top.color},
+    runner.score>=0?{label:'Cechy '+runner.name,color:runner.color}:null,
+  ].filter(Boolean);
+  document.getElementById('r-archetype').innerHTML=`
+    <div class="arch-card" style="border-left:2px solid ${top.color}">
+      <div class="arch-ico" style="color:${top.color}">${top.icon}</div>
+      <div class="arch-body">
+        <div class="arch-label">Twój archetyp</div>
+        <div class="arch-name" style="color:${top.color}">${top.name}</div>
+        <div class="arch-desc">${top.desc}</div>
+        <div class="arch-tags">
+          ${tags.map(t=>`<span class="arch-tag" style="color:${t.color};border-color:${t.color};background:${t.color}18">${t.label}</span>`).join('')}
+        </div>
+        <div class="arch-challenge">⚑ Punkt do obserwacji: ${top.challenge}</div>
+      </div>
+    </div>`;
+}
+
+// ═══════════ SHARE URL ═══════════
+function encodeState(){
+  const a=S.answers.map(x=>x==='agree'?'a':x==='disagree'?'d':x==='dk'?'k':'?').join('');
+  return a+'~'+encodeURIComponent(S.personal.name||'')+'~'+(S.personal.role||'');
+}
+function getShareUrl(){
+  return location.origin+location.pathname+'#s='+encodeState();
+}
+function loadFromHash(){
+  if(!location.hash.startsWith('#s='))return false;
+  try{
+    const parts=location.hash.slice(3).split('~');
+    if(parts[0].length!==32)return false;
+    S=freshState();
+    S.answers=parts[0].split('').map(c=>c==='a'?'agree':c==='d'?'disagree':c==='k'?'dk':null);
+    S.personal.name=decodeURIComponent(parts[1]||'');
+    S.personal.role=parts[2]||'';
+    S.completedAt=new Date().toISOString();
+    S.screen='report';
+    return true;
+  }catch(e){return false;}
 }
 
 // ═══════════ CONFIG ═══════════
@@ -988,10 +1096,11 @@ function buildReport(){
   const bot5=sorted.slice(-5).reverse();
 
   // Meta
-  const meta=[S.personal.name,S.personal.ivr?'Prowadzi: '+S.personal.ivr:'',S.personal.role&&S.personal.role!=='other'&&ROLES[S.personal.role]?'Obecna rola: '+ROLES[S.personal.role].name:''].filter(Boolean).join(' · ');
+  const meta=[S.personal.name,S.personal.role&&S.personal.role!=='other'&&ROLES[S.personal.role]?'Rola: '+ROLES[S.personal.role].name:''].filter(Boolean).join(' · ');
   document.getElementById('r-meta').textContent=meta||'Bez danych osobowych';
   document.getElementById('r-date').textContent=new Date().toLocaleDateString('pl-PL',{year:'numeric',month:'long',day:'numeric'});
 
+  buildArchetype(sc);
   buildOverall(sc);
   buildCredibility(S.answers);
   buildCategories(sc);
@@ -1108,6 +1217,16 @@ function copyReport(){
 }
 document.getElementById('r-print').addEventListener('click',()=>window.print());
 document.getElementById('r-download').addEventListener('click',downloadReport);
+document.getElementById('r-share').addEventListener('click',()=>{
+  const url=getShareUrl();
+  if(navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(url).then(()=>{
+      const btn=document.getElementById('r-share');
+      const orig=btn.textContent;btn.textContent='✓ Skopiowano!';
+      setTimeout(()=>btn.textContent=orig,2200);
+    });
+  }else{prompt('Skopiuj link:',url);}
+});
 document.getElementById('r-copy').addEventListener('click',copyReport);
 document.getElementById('btn-restart').addEventListener('click',()=>{if(confirm('Zresetować wszystkie dane i zacząć od nowa?')){reset();go('start');document.getElementById('restore-box').style.display='none';}});
 
@@ -1143,8 +1262,13 @@ document.getElementById('btn-restore').addEventListener('click',()=>{
 
 function init(){
   document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('pl-PL',{day:'2-digit',month:'2-digit',year:'numeric'});
-  const had=load();go('start');
-  if(had&&S.screen!=='start')document.getElementById('restore-box').style.display='flex';
+  const fromHash=loadFromHash();
+  if(fromHash){
+    buildReport();go('report');
+  }else{
+    const had=load();go('start');
+    if(had&&S.screen!=='start')document.getElementById('restore-box').style.display='flex';
+  }
   document.querySelectorAll('.btn,.scale-btn').forEach(addRipple);
   if(getCfg().sheetsUrl)document.getElementById('btn-cfg').style.color='var(--acc)';
 }
