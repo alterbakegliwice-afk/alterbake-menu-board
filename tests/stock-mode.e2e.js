@@ -27,6 +27,48 @@ test("edit mode is hidden by default and opens after 5 logo taps + PIN", async (
   await expect(page.locator(".edit-banner")).toBeHidden();
 });
 
+test("PIN locks after 5 wrong attempts and unlocks after a minute", async ({ page }) => {
+  await page.clock.install();
+  await page.goto(INDEX);
+  for (let i = 0; i < 5; i++) await page.locator("h1").click({ delay: 20 });
+  await expect(page.locator(".pin-overlay")).toBeVisible();
+
+  // 5 blednych prob -> blokada.
+  for (let attempt = 0; attempt < 5; attempt++) {
+    for (let i = 0; i < 4; i++) await page.locator(".pin-pad button", { hasText: "9" }).click();
+  }
+  await expect(page.locator(".pin-title")).toHaveText("Za dużo prób – poczekaj minutę");
+
+  // Poprawny PIN w trakcie blokady nie dziala.
+  for (const digit of ["1", "2", "3", "4"]) {
+    await page.locator(".pin-pad button", { hasText: digit }).click();
+  }
+  await expect(page.locator(".edit-banner")).toBeHidden();
+
+  // Po minucie blokada mija (klawiatura zdazyla sie auto-zamknac po 30 s
+  // bezczynnosci, wiec otwieramy ja ponownie).
+  await page.clock.fastForward(61_000);
+  await expect(page.locator(".pin-overlay")).toBeHidden();
+  for (let i = 0; i < 5; i++) await page.locator("h1").click({ delay: 20 });
+  for (const digit of ["1", "2", "3", "4"]) {
+    await page.locator(".pin-pad button", { hasText: digit }).click();
+  }
+  await expect(page.locator(".edit-banner")).toBeVisible();
+});
+
+test("kiosk running overnight reloads itself after midnight", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-07-07T23:59:30") });
+  await page.goto(INDEX);
+  await page.evaluate(() => { window.__beforeMidnight = true; });
+
+  // 2 minuty pozniej jest juz po polnocy - interwal (60 s) wykrywa zmiane
+  // daty i przeladowuje strone, wiec marker znika.
+  try {
+    await page.clock.fastForward(2 * 60 * 1000);
+  } catch (e) { /* nawigacja w trakcie fastForward jest oczekiwana */ }
+  await page.waitForFunction(() => window.__beforeMidnight === undefined);
+});
+
 test("wrong PIN does not open edit mode", async ({ page }) => {
   await page.goto(INDEX);
   for (let i = 0; i < 5; i++) await page.locator("h1").click({ delay: 20 });

@@ -37,6 +37,8 @@
      przypadkowym (i celowym) stukaniem klientow. */
   var PIN_CODE = "1234";
   var PIN_TIMEOUT_MS = 30000;
+  var PIN_MAX_TRIES = 5;
+  var PIN_LOCK_MS = 60000;
 
   /* Teksty trybu wieczornego - zmien tutaj, jesli chcesz inny komunikat. */
   var EVENING_KICKER = "KOŃCÓWKA DNIA";
@@ -337,6 +339,8 @@
   var pinTitle = pinOverlay.querySelector(".pin-title");
   var pinPad = pinOverlay.querySelector(".pin-pad");
   var pinTimer = null;
+  var pinTries = 0;
+  var pinLockedUntil = 0;
   var digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
   for (var d = 0; d < digits.length; d++) {
     (function (digit) {
@@ -371,18 +375,31 @@
   }
 
   function pinPress(digit) {
+    // Blokada po serii blednych prob - koniec z cierpliwym zgadywaniem.
+    if (Date.now() < pinLockedUntil) {
+      pinTitle.textContent = "Za dużo prób – poczekaj minutę";
+      return;
+    }
     if (pinTimer) clearTimeout(pinTimer);
     pinTimer = setTimeout(closePin, PIN_TIMEOUT_MS);
     pinEntered += digit;
     renderDots();
     if (pinEntered.length < 4) return;
     if (pinEntered === PIN_CODE) {
+      pinTries = 0;
       closePin();
       setEditMode(true);
     } else {
       pinEntered = "";
-      pinTitle.textContent = "Błędny PIN";
       renderDots();
+      pinTries++;
+      if (pinTries >= PIN_MAX_TRIES) {
+        pinTries = 0;
+        pinLockedUntil = Date.now() + PIN_LOCK_MS;
+        pinTitle.textContent = "Za dużo prób – poczekaj minutę";
+      } else {
+        pinTitle.textContent = "Błędny PIN";
+      }
     }
   }
 
