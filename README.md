@@ -9,6 +9,7 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 - `board.js` - tryb obsługi: statusy dostępności zmieniane stuknięciami na iPadzie.
 - `products.json` - prosta lista produktów do edycji.
 - `products.sample.json` - zapasowy przykład danych.
+- `fonts/` - lokalne pliki fontu Fraunces (nagłówki i nazwy produktów; licencja SIL OFL). Nic nie jest pobierane z internetu.
 
 ## Statusy dostępności w ciągu dnia
 

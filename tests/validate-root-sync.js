@@ -10,7 +10,17 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const MENU = resolve(ROOT, "alterbake-menu");
 
-const FILES = ["index.html", "styles.css", "products.json", "products.sample.json", "board.js"];
+const FILES = [
+  "index.html",
+  "styles.css",
+  "products.json",
+  "products.sample.json",
+  "board.js",
+  "fonts/fraunces-latin-400-normal.woff2",
+  "fonts/fraunces-latin-ext-400-normal.woff2",
+  "fonts/fraunces-latin-600-normal.woff2",
+  "fonts/fraunces-latin-ext-600-normal.woff2",
+];
 
 let failures = 0;
 
@@ -32,27 +42,27 @@ for (const file of FILES) {
   let rootContent, menuContent;
 
   try {
-    rootContent = readFileSync(rootPath, "utf8");
+    rootContent = readFileSync(rootPath);
   } catch (e) {
     fail(`${file}: cannot read root copy (${e.message})`);
     continue;
   }
 
   try {
-    menuContent = readFileSync(menuPath, "utf8");
+    menuContent = readFileSync(menuPath);
   } catch (e) {
     fail(`${file}: cannot read alterbake-menu copy (${e.message})`);
     continue;
   }
 
-  if (rootContent === menuContent) {
+  if (rootContent.equals(menuContent)) {
     pass(`${file}: root and alterbake-menu copies are identical`);
   } else {
     fail(`${file}: root copy differs from alterbake-menu/${file} — remember to keep them in sync`);
 
     // Give a hint about where they diverge.
-    const rootLines = rootContent.split("\n");
-    const menuLines = menuContent.split("\n");
+    const rootLines = rootContent.toString("utf8").split("\n");
+    const menuLines = menuContent.toString("utf8").split("\n");
     for (let i = 0; i < Math.max(rootLines.length, menuLines.length); i++) {
       if (rootLines[i] !== menuLines[i]) {
         console.error(`         First difference at line ${i + 1}:`);
