@@ -3,7 +3,7 @@
 // Usage: npm run materials  ->  writes materials/out/*.png
 
 import { chromium } from "@playwright/test";
-import { mkdirSync } from "fs";
+import { mkdirSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -19,9 +19,10 @@ const TARGETS = [
 
 mkdirSync(OUT, { recursive: true });
 
-const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-});
+const LOCAL_CHROMIUM = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
+const browser = await chromium.launch(
+  existsSync(LOCAL_CHROMIUM) ? { executablePath: LOCAL_CHROMIUM } : {},
+);
 
 for (const t of TARGETS) {
   const page = await browser.newPage({ viewport: { width: t.width, height: t.height } });

@@ -369,6 +369,78 @@ h1 {
   gap: 10px;
 }
 
+/* Klawiatura PIN (board.js) - brama do trybu edycji. */
+.pin-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(33, 31, 26, 0.45);
+}
+
+.pin-box {
+  width: 260px;
+  padding: 22px 24px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 26px;
+  background: var(--panel);
+  box-shadow: 0 30px 60px -30px rgba(36, 27, 17, 0.6);
+  text-align: center;
+}
+
+.pin-title {
+  color: var(--olive);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pin-dots {
+  margin: 10px 0 14px;
+  color: var(--ink);
+  font-size: 22px;
+  letter-spacing: 0.3em;
+}
+
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.pin-pad button,
+.pin-cancel {
+  padding: 12px 0;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pin-pad button:active {
+  background: rgba(188, 141, 63, 0.25);
+}
+
+.pin-pad button:last-child {
+  grid-column: 2;
+}
+
+.pin-cancel {
+  width: 100%;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
 .edit-mode .menu-item,
 .edit-mode .feature {
   cursor: pointer;
@@ -415,7 +487,8 @@ h1 {
 
   .feature,
   .recommendations,
-  .edit-banner {
+  .edit-banner,
+  .pin-overlay {
     display: none;
   }
 

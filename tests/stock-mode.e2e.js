@@ -11,15 +11,34 @@ const ITEM = '.menu-item:has(h3:text-is("Chałka maślana"))';
 async function enterEditMode(page) {
   const logo = page.locator("h1");
   for (let i = 0; i < 5; i++) await logo.click({ delay: 20 });
+  await expect(page.locator(".pin-overlay")).toBeVisible();
+  for (const digit of ["1", "2", "3", "4"]) {
+    await page.locator(".pin-pad button", { hasText: digit }).click();
+  }
   await expect(page.locator(".edit-banner")).toBeVisible();
 }
 
-test("edit mode is hidden by default and opens after 5 logo taps", async ({ page }) => {
+test("edit mode is hidden by default and opens after 5 logo taps + PIN", async ({ page }) => {
   await page.goto(INDEX);
   await expect(page.locator(".edit-banner")).toBeHidden();
+  await expect(page.locator(".pin-overlay")).toBeHidden();
   await enterEditMode(page);
   await page.locator(".edit-banner .btn-exit").click();
   await expect(page.locator(".edit-banner")).toBeHidden();
+});
+
+test("wrong PIN does not open edit mode", async ({ page }) => {
+  await page.goto(INDEX);
+  for (let i = 0; i < 5; i++) await page.locator("h1").click({ delay: 20 });
+  await expect(page.locator(".pin-overlay")).toBeVisible();
+  for (let i = 0; i < 4; i++) await page.locator(".pin-pad button", { hasText: "9" }).click();
+  await expect(page.locator(".pin-title")).toHaveText("Błędny PIN");
+  await expect(page.locator(".edit-banner")).toBeHidden();
+  await page.locator(".pin-cancel").click();
+  await expect(page.locator(".pin-overlay")).toBeHidden();
+  // Stukanie w produkty poza trybem edycji nic nie zmienia.
+  await page.locator(ITEM).first().click();
+  await expect(page.locator(ITEM).first().locator(".status-badge")).toHaveCount(0);
 });
 
 test("tapping an item cycles available -> low -> sold out -> available", async ({ page }) => {

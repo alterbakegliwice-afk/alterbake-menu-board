@@ -2,7 +2,8 @@
   Tryb obslugi tablicy AlterBake - szybkie zmiany w ciagu dnia, bez plikow.
 
   Jak uzywac (na iPadzie przy ladzie):
-  1. Stuknij 5 razy szybko w logo "AlterBake" - wlaczy sie tryb edycji.
+  1. Stuknij 5 razy szybko w logo "AlterBake" i podaj PIN obslugi
+     (domyslnie 1234 - ZMIEN go w stalej PIN_CODE ponizej).
   2. W trybie edycji:
      - stukniecie w produkt przelacza stan:
        dostepne -> OSTATNIE SZTUKI -> WYPRZEDANE -> dostepne,
@@ -31,6 +32,11 @@
   var TAP_WINDOW_MS = 700;
   var TAPS_TO_ENTER = 5;
   var LONG_PRESS_MS = 500;
+
+  /* PIN obslugi - zmien przed uzyciem w sklepie. Chroni tryb edycji przed
+     przypadkowym (i celowym) stukaniem klientow. */
+  var PIN_CODE = "1234";
+  var PIN_TIMEOUT_MS = 30000;
 
   /* Teksty trybu wieczornego - zmien tutaj, jesli chcesz inny komunikat. */
   var EVENING_KICKER = "KOŃCÓWKA DNIA";
@@ -263,6 +269,14 @@
     persist();
   }
 
+  // Kiosk dziala tygodniami bez przeladowania - dobowy reset musi zadzialac
+  // takze wtedy. Po zmianie daty tablica przeladowuje sie sama (poza trybem
+  // edycji), startujac od swiezego stanu z index.html.
+  var startDay = todayKey();
+  setInterval(function () {
+    if (todayKey() !== startDay && !editMode) location.reload();
+  }, 60000);
+
   // --- Tryb edycji ---
 
   var editMode = false;
@@ -304,6 +318,74 @@
     if (editMode) idleTimer = setTimeout(function () { setEditMode(false); }, IDLE_EXIT_MS);
   }
 
+  // --- Klawiatura PIN ---
+
+  var pinOverlay = document.createElement("div");
+  pinOverlay.className = "pin-overlay";
+  pinOverlay.innerHTML =
+    '<div class="pin-box">' +
+    '<p class="pin-title">PIN obsługi</p>' +
+    '<p class="pin-dots"></p>' +
+    '<div class="pin-pad"></div>' +
+    '<button type="button" class="pin-cancel">Anuluj</button>' +
+    '</div>';
+  pinOverlay.style.display = "none";
+  document.body.appendChild(pinOverlay);
+
+  var pinEntered = "";
+  var pinDots = pinOverlay.querySelector(".pin-dots");
+  var pinTitle = pinOverlay.querySelector(".pin-title");
+  var pinPad = pinOverlay.querySelector(".pin-pad");
+  var pinTimer = null;
+  var digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+  for (var d = 0; d < digits.length; d++) {
+    (function (digit) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = digit;
+      b.addEventListener("click", function () { pinPress(digit); });
+      pinPad.appendChild(b);
+    })(digits[d]);
+  }
+  pinOverlay.querySelector(".pin-cancel").addEventListener("click", closePin);
+
+  function renderDots() {
+    var out = "";
+    for (var x = 0; x < 4; x++) out += x < pinEntered.length ? "\u25CF" : "\u25CB";
+    pinDots.textContent = out;
+  }
+
+  function openPin() {
+    pinEntered = "";
+    pinTitle.textContent = "PIN obsługi";
+    renderDots();
+    pinOverlay.style.display = "";
+    if (pinTimer) clearTimeout(pinTimer);
+    pinTimer = setTimeout(closePin, PIN_TIMEOUT_MS);
+  }
+
+  function closePin() {
+    pinOverlay.style.display = "none";
+    pinEntered = "";
+    if (pinTimer) clearTimeout(pinTimer);
+  }
+
+  function pinPress(digit) {
+    if (pinTimer) clearTimeout(pinTimer);
+    pinTimer = setTimeout(closePin, PIN_TIMEOUT_MS);
+    pinEntered += digit;
+    renderDots();
+    if (pinEntered.length < 4) return;
+    if (pinEntered === PIN_CODE) {
+      closePin();
+      setEditMode(true);
+    } else {
+      pinEntered = "";
+      pinTitle.textContent = "Błędny PIN";
+      renderDots();
+    }
+  }
+
   var logo = document.querySelector("h1");
   if (logo) {
     logo.addEventListener("click", function () {
@@ -312,7 +394,8 @@
       tapTimer = setTimeout(function () { tapCount = 0; }, TAP_WINDOW_MS);
       if (tapCount >= TAPS_TO_ENTER) {
         tapCount = 0;
-        setEditMode(!editMode);
+        if (editMode) setEditMode(false);
+        else openPin();
       }
     });
   }

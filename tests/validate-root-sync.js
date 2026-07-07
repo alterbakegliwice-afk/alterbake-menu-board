@@ -10,7 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const MENU = resolve(ROOT, "alterbake-menu");
 
-const FILES = ["index.html", "styles.css", "products.json", "board.js"];
+const FILES = ["index.html", "styles.css", "products.json", "products.sample.json", "board.js"];
 
 let failures = 0;
 
