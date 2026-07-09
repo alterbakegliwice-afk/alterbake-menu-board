@@ -15,6 +15,7 @@ const TARGETS = [
   { file: "social-story.html", out: "social-story.png", width: 1080, height: 1920 },
   { file: "social-post.html", out: "social-post.png", width: 1080, height: 1080 },
   { file: "ulotka-a4.html", out: "ulotka-a4.png", width: 794, height: 1123 },
+  { file: "plakat-witryna.html", out: "plakat-witryna.png", width: 794, height: 1123 },
 ];
 
 mkdirSync(OUT, { recursive: true });
@@ -28,7 +29,7 @@ for (const t of TARGETS) {
   const page = await browser.newPage({ viewport: { width: t.width, height: t.height } });
   await page.goto(`file://${resolve(MATERIALS, t.file)}`);
   await page.waitForLoadState("load");
-  await page.screenshot({ path: resolve(OUT, t.out), fullPage: t.file.startsWith("ulotka") });
+  await page.screenshot({ path: resolve(OUT, t.out), fullPage: t.file.startsWith("ulotka") || t.file.startsWith("plakat") });
   await page.close();
   console.log(`  OK    ${t.file} -> materials/out/${t.out}`);
 }

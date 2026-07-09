@@ -9,6 +9,7 @@
   "devDependencies": {
     "@fontsource/fraunces": "^5.2.9",
     "@playwright/test": "^1.61.1",
-    "html-validate": "^11.5.3"
+    "html-validate": "^11.5.3",
+    "qrcode": "^1.5.4"
   }
 }

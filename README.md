@@ -89,10 +89,16 @@ W katalogu `materials/` są szablony w tej samej stylistyce co tablica:
 - `ulotka-a4.html` - ulotka-cennik A4 do druku (z sekcją "Dlaczego my").
 - `social-story.html` - Instagram Story 1080x1920 z wypiekiem dnia.
 - `social-post.html` - post Instagram/Facebook 1080x1080 "Dziś polecamy".
+- `plakat-witryna.html` - plakat A4 na witrynę/sztalugę z kodem QR do Instagrama.
+- `qr-instagram.svg` - kod QR do profilu @alterbake.gliwice (wygenerowany raz, plik lokalny).
 
 Gotowe PNG: `npm run materials` (pliki trafiają do `materials/out/`). Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
 
 Sama tablica ma też układ do druku - wystarczy otworzyć `index.html` i wybrać Drukuj, a menu ułoży się jako czysty cennik A4.
+
+## Menu online (GitHub Pages)
+
+Push do gałęzi `main` publikuje katalog `alterbake-menu/` jako stronę pod adresem `https://alterbakegliwice-afk.github.io/alterbake-menu-board/` (workflow `.github/workflows/pages.yml`). Wymaga jednorazowego włączenia: Settings → Pages → Source: **GitHub Actions**. Link nadaje się do bio na Instagramie i wizytówki Google.
 
 Więcej pomysłów na wykorzystanie projektu: `docs/MARKETING.md`.
 

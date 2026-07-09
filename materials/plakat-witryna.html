@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <title>AlterBake - Plakat na witrynę (A4)</title>
+    <!--
+      SZABLON: plakat do witryny / na sztalugę przed sklepem (A4 pion).
+      Duza typografia - czytelny z ulicy przez szybe. Kod QR prowadzi
+      na Instagram. Drukuj: otworz w przegladarce -> Drukuj -> A4.
+    -->
+    <style>
+      /* Fraunces (SIL OFL) - lokalnie z ../alterbake-menu/fonts/, bez CDN. */
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("../alterbake-menu/fonts/fraunces-latin-ext-400-normal.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("../alterbake-menu/fonts/fraunces-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("../alterbake-menu/fonts/fraunces-latin-ext-600-normal.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("../alterbake-menu/fonts/fraunces-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      :root {
+        --ink: #1d1b18;
+        --muted: #6f6a61;
+        --soft: #57524a;
+        --line: rgba(29, 27, 24, 0.18);
+        --line-soft: rgba(29, 27, 24, 0.1);
+        --champagne: #c9a86a;
+        --bronze: #77603a;
+      }
+
+      * { box-sizing: border-box; margin: 0; }
+
+      @page { size: A4; margin: 0; }
+
+      body {
+        width: 210mm;
+        min-height: 297mm;
+        display: flex;
+        flex-direction: column;
+        padding: 16mm 16mm 12mm;
+        background:
+          radial-gradient(160mm 110mm at 82% -12%, rgba(201, 168, 106, 0.08), transparent 60%),
+          linear-gradient(180deg, #faf9f6 0%, #efede7 100%);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .kicker {
+        color: var(--muted);
+        font-size: 10pt;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .masthead {
+        border-bottom: 0.6mm solid var(--ink);
+        padding-bottom: 5mm;
+        text-align: center;
+      }
+
+      .masthead h1 {
+        margin-top: 2mm;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 42pt;
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -0.015em;
+      }
+
+      .masthead p.sub {
+        margin-top: 2.5mm;
+        color: var(--muted);
+        font-size: 12pt;
+        font-weight: 500;
+      }
+
+      .hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 8mm 0;
+        padding: 12mm 12mm;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 7mm;
+        background: linear-gradient(150deg, #2b2721 0%, #191612 100%);
+        color: #f6f3ec;
+        text-align: center;
+      }
+
+      .hero .kicker { color: var(--champagne); }
+
+      .hero h2 {
+        margin-top: 4mm;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 40pt;
+        font-weight: 400;
+        line-height: 1.02;
+        letter-spacing: -0.01em;
+      }
+
+      .hero p {
+        margin-top: 4mm;
+        color: #b8b1a3;
+        font-size: 14pt;
+      }
+
+      .hero .price {
+        margin-top: 7mm;
+        color: #faf7f0;
+        font-size: 34pt;
+        font-weight: 800;
+      }
+
+      .hero .price span {
+        color: var(--champagne);
+        font-size: 13pt;
+        font-weight: 700;
+      }
+
+      .picks {
+        display: flex;
+        justify-content: space-between;
+        gap: 6mm;
+      }
+
+      .pick {
+        flex: 1;
+        padding: 6mm 5mm 5mm;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 5mm;
+        background: rgba(255, 255, 255, 0.6);
+        text-align: center;
+      }
+
+      .pick h3 {
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 15pt;
+        font-weight: 600;
+      }
+
+      .pick p {
+        margin-top: 1.5mm;
+        color: var(--soft);
+        font-size: 9.5pt;
+      }
+
+      .pick strong {
+        display: block;
+        margin-top: 2.5mm;
+        font-size: 15pt;
+        font-weight: 800;
+      }
+
+      .pick strong span {
+        color: var(--muted);
+        font-size: 9pt;
+        font-weight: 600;
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8mm;
+        margin-top: 8mm;
+        border-top: 0.3mm solid var(--line);
+        padding-top: 5mm;
+      }
+
+      .footer img {
+        width: 24mm;
+        height: 24mm;
+        flex: 0 0 auto;
+      }
+
+      .footer .scan {
+        flex: 1;
+      }
+
+      .footer .scan strong {
+        display: block;
+        font-size: 13pt;
+      }
+
+      .footer .scan span {
+        display: block;
+        margin-top: 1mm;
+        color: var(--muted);
+        font-size: 10pt;
+      }
+
+      .footer .hours {
+        color: var(--bronze);
+        font-size: 12pt;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <p class="kicker">ALTERBAKE &middot; GLIWICE</p>
+      <h1>AlterBake</h1>
+      <p class="sub">stara piekarnia na nowo &middot; od ponad 100 lat</p>
+    </header>
+
+    <section class="hero">
+      <p class="kicker">WYPIEK DNIA</p>
+      <h2>Kołocz śląski z serem</h2>
+      <p>Kruchy spód, twaróg, maślana kruszonka.</p>
+      <p class="price">12 zł <span>/ porcja</span></p>
+    </section>
+
+    <section class="picks">
+      <article class="pick">
+        <h3>Chleb firmowy</h3>
+        <p>Zakwas pszenny i żyto.</p>
+        <strong>19 zł <span>/ bochenek</span></strong>
+      </article>
+      <article class="pick">
+        <h3>Jagodzianka</h3>
+        <p>Pełna jagód i kruszonki.</p>
+        <strong>16 zł <span>/ szt.</span></strong>
+      </article>
+      <article class="pick">
+        <h3>Chałka maślana</h3>
+        <p>Zaplatana ręcznie.</p>
+        <strong>18 zł <span>/ szt.</span></strong>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <img src="qr-instagram.svg" alt="Kod QR do profilu @alterbake.gliwice na Instagramie">
+      <div class="scan">
+        <strong>Zeskanuj i obserwuj @alterbake.gliwice</strong>
+        <span>Codziennie rano pokazujemy, co wyszło z pieca.</span>
+      </div>
+      <div class="hours">świeże<br>od 8:00</div>
+    </footer>
+  </body>
+</html>

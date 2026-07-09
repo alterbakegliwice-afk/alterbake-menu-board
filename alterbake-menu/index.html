@@ -10,6 +10,24 @@
     <!-- Tryb obslugi (statusy dostepnosci w ciagu dnia). Bez tego pliku
          tablica dziala normalnie jako czysty statyczny HTML. -->
     <script src="board.js" defer></script>
+    <!-- Dane strukturalne: gdy menu trafi online (np. GitHub Pages),
+         Google rozumie, ze to piekarnia w Gliwicach. Zero requestow. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Bakery",
+      "name": "AlterBake",
+      "slogan": "stara piekarnia na nowo - od ponad 100 lat",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Gliwice",
+        "addressCountry": "PL"
+      },
+      "sameAs": ["https://www.instagram.com/alterbake.gliwice"],
+      "servesCuisine": "Pieczywo rzemieślnicze",
+      "openingHours": "Mo-Sa 08:00-17:00"
+    }
+    </script>
   </head>
   <body>
     <main class="board" aria-label="Menu AlterBake">

@@ -11,6 +11,7 @@ Tablica menu to dziś jeden ekran w lokalu. Te same treści (produkty, ceny, „
 | Ulotka / cennik na ladę | `materials/ulotka-a4.html` | A4 z sekcją „Dlaczego my" |
 | Instagram Story | `materials/social-story.html` | 1080×1920 |
 | Instagram / Facebook post | `materials/social-post.html` | 1080×1080 |
+| Plakat na witrynę / sztalugę | `materials/plakat-witryna.html` | A4 z kodem QR |
 
 Gotowe PNG generuje jedno polecenie: `npm run materials` → pliki w `materials/out/`.
 Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
@@ -22,15 +23,19 @@ Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
 3. Wrzuć Story na @alterbake.gliwice przed 8:00 — komunikat „świeże od 8:00" działa najlepiej, gdy pojawia się zanim ludzie wyjdą z domu.
 4. Gdy coś się wyprzeda — ustaw `soldOut: true` na tablicy i opcjonalnie wrzuć Story „WYPRZEDANE" (to buduje przekaz: znika, bo świeże).
 
+## Most offline → online (wdrożone)
+
+- **Kod QR** (`materials/qr-instagram.svg`) prowadzi na @alterbake.gliwice; jest w stopce ulotki i na plakacie witrynowym. Klient przy ladzie i przechodzień przy szybie mają jedną, natychmiastową drogę do obserwowania piekarni.
+- **Plakat witrynowy** — duża typografia czytelna z ulicy: wypiek dnia, trzy polecane, QR. Wydrukuj, wymieniaj przy zmianie wypieku dnia.
+- **Menu online** — push do `main` publikuje `alterbake-menu/` na GitHub Pages (workflow `pages.yml`; włącz raz: Settings → Pages → Source: GitHub Actions). Link wklej w bio na Instagramie i w wizytówce Google. Tablica ma dane strukturalne schema.org (typ Bakery), więc Google rozumie, że to piekarnia w Gliwicach.
+
 ## Pomysły na następne kroki (od najprostszych)
 
-1. **Wizytówka Google (Google Business Profile)** — największy darmowy kanał dla lokalnej piekarni. Zdjęcia z `materials/out/` można wrzucać jako aktualności; godziny i menu z tego repo.
-2. **Kod QR na ulotce i wystawie** — prowadzący do Instagrama albo strony z menu. Ulotka ma już miejsce w stopce.
-3. **Wersja menu online** — ten sam `index.html` wrzucony na darmowy hosting statyczny (GitHub Pages działa z tym repo od ręki) = menu do linkowania w bio na Instagramie.
-4. **Sezonowe warianty kolorystyczne** — cała paleta siedzi w zmiennych CSS w `:root`; świąteczna/wielkanocna wersja tablicy to zmiana kilku kolorów.
-5. **Druga tablica: „ekran przy wejściu"** — wariant z samym „wypiekiem dnia" i 3 polecanymi, duża typografia, widoczny z ulicy przez szybę.
-6. **Tablica wieczorna** — po 16:00 komunikat „ostatnie sztuki −20%" zamiast „świeże od 8:00"; przeciwdziała stratom i buduje ruch popołudniowy.
-7. **Archiwum cen** — historia zmian w git to darmowa dokumentacja cen; przydatne przy analizie marż.
+1. **Wizytówka Google (Google Business Profile)** — największy darmowy kanał dla lokalnej piekarni. Zdjęcia z `materials/out/` można wrzucać jako aktualności; godziny i link do menu online z tego repo.
+2. **Sezonowe warianty kolorystyczne** — cała paleta siedzi w zmiennych CSS w `:root`; świąteczna/wielkanocna wersja tablicy to zmiana kilku kolorów.
+3. **Druga tablica: „ekran przy wejściu"** — wariant z samym „wypiekiem dnia" i 3 polecanymi, duża typografia, widoczny z ulicy przez szybę.
+4. **Tablica wieczorna** — po 16:00 komunikat „ostatnie sztuki −20%" zamiast „świeże od 8:00"; przeciwdziała stratom i buduje ruch popołudniowy.
+5. **Archiwum cen** — historia zmian w git to darmowa dokumentacja cen; przydatne przy analizie marż.
 
 ## Zasady spójności marki
 

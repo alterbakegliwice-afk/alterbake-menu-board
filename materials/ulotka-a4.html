@@ -232,10 +232,24 @@
         border-top: 0.5mm solid var(--line);
         padding-top: 4mm;
         display: flex;
+        align-items: center;
         justify-content: space-between;
+        gap: 6mm;
         color: var(--muted, #5f5a4f);
         font-size: 10pt;
         font-weight: 700;
+      }
+
+      .footer img {
+        width: 16mm;
+        height: 16mm;
+        flex: 0 0 auto;
+      }
+
+      .footer .scan {
+        flex: 1;
+        font-weight: 500;
+        font-size: 9pt;
       }
     </style>
   </head>
@@ -327,8 +341,9 @@
     </section>
 
     <footer class="footer">
+      <img src="qr-instagram.svg" alt="Kod QR do profilu @alterbake.gliwice na Instagramie">
+      <span class="scan">Zeskanuj i obserwuj <strong>@alterbake.gliwice</strong> &mdash; codziennie rano pokazujemy, co wyszło z pieca.</span>
       <span>AlterBake &middot; Gliwice</span>
-      <span>@alterbake.gliwice</span>
     </footer>
   </body>
 </html>
