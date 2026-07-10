@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <title>AlterBake - Ulotka / Cennik A4</title>
+    <!--
+      SZABLON: ulotka-cennik A4 do druku i do lady.
+      Jak wydrukowac: otworz w przegladarce -> Drukuj -> A4, bez marginesow dodatkowych.
+      Edytuj produkty w sekcji <body>. Uklad trzyma sie jednej strony.
+    -->
+    <style>
+      /* Fraunces (SIL OFL) - lokalnie z ../fonts/, bez CDN. */
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-ext-400-normal.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-ext-600-normal.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      :root {
+        --ink: #1d1b18;
+        --paper: #faf9f6;
+        --panel: #fffdf9;
+        --line: rgba(29, 27, 24, 0.18);
+        --line-soft: rgba(29, 27, 24, 0.1);
+        --gold: #c9a86a;
+        --olive: #6f6a61;
+        --brick: #77603a;
+      }
+
+      * { box-sizing: border-box; margin: 0; }
+
+      @page { size: A4; margin: 0; }
+
+      body {
+        width: 210mm;
+        min-height: 297mm;
+        display: flex;
+        flex-direction: column;
+        padding: 16mm 16mm 12mm;
+        background: #faf9f6;
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .kicker {
+        color: var(--olive);
+        font-size: 9pt;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 1mm solid var(--ink);
+        padding-bottom: 6mm;
+      }
+
+      .masthead h1 {
+        margin-top: 2mm;
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-size: 34pt;
+        line-height: 0.95;
+        letter-spacing: -0.015em;
+      }
+
+      .masthead .brand-line {
+        margin-top: 2.5mm;
+        color: var(--olive);
+        font-size: 11pt;
+        font-weight: 800;
+      }
+
+      .masthead .today {
+        text-align: right;
+      }
+
+      .masthead .today strong {
+        display: block;
+        margin-top: 2mm;
+        font-size: 13pt;
+      }
+
+      .feature {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8mm;
+        margin: 6mm 0;
+        padding: 6mm 8mm;
+        border-radius: 5mm;
+        background: linear-gradient(150deg, #2b2721 0%, #191612 100%);
+        color: var(--panel);
+      }
+
+      .feature .kicker { color: #c9a86a; }
+
+      .feature h2 {
+        margin-top: 1.5mm;
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-size: 20pt;
+      }
+
+      .feature p {
+        margin-top: 2mm;
+        color: #b8b1a3;
+        font-size: 11pt;
+      }
+
+      .feature .price {
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .feature .price strong {
+        display: block;
+        color: #faf7f0;
+        font-size: 26pt;
+        line-height: 1;
+      }
+
+      .feature .price span {
+        display: block;
+        margin-top: 1.5mm;
+        color: #c9a86a;
+        font-size: 10pt;
+        font-weight: 900;
+      }
+
+      .menu {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 10mm;
+        align-content: start;
+        margin-top: 2mm;
+      }
+
+      .category { break-inside: avoid; }
+
+      .category h2 {
+        margin: 5mm 0 2mm;
+        border-bottom: 0.5mm solid var(--line);
+        padding-bottom: 2mm;
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-size: 16pt;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 5mm;
+        padding: 2.6mm 0;
+        border-bottom: 0.3mm solid var(--line-soft);
+      }
+
+      .item:last-child { border-bottom: 0; }
+
+      .item h3 {
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-size: 12pt;
+        font-weight: 600;
+      }
+
+      .item p {
+        margin-top: 1mm;
+        color: #57524a;
+        font-size: 9pt;
+      }
+
+      .item .price {
+        white-space: nowrap;
+        font-size: 12pt;
+        font-weight: 900;
+      }
+
+      .item .price span {
+        color: var(--olive);
+        font-size: 8.5pt;
+        font-weight: 800;
+      }
+
+      .sold-out { opacity: 0.6; }
+
+      .sold-out .status {
+        display: inline-block;
+        margin-left: 2mm;
+        padding: 0.9mm 2.4mm;
+        border: 0.3mm solid var(--brick);
+        border-radius: 99mm;
+        color: var(--brick);
+        font-size: 7.5pt;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        vertical-align: middle;
+      }
+
+      .footer {
+        margin-top: 6mm;
+        border-top: 0.5mm solid var(--line);
+        padding-top: 4mm;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6mm;
+        color: var(--muted, #5f5a4f);
+        font-size: 10pt;
+        font-weight: 700;
+      }
+
+      .footer img {
+        width: 16mm;
+        height: 16mm;
+        flex: 0 0 auto;
+      }
+
+      .footer .scan {
+        flex: 1;
+        font-weight: 500;
+        font-size: 9pt;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div>
+        <p class="kicker">ALTERBAKE &middot; GLIWICE</p>
+        <h1>AlterBake</h1>
+        <p class="brand-line">stara piekarnia na nowo &middot; od ponad 100 lat</p>
+      </div>
+      <div class="today">
+        <p class="kicker">DZIŚ NA LADZIE</p>
+        <strong>świeże od 8:00</strong>
+      </div>
+    </header>
+
+    <section class="feature">
+      <div>
+        <p class="kicker">WYPIEK DNIA</p>
+        <h2>Kołocz śląski z serem</h2>
+        <p>Kruchy spód, twaróg, maślana kruszonka.</p>
+      </div>
+      <div class="price">
+        <strong>12 zł</strong>
+        <span>/ porcja</span>
+      </div>
+    </section>
+
+    <section class="menu">
+      <div class="category">
+        <h2>CHLEBY</h2>
+        <article class="item">
+          <div><h3>Chleb firmowy</h3><p>Zakwas pszenny, żyto, sól</p></div>
+          <div class="price">19 zł <span>/ bochenek</span></div>
+        </article>
+        <article class="item">
+          <div><h3>Żytni razowy</h3><p>Ciemny, wilgotny, długo prowadzony.</p></div>
+          <div class="price">21 zł <span>/ bochenek</span></div>
+        </article>
+        <article class="item sold-out">
+          <div><h3>Orkiszowy <span class="status">WYPRZEDANE</span></h3><p>Jutro wraca na ladę.</p></div>
+        </article>
+      </div>
+
+      <div class="category">
+        <h2>SŁODKIE</h2>
+        <article class="item">
+          <div><h3>Kołocz z serem</h3><p>Twaróg, kruszonka, kruche ciasto</p></div>
+          <div class="price">12 zł <span>/ porcja</span></div>
+        </article>
+        <article class="item">
+          <div><h3>Jagodzianka</h3><p>Pełna jagód, masła i kruszonki.</p></div>
+          <div class="price">16 zł <span>/ szt.</span></div>
+        </article>
+        <article class="item">
+          <div><h3>Chałka maślana</h3><p>Zaplatana ręcznie</p></div>
+          <div class="price">18 zł <span>/ szt.</span></div>
+        </article>
+      </div>
+
+      <div class="category">
+        <h2>NA WAGĘ</h2>
+        <article class="item">
+          <div><h3>Placek cebulowy</h3><p>Oliwa, cebula, rozmaryn</p></div>
+          <div class="price">8 zł <span>/ 100 g</span></div>
+        </article>
+        <article class="item">
+          <div><h3>Krajanka żytnia</h3><p>Małe kromki do zabrania</p></div>
+          <div class="price">7 zł <span>/ 100 g</span></div>
+        </article>
+        <article class="item">
+          <div><h3>Pajda z masłem</h3><p>Chleb firmowy, masło, sól</p></div>
+          <div class="price">10 zł <span>/ szt.</span></div>
+        </article>
+      </div>
+
+      <div class="category">
+        <h2>DLACZEGO MY</h2>
+        <article class="item">
+          <div><h3>Zakwas, nie drożdże</h3><p>Ciasto prowadzimy powoli, bez polepszaczy.</p></div>
+        </article>
+        <article class="item">
+          <div><h3>Pieczemy na miejscu</h3><p>W Gliwicach, w piecu który pamięta sto lat.</p></div>
+        </article>
+        <article class="item">
+          <div><h3>Krótka lista składników</h3><p>Mąka, woda, sól, czas.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <img src="qr-instagram.svg" alt="Kod QR do profilu @alterbake na Instagramie">
+      <span class="scan">Zeskanuj i obserwuj <strong>@alterbake</strong> &mdash; codziennie rano pokazujemy, co wyszło z pieca.<br>Zamówienia: <strong>alterbake.gliwice@gmail.com</strong></span>
+      <span>AlterBake &middot; Gliwice</span>
+    </footer>
+  </body>
+</html>

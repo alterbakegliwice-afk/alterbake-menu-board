@@ -9,6 +9,7 @@
       "category": "chleby",
       "tag": "Dziś",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -19,6 +20,7 @@
       "category": "słodkie",
       "tag": "Nowość",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -29,6 +31,7 @@
       "category": "na-wagę",
       "tag": "Limit",
       "soldOut": false,
+      "stockLevel": "dostępne",
       "status": ""
     },
     {
@@ -39,6 +42,7 @@
       "category": "słodkie",
       "tag": "",
       "soldOut": true,
+      "stockLevel": "wyprzedane",
       "status": "WYPRZEDANE"
     }
   ]

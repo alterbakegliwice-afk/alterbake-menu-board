@@ -1,11 +1,15 @@
 {
   "type": "module",
   "scripts": {
-        "test": "node tests/validate-products.js && node tests/validate-html-sync.js && node tests/validate-html.js && npx playwright test --config playwright.config.js",
-    "test:update-snapshots": "npx playwright test --config playwright.config.js --update-snapshots"
+    "test": "node tests/validate-products.js && node tests/validate-html-sync.js && node tests/validate-html.js && npx playwright test --config playwright.config.js",
+    "test:ci": "node tests/validate-products.js && node tests/validate-html-sync.js && node tests/validate-html.js && npx playwright test --config playwright.config.js --grep-invert \"visual:\"",
+    "test:update-snapshots": "npx playwright test --config playwright.config.js --update-snapshots",
+    "materials": "node tests/render-materials.js"
   },
   "devDependencies": {
+    "@fontsource/fraunces": "^5.2.9",
     "@playwright/test": "^1.61.1",
-    "html-validate": "^11.5.3"
+    "html-validate": "^11.5.3",
+    "qrcode": "^1.5.4"
   }
 }

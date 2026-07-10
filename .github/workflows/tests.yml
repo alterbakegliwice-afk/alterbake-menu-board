@@ -1,0 +1,29 @@
+# CI: kazdy push i pull request przechodzi przez walidacje danych,
+# synchronizacje JSON<->HTML, kopie root/ i testy e2e trybu obslugi.
+# Testy wizualne (porownanie zrzutow) dzialaja tylko lokalnie - zrzuty
+# zaleza od wersji Chromium i fontow, na CI dawalyby falszywe alarmy.
+name: Testy
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  testy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Zainstaluj zaleznosci
+        run: npm ci
+
+      - name: Zainstaluj Chromium dla Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Uruchom testy
+        run: npm run test:ci
