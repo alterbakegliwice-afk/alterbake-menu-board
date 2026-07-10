@@ -200,12 +200,17 @@ h1 {
 }
 
 .feature-price strong {
-  display: block;
-  color: #faf7f0;
-  font-size: 36px;
+  display: inline-block;
+  padding: 9px 20px;
+  border-radius: 999px;
+  background: var(--champagne);
+  color: #211e1a;
+  font-size: 26px;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
   font-variant-numeric: tabular-nums;
+  box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.55);
 }
 
 .feature-price span {
@@ -282,27 +287,37 @@ h1 {
   vector-effect: non-scaling-stroke;
 }
 
-/* Pozycja menu: nazwa na pelnej szerokosci, opis pod nia, cena na dole
-   wyrownana do prawej. Zaden tekst nie konkuruje o miejsce z cena. */
+/* Pozycja menu (wzorzec z aplikacji mobilnych): cena w wypelnionym chipie
+   zakotwiczonym w prawym gornym rogu - stale miejsce skanowania. Chip jest
+   oplywany (float), wiec dluga nazwa schodzi pod niego i dostaje pelna
+   szerokosc karty zamiast lamac sie w waskiej kolumnie. W HTML chip stoi
+   PRZED naglowkiem - float musi poprzedzac tekst, ktory oplywa. */
 .menu-item {
-  display: block;
-  width: 100%;
-  padding: 7px 0;
+  padding: 9px 0;
   border-bottom: 1px solid var(--hairline);
+}
+
+/* Domykamy float, zeby chip nie wystawal poza krotka pozycje. */
+.menu-item::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .menu-item:last-child {
   border-bottom: 0;
 }
 
+/* Bez overflow-wrap: slowo, ktore nie miesci sie obok chipa, schodzi POD
+   niego (pelna szerokosc karty) zamiast lamac sie w srodku ("Jagodzia-nka").
+   Bardzo dlugie nazwy dziel recznie przez &shy; w HTML. */
 .menu-item h3 {
   font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 23px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.005em;
   hyphens: auto;
-  overflow-wrap: break-word;
 }
 
 .item-desc {
@@ -316,11 +331,12 @@ h1 {
 }
 
 .item-price {
+  float: right;
   display: flex;
-  justify-content: flex-end;
-  align-items: baseline;
-  gap: 8px;
-  margin-top: 6px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  margin: 2px 0 4px 12px;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -329,17 +345,23 @@ h1 {
   display: none;
 }
 
+/* Chip cenowy: espresso na jasnej karcie - echo panelu hero. */
 .item-price strong {
-  font-size: 20px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: linear-gradient(150deg, #2b2721 0%, #191612 100%);
+  color: #faf7f0;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.005em;
+  letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
+  box-shadow: 0 6px 14px -8px rgba(15, 13, 10, 0.5);
 }
 
 .item-price span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1.08;
@@ -660,7 +682,7 @@ h1 {
   }
 
   .feature-price strong {
-    font-size: 38px;
+    font-size: 28px;
   }
 
   .column-heading h2 {
@@ -672,15 +694,22 @@ h1 {
   }
 
   .menu-item {
-    padding: 8px 0;
+    padding: 6px 0;
   }
 
   .menu-item.highlight {
-    padding: 8px 10px 8px 8px;
+    padding: 7px 10px 7px 8px;
   }
 
+  /* Waskie karty: chip dostaje wlasny wiersz w rogu, nazwa zawsze pod nim
+     na pelnej szerokosci - jednolity rytm zamiast lamania obok chipa. */
   .menu-item h3 {
-    font-size: 25px;
+    clear: right;
+    font-size: 23px;
+  }
+
+  .item-price {
+    margin: 0 0 4px 12px;
   }
 
   .item-desc {
@@ -689,11 +718,12 @@ h1 {
   }
 
   .item-price strong {
-    font-size: 22px;
+    padding: 5px 12px;
+    font-size: 15px;
   }
 
   .item-price span {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .notice {
@@ -766,7 +796,7 @@ h1 {
   }
 
   .feature-price strong {
-    font-size: 38px;
+    font-size: 28px;
   }
 
   .feature-price span {
@@ -810,6 +840,7 @@ h1 {
   }
 
   .item-price strong {
-    font-size: 24px;
+    padding: 8px 16px;
+    font-size: 18px;
   }
 }

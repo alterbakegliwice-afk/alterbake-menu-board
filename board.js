@@ -90,7 +90,12 @@
     var h3 = item.querySelector("h3");
     if (!h3 || !h3.firstChild) return "";
     // Pierwszy wezel tekstowy = nazwa produktu (plakietka jest w <span> dalej).
-    return (h3.firstChild.textContent || "").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+    // Usuwamy miekkie dzielniki (&shy;), zeby klucze w localStorage i
+    // porownania nazw byly niezalezne od typografii w HTML.
+    return (h3.firstChild.textContent || "")
+      .replace(/\u00AD/g, "")
+      .replace(/\s+/g, " ")
+      .replace(/^\s+|\s+$/g, "");
   }
 
   function descOf(item) {
