@@ -20,12 +20,12 @@ Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
 
 1. Zmień „wypiek dnia" i ceny w `products.json` i `index.html` (testy pilnują spójności).
 2. Uruchom `npm run materials` — masz świeżą grafikę Story z dzisiejszym wypiekiem.
-3. Wrzuć Story na @alterbake.gliwice przed 8:00 — komunikat „świeże od 8:00" działa najlepiej, gdy pojawia się zanim ludzie wyjdą z domu.
+3. Wrzuć Story na @alterbake przed 8:00 — komunikat „świeże od 8:00" działa najlepiej, gdy pojawia się zanim ludzie wyjdą z domu.
 4. Gdy coś się wyprzeda — ustaw `soldOut: true` na tablicy i opcjonalnie wrzuć Story „WYPRZEDANE" (to buduje przekaz: znika, bo świeże).
 
 ## Most offline → online (wdrożone)
 
-- **Kod QR** (`materials/qr-instagram.svg`) prowadzi na @alterbake.gliwice; jest w stopce ulotki i na plakacie witrynowym. Klient przy ladzie i przechodzień przy szybie mają jedną, natychmiastową drogę do obserwowania piekarni.
+- **Kod QR** (`materials/qr-instagram.svg`) prowadzi na @alterbake; jest w stopce ulotki i na plakacie witrynowym. Klient przy ladzie i przechodzień przy szybie mają jedną, natychmiastową drogę do obserwowania piekarni.
 - **Plakat witrynowy** — duża typografia czytelna z ulicy: wypiek dnia, trzy polecane, QR. Wydrukuj, wymieniaj przy zmianie wypieku dnia.
 - **Menu online** — push do `main` publikuje `alterbake-menu/` na GitHub Pages (workflow `pages.yml`; włącz raz: Settings → Pages → Source: GitHub Actions). Link wklej w bio na Instagramie i w wizytówce Google. Tablica ma dane strukturalne schema.org (typ Bakery), więc Google rozumie, że to piekarnia w Gliwicach.
 

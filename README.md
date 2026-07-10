@@ -90,7 +90,7 @@ W katalogu `materials/` są szablony w tej samej stylistyce co tablica:
 - `social-story.html` - Instagram Story 1080x1920 z wypiekiem dnia.
 - `social-post.html` - post Instagram/Facebook 1080x1080 "Dziś polecamy".
 - `plakat-witryna.html` - plakat A4 na witrynę/sztalugę z kodem QR do Instagrama.
-- `qr-instagram.svg` - kod QR do profilu @alterbake.gliwice (wygenerowany raz, plik lokalny).
+- `qr-instagram.svg` - kod QR do profilu @alterbake (wygenerowany raz, plik lokalny).
 
 Gotowe PNG: `npm run materials` (pliki trafiają do `materials/out/`). Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
 
