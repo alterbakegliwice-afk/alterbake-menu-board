@@ -16,7 +16,7 @@ export default defineConfig({
   snapshotDir: "./tests/snapshots",
   updateSnapshots: "missing",
   use: {
-    baseURL: `file://${resolve(__dirname, "alterbake-menu/index.html")}`,
+    baseURL: `file://${resolve(__dirname, "index.html")}`,
     launchOptions,
   },
   projects: [

@@ -3,7 +3,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const INDEX = `file://${resolve(__dirname, "../alterbake-menu/index.html")}`;
+const INDEX = `file://${resolve(__dirname, "../index.html")}`;
 
 // Item helper: the SŁODKIE column's "Chałka maślana" (available, has a price).
 const ITEM = '.menu-item:has(h3:text-is("Chałka maślana"))';

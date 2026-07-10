@@ -1,4 +1,4 @@
-# Publikacja menu online: katalog alterbake-menu/ trafia na GitHub Pages
+# Publikacja menu online: pliki tablicy (katalog glowny repo) trafiaja na GitHub Pages
 # przy kazdym pushu do main. Adres strony (do bio na Instagramie):
 # https://alterbakegliwice-afk.github.io/alterbake-menu-board/
 #
@@ -32,7 +32,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: alterbake-menu
+          path: .
 
       - id: deployment
         uses: actions/deploy-pages@v4

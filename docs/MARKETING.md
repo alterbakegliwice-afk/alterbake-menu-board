@@ -6,7 +6,7 @@ Tablica menu to dziś jeden ekran w lokalu. Te same treści (produkty, ceny, „
 
 | Materiał | Plik | Format |
 |---|---|---|
-| Tablica menu (kiosk iPad) | `alterbake-menu/index.html` | ekran |
+| Tablica menu (kiosk iPad) | `index.html` | ekran |
 | Cennik do druku | ta sama tablica → Drukuj | A4 (automatyczny układ przez `@media print`) |
 | Ulotka / cennik na ladę | `materials/ulotka-a4.html` | A4 z sekcją „Dlaczego my" |
 | Instagram Story | `materials/social-story.html` | 1080×1920 |
@@ -27,7 +27,7 @@ Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
 
 - **Kod QR** (`materials/qr-instagram.svg`) prowadzi na @alterbake; jest w stopce ulotki i na plakacie witrynowym. Klient przy ladzie i przechodzień przy szybie mają jedną, natychmiastową drogę do obserwowania piekarni.
 - **Plakat witrynowy** — duża typografia czytelna z ulicy: wypiek dnia, trzy polecane, QR. Wydrukuj, wymieniaj przy zmianie wypieku dnia.
-- **Menu online** — push do `main` publikuje `alterbake-menu/` na GitHub Pages (workflow `pages.yml`; włącz raz: Settings → Pages → Source: GitHub Actions). Link wklej w bio na Instagramie i w wizytówce Google. Tablica ma dane strukturalne schema.org (typ Bakery), więc Google rozumie, że to piekarnia w Gliwicach.
+- **Menu online** — push do `main` publikuje tablicę na GitHub Pages (workflow `pages.yml`; włącz raz: Settings → Pages → Source: GitHub Actions). Link wklej w bio na Instagramie i w wizytówce Google. Tablica ma dane strukturalne schema.org (typ Bakery), więc Google rozumie, że to piekarnia w Gliwicach.
 
 ## Pomysły na następne kroki (od najprostszych)
 
@@ -40,6 +40,6 @@ Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
 ## Zasady spójności marki
 
 - Paleta premium-minimal: kość słoniowa `#faf9f6`, grafit espresso `#1d1b18`, szampan `#c9a86a`, brąz `#77603a`, ciepła szarość `#6f6a61`. Ciemne panele: gradient `#2b2721 → #191612`.
-- Nagłówki i nazwy produktów: Fraunces (szeryf displayowy, plik lokalny w `alterbake-menu/fonts/`, licencja SIL OFL; fallback Georgia). Opisy, ceny i etykiety: czcionka systemowa.
+- Nagłówki i nazwy produktów: Fraunces (szeryf displayowy, plik lokalny w `fonts/`, licencja SIL OFL; fallback Georgia). Opisy, ceny i etykiety: czcionka systemowa.
 - Ceny zawsze w formacie `12 zł` + jednostka `/ porcja`.
 - Kluczowe hasła: „stara piekarnia na nowo", „od ponad 100 lat", „świeże od 8:00".

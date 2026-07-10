@@ -7,8 +7,8 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const PRODUCTS_PATH = resolve(__dirname, "../alterbake-menu/products.json");
-const HTML_PATH = resolve(__dirname, "../alterbake-menu/index.html");
+const PRODUCTS_PATH = resolve(__dirname, "../products.json");
+const HTML_PATH = resolve(__dirname, "../index.html");
 
 let failures = 0;
 

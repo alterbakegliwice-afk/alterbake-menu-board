@@ -7,7 +7,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const HTML_PATH = resolve(__dirname, "../alterbake-menu/index.html");
+const HTML_PATH = resolve(__dirname, "../index.html");
 const CONFIG_PATH = resolve(__dirname, "../.htmlvalidate.json");
 
 const html = readFileSync(HTML_PATH, "utf8");

@@ -11,6 +11,8 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 - `products.sample.json` - zapasowy przykład danych.
 - `fonts/` - lokalne pliki fontu Fraunces (nagłówki i nazwy produktów; licencja SIL OFL). Nic nie jest pobierane z internetu.
 
+Wszystkie pliki tablicy leżą w katalogu głównym repozytorium - jedna kopia, bez duplikatów.
+
 ## Statusy dostępności w ciągu dnia
 
 Pieczywo wyprzedaje się po południu, a nie rano - dlatego statusy można zmieniać bezpośrednio na iPadzie przy ladzie, bez edycji plików:
@@ -37,7 +39,7 @@ W danych (`products.json`) poziom zapasu opisuje pole `stockLevel`: `dostępne`,
 
 ## Test na iPadzie
 
-1. Umieść cały folder `alterbake-menu` na serwerze, dysku lokalnym albo w prostym hostingu statycznym.
+1. Umieść pliki z katalogu głównego repozytorium (`index.html`, `styles.css`, `products.json`) na serwerze, dysku lokalnym albo w prostym hostingu statycznym.
 2. Otwórz `index.html` w Safari na iPadzie.
 3. Sprawdź widok w orientacji poziomej - całe menu mieści się na jednym ekranie, bez przewijania.
 4. Obróć iPada do orientacji pionowej i odśwież stronę - również bez przewijania.
@@ -98,7 +100,7 @@ Sama tablica ma też układ do druku - wystarczy otworzyć `index.html` i wybra�
 
 ## Menu online (GitHub Pages)
 
-Push do gałęzi `main` publikuje katalog `alterbake-menu/` jako stronę pod adresem `https://alterbakegliwice-afk.github.io/alterbake-menu-board/` (workflow `.github/workflows/pages.yml`). Wymaga jednorazowego włączenia: Settings → Pages → Source: **GitHub Actions**. Link nadaje się do bio na Instagramie i wizytówki Google.
+Push do gałęzi `main` publikuje pliki tablicy jako stronę pod adresem `https://alterbakegliwice-afk.github.io/alterbake-menu-board/` (workflow `.github/workflows/pages.yml`). Wymaga jednorazowego włączenia: Settings → Pages → Source: **GitHub Actions**. Link nadaje się do bio na Instagramie i wizytówki Google.
 
 Więcej pomysłów na wykorzystanie projektu: `docs/MARKETING.md`.
 

@@ -3,7 +3,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const INDEX = `file://${resolve(__dirname, "../alterbake-menu/index.html")}`;
+const INDEX = `file://${resolve(__dirname, "../index.html")}`;
 
 const VIEWPORTS = [
   { name: "iPad landscape", width: 1024, height: 768 },
