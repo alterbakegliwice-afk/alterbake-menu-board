@@ -253,8 +253,8 @@ h1 {
 }
 
 .column-heading {
-  margin-bottom: 4px;
-  padding-bottom: 6px;
+  margin-bottom: 3px;
+  padding-bottom: 5px;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -287,7 +287,7 @@ h1 {
 .menu-item {
   display: block;
   width: 100%;
-  padding: 8px 0;
+  padding: 7px 0;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -297,20 +297,20 @@ h1 {
 
 .menu-item h3 {
   font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 22px;
+  font-size: 23px;
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.005em;
   hyphens: auto;
   overflow-wrap: break-word;
 }
 
 .item-desc {
-  margin-top: 3px;
+  margin-top: 4px;
   color: var(--soft);
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 1.35;
   hyphens: auto;
   overflow-wrap: break-word;
 }
@@ -319,8 +319,8 @@ h1 {
   display: flex;
   justify-content: flex-end;
   align-items: baseline;
-  gap: 7px;
-  margin-top: 4px;
+  gap: 8px;
+  margin-top: 6px;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -330,24 +330,32 @@ h1 {
 }
 
 .item-price strong {
-  font-size: 25px;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
   font-variant-numeric: tabular-nums;
 }
 
 .item-price span {
   color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   line-height: 1.08;
+}
+
+/* Plakietka pod nazwa pozycji - stale, przewidywalne miejsce. */
+.menu-item h3 .status-badge {
+  display: block;
+  width: fit-content;
+  margin: 4px 0 0;
 }
 
 /* Wyrozniona pozycja: cienka szampanska linia i ledwo widoczne ocieplenie. */
 .menu-item.highlight {
   margin: 0 -10px;
-  padding: 8px 10px 8px 8px;
+  padding: 7px 10px 7px 8px;
   border-left: 2px solid var(--champagne);
   border-radius: var(--radius-sm);
   background: rgba(201, 168, 106, 0.09);
@@ -640,7 +648,7 @@ h1 {
   }
 
   .feature {
-    padding: 16px 26px;
+    padding: 14px 26px;
   }
 
   .feature h2 {
@@ -664,15 +672,15 @@ h1 {
   }
 
   .menu-item {
-    padding: 9px 0;
+    padding: 8px 0;
   }
 
   .menu-item.highlight {
-    padding: 9px 10px 9px 8px;
+    padding: 8px 10px 8px 8px;
   }
 
   .menu-item h3 {
-    font-size: 23px;
+    font-size: 25px;
   }
 
   .item-desc {
@@ -681,7 +689,7 @@ h1 {
   }
 
   .item-price strong {
-    font-size: 26px;
+    font-size: 22px;
   }
 
   .item-price span {
@@ -802,6 +810,6 @@ h1 {
   }
 
   .item-price strong {
-    font-size: 31px;
+    font-size: 24px;
   }
 }
