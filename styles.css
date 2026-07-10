@@ -697,14 +697,13 @@ h1 {
    iPad w pionie (768px) zachowuje uklad trzech kolumn. */
 @media (max-width: 620px) {
   .board {
-    padding: 18px;
+    padding: 20px 18px;
   }
 
   .masthead,
   .masthead > div,
   .feature,
   .feature-copy,
-  .feature-price,
   .notice {
     display: block;
   }
@@ -715,12 +714,21 @@ h1 {
     text-align: left;
   }
 
+  /* "DZIS NA LADZIE / swieze od 8:00" w jednej linii - mniej pieter. */
   .masthead .today {
-    margin-top: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .masthead .today strong {
+    margin-top: 0;
+    font-size: 19px;
   }
 
   h1 {
-    font-size: 42px;
+    font-size: 44px;
   }
 
   .brand-line {
@@ -728,11 +736,34 @@ h1 {
   }
 
   .feature {
-    padding: 18px 20px;
+    padding: 20px 22px;
   }
 
+  .feature h2 {
+    font-size: 33px;
+    line-height: 1.05;
+  }
+
+  .feature p {
+    font-size: 18px;
+  }
+
+  /* Cena wypieku dnia: kwota i jednostka na jednej linii bazowej. */
   .feature-price {
-    margin-top: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    min-width: 0;
+    margin-top: 14px;
+  }
+
+  .feature-price strong {
+    font-size: 38px;
+  }
+
+  .feature-price span {
+    margin-top: 0;
+    font-size: 15px;
   }
 
   .menu-grid,
@@ -758,8 +789,12 @@ h1 {
     padding: 14px 10px 14px 8px;
   }
 
-  .menu-item h3 {
+  .column-heading h2 {
     font-size: 26px;
+  }
+
+  .menu-item h3 {
+    font-size: 27px;
   }
 
   .item-desc {
@@ -767,6 +802,6 @@ h1 {
   }
 
   .item-price strong {
-    font-size: 30px;
+    font-size: 31px;
   }
 }
