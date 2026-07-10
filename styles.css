@@ -83,7 +83,7 @@ body {
 /* Tryb kioskowy: calosc miesci sie na ekranie iPada 1024x768 bez przewijania. */
 .board {
   min-height: 100vh;
-  padding: 22px 28px 18px;
+  padding: 18px 28px 14px;
   background: transparent;
 }
 
@@ -99,9 +99,9 @@ body {
 
 .masthead {
   display: table;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   border-bottom: 1px solid var(--ink);
-  padding-bottom: 12px;
+  padding-bottom: 11px;
 }
 
 .masthead > div {
@@ -158,8 +158,8 @@ h1 {
 /* Wypiek dnia: ciemne szklo espresso z szampanskim akcentem. */
 .feature {
   display: table;
-  margin-bottom: 16px;
-  padding: 16px 26px;
+  margin-bottom: 14px;
+  padding: 14px 26px;
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: var(--radius);
   background: linear-gradient(150deg, #2b2721 0%, #191612 100%);
@@ -236,7 +236,7 @@ h1 {
 .menu-column {
   display: table-cell;
   width: 33.333%;
-  padding: 14px 18px 10px;
+  padding: 12px 16px 8px;
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: var(--radius);
   background: var(--glass);
@@ -253,8 +253,8 @@ h1 {
 }
 
 .column-heading {
-  margin-bottom: 6px;
-  padding-bottom: 8px;
+  margin-bottom: 4px;
+  padding-bottom: 6px;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -262,7 +262,7 @@ h1 {
   display: block;
   margin-top: 0;
   font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.08em;
@@ -287,7 +287,7 @@ h1 {
 .menu-item {
   display: block;
   width: 100%;
-  padding: 11px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -297,7 +297,7 @@ h1 {
 
 .menu-item h3 {
   font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.005em;
@@ -306,9 +306,9 @@ h1 {
 }
 
 .item-desc {
-  margin-top: 4px;
+  margin-top: 3px;
   color: var(--soft);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.25;
   hyphens: auto;
@@ -320,7 +320,7 @@ h1 {
   justify-content: flex-end;
   align-items: baseline;
   gap: 7px;
-  margin-top: 5px;
+  margin-top: 4px;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -330,7 +330,7 @@ h1 {
 }
 
 .item-price strong {
-  font-size: 27px;
+  font-size: 25px;
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -347,7 +347,7 @@ h1 {
 /* Wyrozniona pozycja: cienka szampanska linia i ledwo widoczne ocieplenie. */
 .menu-item.highlight {
   margin: 0 -10px;
-  padding: 11px 10px 11px 8px;
+  padding: 8px 10px 8px 8px;
   border-left: 2px solid var(--champagne);
   border-radius: var(--radius-sm);
   background: rgba(201, 168, 106, 0.09);
@@ -386,8 +386,8 @@ h1 {
 }
 
 .notice {
-  margin-top: 14px;
-  padding: 10px 0 0;
+  margin-top: 10px;
+  padding: 8px 0 0;
   border-top: 1px solid var(--hairline);
   color: var(--muted);
   font-size: 13px;
@@ -624,11 +624,11 @@ h1 {
    zeby wykorzystac wyzszy ekran. */
 @media (min-width: 621px) and (max-width: 999px) {
   .board {
-    padding: 26px 26px 20px;
+    padding: 20px 24px 14px;
   }
 
   h1 {
-    font-size: 54px;
+    font-size: 50px;
   }
 
   .brand-line {
@@ -640,11 +640,11 @@ h1 {
   }
 
   .feature {
-    padding: 20px 28px;
+    padding: 16px 26px;
   }
 
   .feature h2 {
-    font-size: 36px;
+    font-size: 30px;
   }
 
   .feature p {
@@ -652,36 +652,36 @@ h1 {
   }
 
   .feature-price strong {
-    font-size: 42px;
+    font-size: 38px;
   }
 
   .column-heading h2 {
-    font-size: 27px;
+    font-size: 25px;
   }
 
   .menu-column {
-    padding: 16px 20px 12px;
+    padding: 12px 16px 8px;
   }
 
   .menu-item {
-    padding: 14px 0;
+    padding: 9px 0;
   }
 
   .menu-item.highlight {
-    padding: 14px 10px 14px 8px;
+    padding: 9px 10px 9px 8px;
   }
 
   .menu-item h3 {
-    font-size: 27px;
+    font-size: 23px;
   }
 
   .item-desc {
-    margin-top: 5px;
-    font-size: 18px;
+    margin-top: 4px;
+    font-size: 16px;
   }
 
   .item-price strong {
-    font-size: 31px;
+    font-size: 26px;
   }
 
   .item-price span {

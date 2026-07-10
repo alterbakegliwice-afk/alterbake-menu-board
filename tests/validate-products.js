@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PRODUCTS_PATH = resolve(__dirname, "../products.json");
 
-const VALID_CATEGORIES = new Set(["polecane", "słodkie", "chleby", "na-wagę"]);
+const VALID_CATEGORIES = new Set(["polecane", "słodkie", "chleby", "bułki"]);
 const VALID_TAGS = new Set([
   "Ciepłe", "Na słodko", "Do domu", "Dziś", "Limit", "Nowość", "Bestseller", "",
 ]);
