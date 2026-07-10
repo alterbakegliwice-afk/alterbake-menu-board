@@ -1,0 +1,59 @@
+category,categoryLabel,name,price,priceText,unit,unitText,priceLabel,availability,popular
+chleby,Chleby,Chleb dojrzewający z ziemniakiem na maślance z makiem,17,17 zł,szt.,/ szt.,17 zł / szt.,wt i śr,false
+chleby,Chleby,Chleb orkiszowo-ziemniaczany LOW FODMAP duży,19.5,"19,50 zł",szt.,/ szt.,"19,50 zł / szt.","ndz, wt, czw",false
+chleby,Chleby,Chleb orkiszowo-ziemniaczany LOW FODMAP mały,14,14 zł,szt.,/ szt.,14 zł / szt.,"ndz, wt, czw",false
+chleby,Chleby,Chleb orkiszowy 100% na zakwasie 450 g,13,13 zł,szt.,/ szt.,13 zł / szt.,pon i śr,false
+chleby,Chleby,Chleb pszenno-żytni 700 g,12,12 zł,szt.,/ szt.,12 zł / szt.,,true
+chleby,Chleby,Chleb pszenno-żytni 900 g,14,14 zł,szt.,/ szt.,14 zł / szt.,,true
+chleby,Chleby,Chleb pszenno-żytni mały 500 g,9,9 zł,szt.,/ szt.,9 zł / szt.,,false
+chleby,Chleby,Chleb pszenny długodojrzewający 680 g,16,16 zł,szt.,/ szt.,16 zł / szt.,ndz–czw,true
+chleby,Chleby,Chleb pszenny długodojrzewający FOREMKOWY 500 g,14.5,"14,50 zł",szt.,/ szt.,"14,50 zł / szt.",pon–czw,false
+chleby,Chleby,Chleb pszenny długodojrzewający z dodatkiem*,17,17 zł,szt.,/ szt.,17 zł / szt.,,false
+chleby,Chleby,Chleb pszenny graham z ziarnami 650 g,13,13 zł,szt.,/ szt.,13 zł / szt.,,true
+chleby,Chleby,Chleb z kaszy gryczanej 550 g,14.5,"14,50 zł",szt.,/ szt.,"14,50 zł / szt.",tylko czwartek,false
+chleby,Chleby,Chleb żytni 100% na zakwasie 650 g,13,13 zł,szt.,/ szt.,13 zł / szt.,,true
+chleby,Chleby,Chleb żytni 100% z żurawiną 400 g,12,12 zł,szt.,/ szt.,12 zł / szt.,,false
+chleby,Chleby,Chleb żytni 100% ze słonecznikiem 400 g,9,9 zł,szt.,/ szt.,9 zł / szt.,,false
+chleby,Chleby,Chlebek ziarnisty KETO,20,20 zł,szt.,/ szt.,20 zł / szt.,pon i śr,false
+drobne,Pieczywo drobne,Bagietka,8,8 zł,szt.,/ szt.,8 zł / szt.,,false
+drobne,Pieczywo drobne,Bułka pszenna,2.2,"2,20 zł",szt.,/ szt.,"2,20 zł / szt.",,true
+drobne,Pieczywo drobne,Ciabatta,6,6 zł,szt.,/ szt.,6 zł / szt.,,false
+drobne,Pieczywo drobne,Grahamka,2.8,"2,80 zł",szt.,/ szt.,"2,80 zł / szt.",,false
+drobne,Pieczywo drobne,Kajzerka bez dodatków,2.2,"2,20 zł",szt.,/ szt.,"2,20 zł / szt.",,false
+drobne,Pieczywo drobne,Kajzerka z makiem,2.8,"2,80 zł",szt.,/ szt.,"2,80 zł / szt.",,false
+drobne,Pieczywo drobne,Kajzerka z sezamem,2.8,"2,80 zł",szt.,/ szt.,"2,80 zł / szt.",,false
+drobne,Pieczywo drobne,Saltbread klasyk,6,6 zł,szt.,/ szt.,6 zł / szt.,,false
+drobne,Pieczywo drobne,Solanka z kminkiem,2.8,"2,80 zł",szt.,/ szt.,"2,80 zł / szt.",,false
+slodkie,Słodkie,Bułka maślana,4,4 zł,szt.,/ szt.,4 zł / szt.,,true
+slodkie,Słodkie,Chałka z kruszonką,15,15 zł,szt.,/ szt.,15 zł / szt.,,false
+slodkie,Słodkie,Croissant maślany,10,10 zł,szt.,/ szt.,10 zł / szt.,,true
+slodkie,Słodkie,Cynamonka,8,8 zł,szt.,/ szt.,8 zł / szt.,,false
+slodkie,Słodkie,Donat marchewkowy z polewą karmelowo-klonową,8,8 zł,szt.,/ szt.,8 zł / szt.,tylko czwartek,false
+slodkie,Słodkie,Jagodzianka,19,19 zł,szt.,/ szt.,19 zł / szt.,,false
+slodkie,Słodkie,Maślana drożdżówka,8,8 zł,szt.,/ szt.,8 zł / szt.,,false
+slodkie,Słodkie,Maślany rogal,4,4 zł,szt.,/ szt.,4 zł / szt.,,false
+slodkie,Słodkie,Pain au chocolat,13,13 zł,szt.,/ szt.,13 zł / szt.,,false
+slodkie,Słodkie,Pączek z nadzieniem różanym,10,10 zł,szt.,/ szt.,10 zł / szt.,tylko czwartek,false
+ciasta,Ciasta i sezonowe,Babka drożdżowa,9,9 zł,szt.,/ szt.,9 zł / szt.,,false
+ciasta,Ciasta i sezonowe,Babka piaskowa,9,9 zł,szt.,/ szt.,9 zł / szt.,,false
+ciasta,Ciasta i sezonowe,Baran wielkanocny duży,8,8 zł,szt.,/ szt.,8 zł / szt.,,false
+ciasta,Ciasta i sezonowe,Baran wielkanocny mały,4,4 zł,szt.,/ szt.,4 zł / szt.,,false
+ciasta,Ciasta i sezonowe,Ciasteczka migdałowe,9,9 zł,100 g,/ 100 g,9 zł / 100 g,,false
+ciasta,Ciasta i sezonowe,"Ciasto bananowe (0,5 kg)",22,22 zł,"0,5 kg","/ 0,5 kg","22 zł / 0,5 kg",,false
+ciasta,Ciasta i sezonowe,Ciasto bananowe (kg),30,30 zł,kg,/ kg,30 zł / kg,,false
+ciasta,Ciasta i sezonowe,Ciasto czekoladowe z cukinią (kg),60,60 zł,kg,/ kg,60 zł / kg,,false
+ciasta,Ciasta i sezonowe,Ciasto czekoladowe z cukinią (szt.),65,65 zł,szt.,/ szt.,65 zł / szt.,,false
+ciasta,Ciasta i sezonowe,"Ciasto marchewkowe (0,5 kg)",22,22 zł,"0,5 kg","/ 0,5 kg","22 zł / 0,5 kg",,false
+ciasta,Ciasta i sezonowe,Ciasto marchewkowe z polewą serową i migdałem,27,27 zł,kg,/ kg,27 zł / kg,,false
+ciasta,Ciasta i sezonowe,Makowiec krakowski na kruchym,29,29 zł,kg,/ kg,29 zł / kg,,false
+ciasta,Ciasta i sezonowe,Makowiec na spodzie kruchym,15,15 zł,"0,5 kg","/ 0,5 kg","15 zł / 0,5 kg",,false
+ciasta,Ciasta i sezonowe,Makowiec z kaszą jaglaną i jabłkiem – japoński (kg),30,30 zł,kg,/ kg,30 zł / kg,,false
+ciasta,Ciasta i sezonowe,"Makowiec z kaszą jaglaną i jabłkiem (0,5 kg)",22.5,"22,50 zł","0,5 kg","/ 0,5 kg","22,50 zł / 0,5 kg",,false
+ciasta,Ciasta i sezonowe,Makowiec zwijany,29,29 zł,kg,/ kg,29 zł / kg,,false
+ciasta,Ciasta i sezonowe,Pierniki klasyczne nielukrowane,27,27 zł,kg,/ kg,27 zł / kg,,false
+ciasta,Ciasta i sezonowe,Pierniki nieglutenowe* z orzechem włoskim,48,48 zł,kg,/ kg,48 zł / kg,,false
+ciasta,Ciasta i sezonowe,Sernik kapitański (szachownica),29,29 zł,kg,/ kg,29 zł / kg,,false
+ciasta,Ciasta i sezonowe,Sernik na kruchym (kg),29,29 zł,kg,/ kg,29 zł / kg,,false
+ciasta,Ciasta i sezonowe,"Sernik na spodzie kruchym (0,5 kg)",15,15 zł,"0,5 kg","/ 0,5 kg","15 zł / 0,5 kg",,false
+ciasta,Ciasta i sezonowe,Sernik z brzoskwinią na kakaowym spodzie,29,29 zł,kg,/ kg,29 zł / kg,,false
+ciasta,Ciasta i sezonowe,Tarta z białą czekoladą i malinami,65,65 zł,szt.,/ szt.,65 zł / szt.,,false
