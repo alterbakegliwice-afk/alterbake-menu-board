@@ -22,7 +22,7 @@ Pieczywo wyprzedaje się po południu, a nie rano - dlatego statusy można zmien
    - **stuknięcie w produkt** przełącza stan: dostępne → `OSTATNIE SZTUKI` → `WYPRZEDANE` → dostępne,
    - **przytrzymanie produktu** (pół sekundy) przenosi złote wyróżnienie - rano wyróżniaj bestseller, po południu to, co trzeba sprzedać,
    - **stuknięcie w panel WYPIEK DNIA** podmienia wypiek na kolejny dostępny produkt z kolumn (pełny cykl wraca do oryginału),
-   - **przycisk Wieczór** zmienia komunikat na "KOŃCÓWKA DNIA / ostatnie wypieki" (przycisk `Dzień` przywraca).
+   - **przycisk Wieczór** zmienia komunikat na "KOŃCÓWKA DNIA / ostatnie wypieki" i przełącza tablicę w ciemny, wysokokontrastowy motyw wieczorny (przycisk `Dzień` przywraca jasny papier).
 3. Stuknij `Zakończ` (albo odczekaj 45 sekund) - tryb się wyłączy.
 
 Zasady działania:

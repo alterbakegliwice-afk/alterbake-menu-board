@@ -191,17 +191,22 @@ test("marking the featured product sold out restores the original feature", asyn
 test("evening mode swaps the masthead message and survives reload", async ({ page }) => {
   await page.goto(INDEX);
   await expect(page.locator(".today strong")).toHaveText("świeże od 8:00");
+  await expect(page.locator("body")).not.toHaveClass(/evening/);
   await enterEditMode(page);
 
   await page.locator(".edit-banner .btn-evening").click();
   await expect(page.locator(".today strong")).toHaveText("ostatnie wypieki");
   await expect(page.locator(".edit-banner .btn-evening")).toHaveText("Dzień");
+  // Motyw wieczorny: ciemna, wysokokontrastowa wersja tablicy.
+  await expect(page.locator("body")).toHaveClass(/evening/);
 
   await page.reload();
   await expect(page.locator(".today strong")).toHaveText("ostatnie wypieki");
+  await expect(page.locator("body")).toHaveClass(/evening/);
 
   // Powrot do trybu dziennego.
   await enterEditMode(page);
   await page.locator(".edit-banner .btn-evening").click();
   await expect(page.locator(".today strong")).toHaveText("świeże od 8:00");
+  await expect(page.locator("body")).not.toHaveClass(/evening/);
 });

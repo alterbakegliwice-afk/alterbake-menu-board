@@ -1,13 +1,16 @@
 /*
   Fraunces (SIL OFL, hostowany lokalnie w fonts/) - displayowy szeryf
   naglowkow. Zadnych pobran z internetu; fallback: Georgia.
+  .woff obok .woff2: starsze Safari (np. iPad 2 / iOS 9) nie zna woff2.
 */
 @font-face {
   font-family: "Fraunces";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("fonts/fraunces-latin-ext-400-normal.woff2") format("woff2");
+  src:
+    url("fonts/fraunces-latin-ext-400-normal.woff2") format("woff2"),
+    url("fonts/fraunces-latin-ext-400-normal.woff") format("woff");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -16,7 +19,9 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("fonts/fraunces-latin-400-normal.woff2") format("woff2");
+  src:
+    url("fonts/fraunces-latin-400-normal.woff2") format("woff2"),
+    url("fonts/fraunces-latin-400-normal.woff") format("woff");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -25,7 +30,9 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("fonts/fraunces-latin-ext-600-normal.woff2") format("woff2");
+  src:
+    url("fonts/fraunces-latin-ext-600-normal.woff2") format("woff2"),
+    url("fonts/fraunces-latin-ext-600-normal.woff") format("woff");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -34,7 +41,9 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("fonts/fraunces-latin-600-normal.woff2") format("woff2");
+  src:
+    url("fonts/fraunces-latin-600-normal.woff2") format("woff2"),
+    url("fonts/fraunces-latin-600-normal.woff") format("woff");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -429,6 +438,54 @@ h1 {
   display: block;
 }
 
+/* ===== Motyw wieczorny (przycisk "Wieczor" w trybie obslugi) =====
+   Ciemne espresso o wysokim kontrascie: po zmroku i na starszym,
+   ciemniejszym ekranie (iPad 2) jasny tekst na ciemnym tle czyta sie
+   lepiej. W dzien zostaje jasny papier - wygrywa ze swiatlem dziennym
+   i odbiciami w witrynie. Wszystkie kolory wracaja same rano. */
+body.evening {
+  --ink: #f6f3ec;
+  --muted: #a89f90;
+  --soft: #c2bab0;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-strong: rgba(255, 255, 255, 0.09);
+  --hairline: rgba(246, 243, 236, 0.12);
+  background:
+    radial-gradient(900px 620px at 82% -12%, rgba(201, 168, 106, 0.1), transparent 60%),
+    linear-gradient(180deg, #221e1a 0%, #171310 100%);
+}
+
+body.evening .menu-column {
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.6);
+}
+
+/* Chip cenowy odwraca sie: szampan z ciemnym tekstem (kontrast ~8:1). */
+body.evening .item-price strong {
+  background: var(--champagne);
+  color: #211e1a;
+  box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.6);
+}
+
+body.evening .status-badge {
+  border-color: rgba(246, 243, 236, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  color: #d8d2c6;
+}
+
+body.evening .status-badge.low {
+  border-color: rgba(201, 168, 106, 0.6);
+  color: #d9bc85;
+}
+
+body.evening .menu-item.highlight {
+  background: rgba(201, 168, 106, 0.12);
+}
+
+body.evening .feature {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
 /* Klawiatura PIN (board.js) - brama do trybu edycji. */
 .pin-overlay {
   position: fixed;
@@ -566,6 +623,15 @@ h1 {
   .board {
     min-height: auto;
     padding: 0;
+    background: #fff;
+  }
+
+  /* Wydruk zawsze na bialo, nawet gdy tablica stoi w motywie wieczornym. */
+  body.evening {
+    --ink: #1d1b18;
+    --muted: #6f6a61;
+    --soft: #57524a;
+    --hairline: rgba(29, 27, 24, 0.1);
     background: #fff;
   }
 

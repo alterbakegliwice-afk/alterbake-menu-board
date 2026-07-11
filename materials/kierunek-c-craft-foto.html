@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <title>AlterBake - Kierunek C: Craft Photo (poprawiony)</title>
+    <!--
+      KONCEPT (poprawiony kierunek): zdjecie TYLKO w panelu hero (nigdy jako tlo pod tekstem), prawdziwy
+      wypiek zamiast stocka, lokalny plik JPG <=150 KB. Bez zdjecia hero
+      degraduje sie do wersji tekstowej (kierunek B).
+      Stale ramy: 1024x768 bez przewijania, ceny w chipach w jednym miejscu,
+      plakietki statusow (BESTSELLER / W CZWARTEK), Fraunces (SIL OFL,
+      lokalnie), zero zasobow z sieci. Podglad: npm run materials albo
+      otworz w przegladarce.
+    -->
+    <style>
+
+      /* Fraunces (SIL OFL) - lokalnie z ../fonts/, bez CDN. */
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-ext-400-normal.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-ext-600-normal.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("../fonts/fraunces-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      :root {
+        --bg:
+          radial-gradient(900px 620px at 82% -12%, rgba(201, 168, 106, 0.08), transparent 60%),
+          linear-gradient(180deg, #faf9f6 0%, #efede7 100%);
+        --ink: #1d1b18;
+        --muted: #6f6a61;
+        --soft: #57524a;
+        --rule: #1d1b18;
+        --hairline: rgba(29, 27, 24, 0.1);
+        --accent: #77603a;
+        --card-bg: rgba(255, 255, 255, 0.55);
+        --card-bg-strong: rgba(255, 255, 255, 0.74);
+        --card-border: rgba(255, 255, 255, 0.7);
+        --hero-bg: linear-gradient(150deg, #2b2721 0%, #191612 100%);
+        --hero-border: rgba(255, 255, 255, 0.09);
+        --hero-ink: #f6f3ec;
+        --hero-muted: #b8b1a3;
+        --accent-on-hero: #c9a86a;
+        --hero-chip-bg: #c9a86a;
+        --hero-chip-ink: #211e1a;
+        --chip-bg: linear-gradient(150deg, #2b2721 0%, #191612 100%);
+        --chip-ink: #faf7f0;
+        --highlight-bg: rgba(201, 168, 106, 0.09);
+        --badge-border: rgba(29, 27, 24, 0.28);
+        --badge-ink: #57524a;
+        --badge-gold-ink: #77603a;
+      }
+
+      * { box-sizing: border-box; margin: 0; }
+
+      body {
+        width: 1024px;
+        height: 768px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 18px 28px 12px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      }
+
+      .kicker {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 10px;
+      }
+
+      .masthead h1 {
+        margin-top: 3px;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 0.94;
+        letter-spacing: -0.015em;
+      }
+
+      .brand-line {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .today { text-align: right; }
+
+      .today strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 19px;
+        font-weight: 700;
+      }
+
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        margin: 12px 0;
+        padding: 14px 26px;
+        border: 1px solid var(--hero-border);
+        border-radius: 22px;
+        background: var(--hero-bg);
+        color: var(--hero-ink);
+        box-shadow: 0 22px 44px -28px rgba(10, 8, 6, 0.55);
+      }
+
+      .hero .kicker { color: var(--accent-on-hero); }
+
+      .hero h2 {
+        margin-top: 4px;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 1.02;
+        letter-spacing: -0.01em;
+      }
+
+      .hero-desc {
+        margin-top: 5px;
+        color: var(--hero-muted);
+        font-size: 16px;
+      }
+
+      .hero-price { text-align: right; flex: 0 0 auto; }
+
+      .hero-price strong {
+        display: inline-block;
+        padding: 9px 20px;
+        border-radius: 999px;
+        background: var(--hero-chip-bg);
+        color: var(--hero-chip-ink);
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+        box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-price span {
+        display: block;
+        margin-top: 4px;
+        color: var(--accent-on-hero);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
+
+      .menu {
+        flex: 1;
+        display: flex;
+        gap: 14px;
+        min-height: 0;
+      }
+
+      .col {
+        flex: 1;
+        padding: 12px 16px 8px;
+        border: 1px solid var(--card-border);
+        border-radius: 22px;
+        background: var(--card-bg);
+      }
+
+      .col.primary { background: var(--card-bg-strong); }
+
+      .col-head {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 4px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .cat-icon {
+        width: 19px;
+        height: 19px;
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .col-head h2 {
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 21px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+      }
+
+      .item {
+        padding: 9px 0;
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .item::after { content: ""; display: block; clear: both; }
+      .item:last-child { border-bottom: 0; }
+
+      .item .price {
+        float: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 3px;
+        margin: 2px 0 4px 12px;
+        white-space: nowrap;
+      }
+
+      .item .price strong {
+        padding: 5px 11px;
+        border-radius: 999px;
+        background: var(--chip-bg);
+        color: var(--chip-ink);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .item .price span {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      .item h3 {
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 21px;
+        font-weight: 600;
+        line-height: 1.15;
+        letter-spacing: -0.005em;
+        hyphens: auto;
+      }
+
+      .item p {
+        margin-top: 4px;
+        color: var(--soft);
+        font-size: 14px;
+        line-height: 1.35;
+      }
+
+      .item.highlight {
+        margin: 0 -10px;
+        padding: 7px 10px 7px 8px;
+        border-left: 2px solid var(--accent);
+        border-radius: 12px;
+        background: var(--highlight-bg);
+      }
+
+      .item.sold-out { opacity: 0.55; }
+
+      .badge {
+        display: block;
+        width: fit-content;
+        margin-top: 4px;
+        padding: 3px 10px;
+        border: 1px solid var(--badge-border);
+        border-radius: 999px;
+        color: var(--badge-ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+
+      .badge.gold {
+        border-color: var(--accent);
+        color: var(--badge-gold-ink);
+      }
+
+      .foot {
+        margin-top: 10px;
+        border-top: 1px solid var(--hairline);
+        padding-top: 8px;
+        color: var(--muted);
+        font-size: 12px;
+        text-align: center;
+      }
+
+      /* Zdjecie tylko w hero: tekst NIGDY na fotografii. */
+      .hero { padding: 12px 14px 12px 26px; }
+      .hero-copy { flex: 1; }
+
+      .hero-chip { margin-top: 12px; }
+
+      .hero-chip strong {
+        display: inline-block;
+        padding: 9px 20px;
+        border-radius: 999px;
+        background: var(--hero-chip-bg);
+        color: var(--hero-chip-ink);
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .hero-chip span {
+        margin-left: 8px;
+        color: var(--accent-on-hero);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
+
+      .hero-photo {
+        position: relative;
+        flex: 0 0 300px;
+        height: 128px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: 1px dashed rgba(246, 243, 236, 0.4);
+        border-radius: 16px;
+        background:
+          radial-gradient(220px 120px at 30% 20%, rgba(201, 168, 106, 0.28), transparent 70%),
+          linear-gradient(150deg, #4a3d2c 0%, #2d251a 100%);
+        color: #e8dfcf;
+      }
+
+      .hero-photo svg {
+        width: 96px;
+        height: 66px;
+        fill: none;
+        stroke: rgba(232, 223, 207, 0.85);
+        stroke-width: 1.4;
+        stroke-linecap: round;
+      }
+
+      .hero-photo em {
+        font-size: 11px;
+        font-style: normal;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div>
+        <p class="kicker">ALTERBAKE &middot; GLIWICE</p>
+        <h1>AlterBake</h1>
+        <p class="brand-line">stara piekarnia na nowo &middot; od ponad 100 lat</p>
+      </div>
+      <div class="today">
+        <p class="kicker">DZIŚ NA LADZIE</p>
+        <strong>świeże od 8:00</strong>
+      </div>
+    </header>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="kicker">NASZ BESTSELLER</p>
+          <h2>Chleb pszenny długodojrzewający</h2>
+          <p class="hero-desc">Na zakwasie, długo fermentowany.</p>
+          <p class="hero-chip"><strong>16 zł</strong> <span>/ 680 g</span></p>
+        </div>
+        <div class="hero-photo" role="img" aria-label="Zdjęcie bochenka - podmień na własne">
+          <!-- PODMIEN NA PRAWDZIWE ZDJECIE: <img src="foto/bestseller.jpg" alt="...">
+               JPG ok. 640x420, <=150 KB (iPad 2 ma malo pamieci). Zdjecie musi
+               pokazywac WASZ wypiek - stock odbiera wiarygodnosc. -->
+          <svg viewBox="0 0 64 44" aria-hidden="true">
+            <ellipse cx="32" cy="26" rx="24" ry="13"/>
+            <path d="M14 20c4-8 32-8 36 0"/>
+            <path d="M20 15c2-2 4-2 6 0M29 13c2-2 4-2 6 0M38 15c2-2 4-2 6 0"/>
+          </svg>
+          <em>tu: wasze zdjęcie</em>
+        </div>
+      </section>
+
+    <main class="menu">
+        <div class="col">
+          <div class="col-head"><svg class="cat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 11.5h9l-1.1 8h-6.8l-1.1-8z"/><path d="M7.5 11.5a4.5 4.5 0 0 1 9 0"/><path d="M12 4.5v2.5"/></svg><h2>SŁODKIE</h2></div>
+          <article class="item highlight">
+            <div class="price"><strong>19 zł</strong><span>/ szt.</span></div>
+            <h3>Jagodzianka</h3>
+            <p>Na maślanym cieście drożdżowym.</p>
+          </article>
+          <article class="item">
+            <div class="price"><strong>15 zł</strong><span>/ szt.</span></div>
+            <h3>Chałka z&nbsp;kruszonką</h3>
+            <p>Drożdżowa, z&nbsp;maślaną kruszonką.</p>
+          </article>
+          <article class="item">
+            <div class="price"><strong>8 zł</strong><span>/ szt.</span></div>
+            <h3>Cynamonka</h3>
+            <p>Zawijana, mocno cynamonowa.</p>
+          </article>
+        </div>
+        <div class="col primary">
+          <div class="col-head"><svg class="cat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5V7.5"/><path d="M12 7.5c-2.8 0-4-1.9-4-4 2.1 0 4 1.2 4 4z"/><path d="M12 7.5c2.8 0 4-1.9 4-4-2.1 0-4 1.2-4 4z"/><path d="M12 12.5c-2.8 0-4-1.9-4-4 2.1 0 4 1.2 4 4z"/><path d="M12 12.5c2.8 0 4-1.9 4-4-2.1 0-4 1.2-4 4z"/><path d="M12 17.5c-2.8 0-4-1.9-4-4 2.1 0 4 1.2 4 4z"/><path d="M12 17.5c2.8 0 4-1.9 4-4-2.1 0-4 1.2-4 4z"/></svg><h2>CHLEBY</h2></div>
+          <article class="item highlight">
+            <div class="price"><strong>16 zł</strong><span>/ 680 g</span></div>
+            <h3>Chleb pszenny długo&shy;dojrze&shy;wający <span class="badge gold">BESTSELLER</span></h3>
+            <p>Na zakwasie, długo fermentowany.</p>
+          </article>
+          <article class="item">
+            <div class="price"><strong>12 zł</strong><span>/ 700 g</span></div>
+            <h3>Chleb pszenno-żytni</h3>
+            <p>Nasz klasyk na zakwasie.</p>
+          </article>
+          <article class="item">
+            <div class="price"><strong>13 zł</strong><span>/ 650 g</span></div>
+            <h3>Chleb żytni 100%</h3>
+            <p>Na zakwasie, w&nbsp;całości z&nbsp;żyta.</p>
+          </article>
+          <article class="item sold-out">
+            
+            <h3>Chleb z&nbsp;kaszy gryczanej <span class="badge ">W CZWARTEK</span></h3>
+            <p>Pieczemy go raz w&nbsp;tygodniu.</p>
+          </article>
+        </div>
+        <div class="col">
+          <div class="col-head"><svg class="cat-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7.5"/><path d="M12 5.5c2 2.6 2 12.4 0 15"/><path d="M5.6 9.6c3.2 1.4 9.6 5.4 11.2 7.6"/><path d="M18.4 9.6c-3.2 1.4-9.6 5.4-11.2 7.6"/></svg><h2>BUŁKI</h2></div>
+          <article class="item highlight">
+            <div class="price"><strong>2,20 zł</strong><span>/ szt.</span></div>
+            <h3>Kajzerka</h3>
+            <p>Klasyczna, chrupiąca.</p>
+          </article>
+          <article class="item">
+            <div class="price"><strong>2,80 zł</strong><span>/ szt.</span></div>
+            <h3>Grahamka</h3>
+            <p>Pełnoziarnista, z&nbsp;ziarnami.</p>
+          </article>
+          <article class="item">
+            <div class="price"><strong>8 zł</strong><span>/ szt.</span></div>
+            <h3>Bagietka</h3>
+            <p>Pszenna, pieczona na&nbsp;miejscu.</p>
+          </article>
+        </div>
+    </main>
+
+    <footer class="foot">AlterBake &middot; Gliwice / stara piekarnia na nowo / @alterbake</footer>
+  </body>
+</html>
