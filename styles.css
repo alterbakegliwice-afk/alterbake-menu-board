@@ -130,6 +130,7 @@ p {
 }
 
 h1 {
+  margin-top: 10px;
   font-family: "Anton", "Arial Narrow", Arial, sans-serif;
   font-size: 52px;
   font-weight: 400;
@@ -666,7 +667,7 @@ h1 {
    zeby wykorzystac wyzszy ekran. */
 @media (min-width: 621px) and (max-width: 999px) {
   .board {
-    padding: 22px 24px;
+    padding: 20px 24px;
   }
 
   h1 {
