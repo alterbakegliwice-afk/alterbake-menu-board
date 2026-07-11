@@ -1,72 +1,52 @@
 /*
-  Fraunces (SIL OFL, hostowany lokalnie w fonts/) - displayowy szeryf
-  naglowkow. Zadnych pobran z internetu; fallback: Georgia.
-  .woff obok .woff2: starsze Safari (np. iPad 2 / iOS 9) nie zna woff2.
+  Archivo Black (SIL OFL, hostowany lokalnie w fonts/) - ciezki grotesk
+  logotypu i naglowkow kategorii. Zadnych pobran z internetu; fallback:
+  systemowy sans. .woff obok .woff2: starsze Safari (iPad 2 / iOS 9)
+  nie zna woff2. Fraunces zostaje w fonts/ dla materialow drukowanych.
 */
 @font-face {
-  font-family: "Fraunces";
+  font-family: "Archivo Black";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src:
-    url("fonts/fraunces-latin-ext-400-normal.woff2") format("woff2"),
-    url("fonts/fraunces-latin-ext-400-normal.woff") format("woff");
+    url("fonts/archivo-black-latin-ext-400-normal.woff2") format("woff2"),
+    url("fonts/archivo-black-latin-ext-400-normal.woff") format("woff");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "Fraunces";
+  font-family: "Archivo Black";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src:
-    url("fonts/fraunces-latin-400-normal.woff2") format("woff2"),
-    url("fonts/fraunces-latin-400-normal.woff") format("woff");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: "Fraunces";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src:
-    url("fonts/fraunces-latin-ext-600-normal.woff2") format("woff2"),
-    url("fonts/fraunces-latin-ext-600-normal.woff") format("woff");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-
-@font-face {
-  font-family: "Fraunces";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src:
-    url("fonts/fraunces-latin-600-normal.woff2") format("woff2"),
-    url("fonts/fraunces-latin-600-normal.woff") format("woff");
+    url("fonts/archivo-black-latin-400-normal.woff2") format("woff2"),
+    url("fonts/archivo-black-latin-400-normal.woff") format("woff");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /*
-  Paleta premium-minimal: niemal monochromatyczna baza (kosc sloniowa +
-  grafit espresso) i jeden powsciagliwy akcent (bronz / szampan).
-  Powierzchnie w stylu liquid glass: mleczne panele z rozmyciem tla,
-  wloskowate obwodki i miekkie, rozproszone cienie.
+  Styl "bakery bold editorial": czarny tusz na cieplym papierze, ciezki
+  grotesk w naglowkach, ramki zamiast cieni, jeden powsciagliwy akcent
+  (szampan / bronz). Jasne tlo wygrywa ze swiatlem dziennym i odbiciami
+  w witrynie - dlatego tablica jest jasna na stale.
 */
 :root {
   --ink: #1d1b18;
   --muted: #6f6a61;
   --soft: #57524a;
-  --bg-top: #faf9f6;
-  --bg-bottom: #efede7;
-  --glass: rgba(255, 255, 255, 0.55);
-  --glass-strong: rgba(255, 255, 255, 0.74);
-  --hairline: rgba(29, 27, 24, 0.1);
+  --bg-top: #f6f4ee;
+  --bg-bottom: #edeae1;
+  --glass: #fdfcf8;
+  --glass-strong: #fffef9;
+  --hairline: rgba(29, 27, 24, 0.12);
+  --frame: rgba(29, 27, 24, 0.2);
   --bronze: #77603a;
   --champagne: #c9a86a;
   --dark: #211e1a;
-  --radius: 24px;
-  --radius-sm: 14px;
+  --radius: 14px;
+  --radius-sm: 8px;
 }
 
 * {
@@ -82,10 +62,8 @@ body {
 
 body {
   color: var(--ink);
-  /* Spokojne, niemal jednolite tlo z jedna ledwo widoczna cieplejsza pozoga. */
-  background:
-    radial-gradient(900px 620px at 82% -12%, rgba(201, 168, 106, 0.08), transparent 60%),
-    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  /* Plaski, cieply papier - bez efektow, maksimum czytelnosci. */
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
@@ -130,11 +108,12 @@ p {
 }
 
 h1 {
-  font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 46px;
+  font-family: "Archivo Black", "Arial Black", Arial, sans-serif;
+  font-size: 40px;
   font-weight: 400;
-  line-height: 0.94;
-  letter-spacing: -0.015em;
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 .place,
@@ -164,16 +143,16 @@ h1 {
   line-height: 1.05;
 }
 
-/* Wypiek dnia: ciemne szklo espresso z szampanskim akcentem. */
+/* Wypiek dnia: jasna karta w czarnej ramce, czarna zakladka z kickerem
+   nachodzi na gorna krawedz - najmocniejszy punkt tablicy bez ciemnego tla. */
 .feature {
   display: table;
-  margin-bottom: 14px;
-  padding: 14px 26px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: var(--radius);
-  background: linear-gradient(150deg, #2b2721 0%, #191612 100%);
-  color: #f6f3ec;
-  box-shadow: 0 24px 48px -28px rgba(15, 13, 10, 0.55);
+  margin: 20px 0 14px;
+  padding: 12px 26px 14px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: var(--glass-strong);
+  color: var(--ink);
 }
 
 .feature-copy,
@@ -183,14 +162,18 @@ h1 {
 }
 
 .feature .section-kicker {
-  color: var(--champagne);
+  display: inline-block;
+  margin-top: -24px;
+  padding: 6px 14px;
+  background: var(--ink);
+  color: #faf7f0;
+  border-radius: 4px;
 }
 
 .feature h2 {
-  margin-top: 4px;
-  font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 30px;
-  font-weight: 400;
+  margin-top: 7px;
+  font-size: 29px;
+  font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.01em;
 }
@@ -198,7 +181,7 @@ h1 {
 .feature p {
   max-width: 680px;
   margin-top: 5px;
-  color: #b8b1a3;
+  color: var(--soft);
   font-size: 17px;
   line-height: 1.25;
 }
@@ -210,22 +193,17 @@ h1 {
 
 .feature-price strong {
   display: inline-block;
-  padding: 9px 20px;
-  border-radius: 999px;
-  background: var(--champagne);
-  color: #211e1a;
-  font-size: 26px;
-  font-weight: 700;
+  font-size: 34px;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
-  box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.55);
 }
 
 .feature-price span {
   display: block;
   margin-top: 4px;
-  color: var(--champagne);
+  color: var(--muted);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -245,20 +223,14 @@ h1 {
   border-spacing: 14px 0;
 }
 
-/* Kolumny: mleczne szklo - rozmycie tla tam, gdzie przegladarka je wspiera,
-   na starszym Safari zostaje polprzezroczysta biel. */
+/* Kolumny: plaskie jasne karty w cienkich ramkach - editorial, bez efektow. */
 .menu-column {
   display: table-cell;
   width: 33.333%;
   padding: 12px 16px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--frame);
   border-radius: var(--radius);
   background: var(--glass);
-  -webkit-backdrop-filter: blur(18px) saturate(1.15);
-  backdrop-filter: blur(18px) saturate(1.15);
-  box-shadow:
-    0 18px 40px -28px rgba(20, 18, 15, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   vertical-align: top;
 }
 
@@ -268,18 +240,32 @@ h1 {
 
 .column-heading {
   margin-bottom: 3px;
-  padding-bottom: 5px;
+  padding-bottom: 7px;
   border-bottom: 1px solid var(--hairline);
+  text-align: center;
 }
 
 .column-heading h2 {
-  display: block;
+  display: inline-block;
   margin-top: 0;
-  font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 22px;
+  font-family: "Archivo Black", "Arial Black", Arial, sans-serif;
+  font-size: 17px;
   font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0.08em;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+
+.column-heading .cat-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: middle;
 }
 
 .icon {
@@ -321,10 +307,9 @@ h1 {
    niego (pelna szerokosc karty) zamiast lamac sie w srodku ("Jagodzia-nka").
    Bardzo dlugie nazwy dziel recznie przez &shy; w HTML. */
 .menu-item h3 {
-  font-family: "Fraunces", Georgia, "Times New Roman", serif;
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.15;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.18;
   letter-spacing: -0.005em;
   hyphens: auto;
 }
@@ -354,18 +339,13 @@ h1 {
   display: none;
 }
 
-/* Chip cenowy: espresso na jasnej karcie - echo panelu hero. */
+/* Cena: czysty, ciezki tusz - najwiekszy akcent po nazwie. */
 .item-price strong {
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: linear-gradient(150deg, #2b2721 0%, #191612 100%);
-  color: #faf7f0;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.01em;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
   font-variant-numeric: tabular-nums;
-  box-shadow: 0 6px 14px -8px rgba(15, 13, 10, 0.5);
 }
 
 .item-price span {
@@ -401,13 +381,13 @@ h1 {
   display: none;
 }
 
-/* Plakietki: neutralne pigulki, bez alarmowych kolorow. */
+/* Plakietki: drobne, kwadratowsze etykiety - jak stemple na papierze. */
 .status-badge {
   display: inline-block;
   margin-left: 7px;
-  padding: 3px 10px;
+  padding: 3px 9px;
   border: 1px solid rgba(29, 27, 24, 0.28);
-  border-radius: 999px;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.55);
   color: var(--soft);
   font-size: 11px;
@@ -418,72 +398,27 @@ h1 {
   white-space: nowrap;
 }
 
-/* OSTATNIE SZTUKI: jedyny kolorowy sygnal na tablicy. */
+/* BESTSELLER / OSTATNIE SZTUKI: jedyny kolorowy stempel na tablicy. */
 .status-badge.low {
-  border-color: rgba(119, 96, 58, 0.55);
-  color: var(--bronze);
+  border-color: rgba(185, 151, 91, 0.4);
+  background: rgba(201, 168, 106, 0.32);
+  color: #4f3f24;
 }
 
 .notice {
   margin-top: 10px;
   padding: 8px 0 0;
   border-top: 1px solid var(--hairline);
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   text-align: center;
 }
 
 .notice span {
   display: block;
-}
-
-/* ===== Motyw wieczorny (przycisk "Wieczor" w trybie obslugi) =====
-   Ciemne espresso o wysokim kontrascie: po zmroku i na starszym,
-   ciemniejszym ekranie (iPad 2) jasny tekst na ciemnym tle czyta sie
-   lepiej. W dzien zostaje jasny papier - wygrywa ze swiatlem dziennym
-   i odbiciami w witrynie. Wszystkie kolory wracaja same rano. */
-body.evening {
-  --ink: #f6f3ec;
-  --muted: #a89f90;
-  --soft: #c2bab0;
-  --glass: rgba(255, 255, 255, 0.05);
-  --glass-strong: rgba(255, 255, 255, 0.09);
-  --hairline: rgba(246, 243, 236, 0.12);
-  background:
-    radial-gradient(900px 620px at 82% -12%, rgba(201, 168, 106, 0.1), transparent 60%),
-    linear-gradient(180deg, #221e1a 0%, #171310 100%);
-}
-
-body.evening .menu-column {
-  border-color: rgba(255, 255, 255, 0.09);
-  box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.6);
-}
-
-/* Chip cenowy odwraca sie: szampan z ciemnym tekstem (kontrast ~8:1). */
-body.evening .item-price strong {
-  background: var(--champagne);
-  color: #211e1a;
-  box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.6);
-}
-
-body.evening .status-badge {
-  border-color: rgba(246, 243, 236, 0.35);
-  background: rgba(255, 255, 255, 0.06);
-  color: #d8d2c6;
-}
-
-body.evening .status-badge.low {
-  border-color: rgba(201, 168, 106, 0.6);
-  color: #d9bc85;
-}
-
-body.evening .menu-item.highlight {
-  background: rgba(201, 168, 106, 0.12);
-}
-
-body.evening .feature {
-  border-color: rgba(255, 255, 255, 0.16);
 }
 
 /* Klawiatura PIN (board.js) - brama do trybu edycji. */
@@ -626,15 +561,6 @@ body.evening .feature {
     background: #fff;
   }
 
-  /* Wydruk zawsze na bialo, nawet gdy tablica stoi w motywie wieczornym. */
-  body.evening {
-    --ink: #1d1b18;
-    --muted: #6f6a61;
-    --soft: #57524a;
-    --hairline: rgba(29, 27, 24, 0.1);
-    background: #fff;
-  }
-
   .board {
     box-shadow: none;
   }
@@ -748,11 +674,11 @@ body.evening .feature {
   }
 
   .feature-price strong {
-    font-size: 28px;
+    font-size: 36px;
   }
 
   .column-heading h2 {
-    font-size: 25px;
+    font-size: 19px;
   }
 
   .menu-column {
@@ -784,8 +710,7 @@ body.evening .feature {
   }
 
   .item-price strong {
-    padding: 5px 12px;
-    font-size: 15px;
+    font-size: 21px;
   }
 
   .item-price span {
@@ -793,7 +718,7 @@ body.evening .feature {
   }
 
   .notice {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -894,11 +819,11 @@ body.evening .feature {
   }
 
   .column-heading h2 {
-    font-size: 26px;
+    font-size: 20px;
   }
 
   .menu-item h3 {
-    font-size: 27px;
+    font-size: 26px;
   }
 
   .item-desc {
@@ -906,7 +831,6 @@ body.evening .feature {
   }
 
   .item-price strong {
-    padding: 8px 16px;
-    font-size: 18px;
+    font-size: 24px;
   }
 }

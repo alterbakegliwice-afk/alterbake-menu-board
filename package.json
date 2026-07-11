@@ -7,6 +7,7 @@
     "materials": "node tests/render-materials.js"
   },
   "devDependencies": {
+    "@fontsource/archivo-black": "^5.2.8",
     "@fontsource/fraunces": "^5.2.9",
     "@playwright/test": "^1.61.1",
     "html-validate": "^11.5.3",
