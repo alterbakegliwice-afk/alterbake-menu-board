@@ -9,7 +9,7 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 - `board.js` - tryb obsługi: statusy dostępności zmieniane stuknięciami na iPadzie.
 - `products.json` - prosta lista produktów do edycji.
 - `products.sample.json` - zapasowy przykład danych.
-- `fonts/` - lokalne pliki fontu Fraunces (nagłówki i nazwy produktów; licencja SIL OFL). Nic nie jest pobierane z internetu.
+- `fonts/` - lokalne pliki fontów (licencje SIL OFL): Anton (logotyp), Archivo Black (nagłówki kategorii), Fraunces (materiały drukowane). Nic nie jest pobierane z internetu; obok woff2 leżą pliki woff dla starszego Safari (iPad 2 / iOS 9).
 
 Wszystkie pliki tablicy leżą w katalogu głównym repozytorium - jedna kopia, bez duplikatów.
 

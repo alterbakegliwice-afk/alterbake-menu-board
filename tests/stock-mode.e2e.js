@@ -163,16 +163,20 @@ test("tapping the feature panel cycles the bake of the day and back", async ({ p
   await feature.click();
   await expect(feature.locator("h2")).toHaveText("Jagodzianka");
   await expect(feature.locator(".feature-price strong")).toHaveText("19 zł");
+  // Zakladka mowi prawde: podmieniony produkt to wypiek dnia, nie bestseller.
+  await expect(feature.locator(".section-kicker")).toHaveText("WYPIEK DNIA");
 
   // Wybor przezywa odswiezenie strony.
   await page.reload();
   await expect(page.locator(".feature h2")).toHaveText("Jagodzianka");
+  await expect(page.locator(".feature .section-kicker")).toHaveText("WYPIEK DNIA");
 
   // Cykl przez wszystkie dostepne produkty wraca do oryginalu.
   await enterEditMode(page);
   const eligible = await page.locator(".menu-item:not(.sold-out) .item-price strong").count();
   for (let i = 0; i < eligible; i++) await page.locator(".feature").click();
   await expect(page.locator(".feature h2")).toHaveText(originalTitle);
+  await expect(page.locator(".feature .section-kicker")).toHaveText("NASZ BESTSELLER");
 });
 
 test("marking the featured product sold out restores the original feature", async ({ page }) => {

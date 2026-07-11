@@ -39,7 +39,7 @@ Bez Node'a: otwórz szablon w przeglądarce i zrób zrzut ekranu.
 
 ## Zasady spójności marki
 
-- Paleta premium-minimal: kość słoniowa `#faf9f6`, grafit espresso `#1d1b18`, szampan `#c9a86a`, brąz `#77603a`, ciepła szarość `#6f6a61`. Ciemne panele: gradient `#2b2721 → #191612`.
-- Nagłówki i nazwy produktów: Fraunces (szeryf displayowy, plik lokalny w `fonts/`, licencja SIL OFL; fallback Georgia). Opisy, ceny i etykiety: czcionka systemowa.
+- Styl "bakery bold editorial": czarny tusz `#1d1b18` na ciepłym papierze `#f6f4ee`, akcent szampański `#c9a86a`, ciepła szarość `#6f6a61`. Ramki zamiast cieni, płaskie karty.
+- Tablica: logotyp ALTERBAKE w Antonie (wysoki, wąski grotesk), nagłówki kategorii w Archivo Black, reszta czcionką systemową. Materiały drukowane: Fraunces (szeryf displayowy). Wszystkie fonty lokalnie w `fonts/`, licencje SIL OFL.
 - Ceny zawsze w formacie `12 zł` + jednostka `/ porcja`.
 - Kluczowe hasła: „stara piekarnia na nowo", „od ponad 100 lat", „świeże od 8:00".
