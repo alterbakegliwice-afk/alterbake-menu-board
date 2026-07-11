@@ -10,6 +10,27 @@
       Edytuj liste produktow w sekcji <body>.
     -->
     <style>
+      /* Anton (SIL OFL) - logotyp ALTERBAKE, lokalnie z ../fonts/, bez CDN. */
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("../fonts/anton-latin-ext-400-normal.woff2") format("woff2"),
+          url("../fonts/anton-latin-ext-400-normal.woff") format("woff");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("../fonts/anton-latin-400-normal.woff2") format("woff2"),
+          url("../fonts/anton-latin-400-normal.woff") format("woff");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
       /* Fraunces (SIL OFL) - lokalnie z ../fonts/, bez CDN. */
       @font-face {
         font-family: "Fraunces";
@@ -87,10 +108,12 @@
       }
 
       .masthead h1 {
-        font-family: "Fraunces", Georgia, "Times New Roman", serif;
-        font-size: 76px;
+        font-family: "Anton", "Arial Narrow", Arial, sans-serif;
+        font-size: 88px;
+        font-weight: 400;
         line-height: 1;
         letter-spacing: -0.015em;
+        text-transform: uppercase;
       }
 
       .heading {
@@ -144,7 +167,7 @@
 
       .item h3 {
         font-family: "Fraunces", Georgia, "Times New Roman", serif;
-        font-size: 56px;
+        font-size: 48px;
         font-weight: 600;
         line-height: 1.05;
       }
@@ -214,24 +237,24 @@
     <section class="items">
       <article class="item">
         <div>
-          <h3>Chleb firmowy</h3>
-          <p>Zakwas pszenny i żyto. Prosto z pieca.</p>
+          <h3>Chleb pszenny długodojrzewający</h3>
+          <p>Na zakwasie, długo fermentowany.</p>
         </div>
-        <div class="price"><strong>19 zł</strong><span>/ bochenek</span></div>
+        <div class="price"><strong>16 zł</strong><span>/ 680 g</span></div>
       </article>
       <article class="item">
         <div>
           <h3>Jagodzianka</h3>
-          <p>Pełna jagód, masła i kruszonki.</p>
+          <p>Na maślanym cieście drożdżowym.</p>
         </div>
-        <div class="price"><strong>16 zł</strong><span>/ szt.</span></div>
+        <div class="price"><strong>19 zł</strong><span>/ szt.</span></div>
       </article>
       <article class="item">
         <div>
-          <h3>Chałka maślana</h3>
-          <p>Miękka, zaplatana ręcznie.</p>
+          <h3>Chałka z kruszonką</h3>
+          <p>Drożdżowa, z maślaną kruszonką.</p>
         </div>
-        <div class="price"><strong>18 zł</strong><span>/ szt.</span></div>
+        <div class="price"><strong>15 zł</strong><span>/ szt.</span></div>
       </article>
     </section>
 

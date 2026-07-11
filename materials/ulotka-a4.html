@@ -9,6 +9,27 @@
       Edytuj produkty w sekcji <body>. Uklad trzyma sie jednej strony.
     -->
     <style>
+      /* Anton (SIL OFL) - logotyp ALTERBAKE, lokalnie z ../fonts/, bez CDN. */
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("../fonts/anton-latin-ext-400-normal.woff2") format("woff2"),
+          url("../fonts/anton-latin-ext-400-normal.woff") format("woff");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("../fonts/anton-latin-400-normal.woff2") format("woff2"),
+          url("../fonts/anton-latin-400-normal.woff") format("woff");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
       /* Fraunces (SIL OFL) - lokalnie z ../fonts/, bez CDN. */
       @font-face {
         font-family: "Fraunces";
@@ -89,10 +110,12 @@
 
       .masthead h1 {
         margin-top: 2mm;
-        font-family: "Fraunces", Georgia, "Times New Roman", serif;
-        font-size: 34pt;
-        line-height: 0.95;
+        font-family: "Anton", "Arial Narrow", Arial, sans-serif;
+        font-size: 40pt;
+        font-weight: 400;
+        line-height: 0.92;
         letter-spacing: -0.015em;
+        text-transform: uppercase;
       }
 
       .masthead .brand-line {
@@ -268,13 +291,13 @@
 
     <section class="feature">
       <div>
-        <p class="kicker">WYPIEK DNIA</p>
-        <h2>Kołocz śląski z serem</h2>
-        <p>Kruchy spód, twaróg, maślana kruszonka.</p>
+        <p class="kicker">NASZ BESTSELLER</p>
+        <h2>Chleb pszenny długodojrzewający</h2>
+        <p>Na zakwasie, długo fermentowany.</p>
       </div>
       <div class="price">
-        <strong>12 zł</strong>
-        <span>/ porcja</span>
+        <strong>16 zł</strong>
+        <span>/ 680 g</span>
       </div>
     </section>
 
@@ -282,47 +305,51 @@
       <div class="category">
         <h2>CHLEBY</h2>
         <article class="item">
-          <div><h3>Chleb firmowy</h3><p>Zakwas pszenny, żyto, sól</p></div>
-          <div class="price">19 zł <span>/ bochenek</span></div>
+          <div><h3>Chleb pszenny długodojrzewający</h3><p>Na zakwasie, długo fermentowany.</p></div>
+          <div class="price">16 zł <span>/ 680 g</span></div>
         </article>
         <article class="item">
-          <div><h3>Żytni razowy</h3><p>Ciemny, wilgotny, długo prowadzony.</p></div>
-          <div class="price">21 zł <span>/ bochenek</span></div>
+          <div><h3>Chleb pszenno-żytni</h3><p>Nasz klasyk na zakwasie.</p></div>
+          <div class="price">12 zł <span>/ 700 g</span></div>
+        </article>
+        <article class="item">
+          <div><h3>Chleb żytni 100%</h3><p>Na zakwasie, w całości z żyta.</p></div>
+          <div class="price">13 zł <span>/ 650 g</span></div>
         </article>
         <article class="item sold-out">
-          <div><h3>Orkiszowy <span class="status">WYPRZEDANE</span></h3><p>Jutro wraca na ladę.</p></div>
+          <div><h3>Chleb z kaszy gryczanej <span class="status">W CZWARTEK</span></h3><p>Pieczemy go raz w tygodniu.</p></div>
         </article>
       </div>
 
       <div class="category">
         <h2>SŁODKIE</h2>
         <article class="item">
-          <div><h3>Kołocz z serem</h3><p>Twaróg, kruszonka, kruche ciasto</p></div>
-          <div class="price">12 zł <span>/ porcja</span></div>
+          <div><h3>Jagodzianka</h3><p>Na maślanym cieście drożdżowym.</p></div>
+          <div class="price">19 zł <span>/ szt.</span></div>
         </article>
         <article class="item">
-          <div><h3>Jagodzianka</h3><p>Pełna jagód, masła i kruszonki.</p></div>
-          <div class="price">16 zł <span>/ szt.</span></div>
+          <div><h3>Chałka z kruszonką</h3><p>Drożdżowa, z maślaną kruszonką.</p></div>
+          <div class="price">15 zł <span>/ szt.</span></div>
         </article>
         <article class="item">
-          <div><h3>Chałka maślana</h3><p>Zaplatana ręcznie</p></div>
-          <div class="price">18 zł <span>/ szt.</span></div>
+          <div><h3>Cynamonka</h3><p>Zawijana, mocno cynamonowa.</p></div>
+          <div class="price">8 zł <span>/ szt.</span></div>
         </article>
       </div>
 
       <div class="category">
-        <h2>NA WAGĘ</h2>
+        <h2>BUŁKI</h2>
         <article class="item">
-          <div><h3>Placek cebulowy</h3><p>Oliwa, cebula, rozmaryn</p></div>
-          <div class="price">8 zł <span>/ 100 g</span></div>
+          <div><h3>Kajzerka</h3><p>Klasyczna, chrupiąca.</p></div>
+          <div class="price">2,20 zł <span>/ szt.</span></div>
         </article>
         <article class="item">
-          <div><h3>Krajanka żytnia</h3><p>Małe kromki do zabrania</p></div>
-          <div class="price">7 zł <span>/ 100 g</span></div>
+          <div><h3>Grahamka</h3><p>Pełnoziarnista, z ziarnami.</p></div>
+          <div class="price">2,80 zł <span>/ szt.</span></div>
         </article>
         <article class="item">
-          <div><h3>Pajda z masłem</h3><p>Chleb firmowy, masło, sól</p></div>
-          <div class="price">10 zł <span>/ szt.</span></div>
+          <div><h3>Bagietka</h3><p>Pszenna, pieczona na miejscu.</p></div>
+          <div class="price">8 zł <span>/ szt.</span></div>
         </article>
       </div>
 

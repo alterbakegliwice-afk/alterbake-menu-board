@@ -90,7 +90,12 @@
     var h3 = item.querySelector("h3");
     if (!h3 || !h3.firstChild) return "";
     // Pierwszy wezel tekstowy = nazwa produktu (plakietka jest w <span> dalej).
-    return (h3.firstChild.textContent || "").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+    // Usuwamy miekkie dzielniki (&shy;), zeby klucze w localStorage i
+    // porownania nazw byly niezalezne od typografii w HTML.
+    return (h3.firstChild.textContent || "")
+      .replace(/\u00AD/g, "")
+      .replace(/\s+/g, " ")
+      .replace(/^\s+|\s+$/g, "");
   }
 
   function descOf(item) {
@@ -171,10 +176,14 @@
 
   // --- Wypiek dnia ---
 
+  var FEATURE_SWAP_KICKER = "WYPIEK DNIA";
+
   var feature = document.querySelector(".feature");
   var featureBase = null;
   if (feature) {
     featureBase = {
+      kicker: feature.querySelector(".section-kicker")
+        ? feature.querySelector(".section-kicker").textContent : "",
       title: feature.querySelector("h2") ? feature.querySelector("h2").textContent : "",
       desc: feature.querySelector(".feature-copy p:not(.section-kicker)")
         ? feature.querySelector(".feature-copy p:not(.section-kicker)").textContent : "",
@@ -197,16 +206,25 @@
     if (span) span.textContent = unit;
   }
 
+  function setFeatureKicker(text) {
+    var el = feature ? feature.querySelector(".section-kicker") : null;
+    if (el) el.textContent = text;
+  }
+
   function applyFeature(name) {
     if (!feature || !featureBase) return false;
     if (!name) {
       setFeatureContent(featureBase.title, featureBase.desc, featureBase.amount, featureBase.unit);
+      setFeatureKicker(featureBase.kicker);
       return true;
     }
     var item = itemByName(name);
     if (!item || !hasPrice(item) || currentState(item) === "wyprzedane") return false;
     var price = priceOf(item);
     setFeatureContent(name, descOf(item), price.amount, price.unit);
+    // Podmieniony produkt nie jest juz "naszym bestsellerem" - zakladka
+    // mowi prawde: to wypiek dnia wybrany przez obsluge.
+    setFeatureKicker(FEATURE_SWAP_KICKER);
     return true;
   }
 

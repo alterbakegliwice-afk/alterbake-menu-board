@@ -5,8 +5,8 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const INDEX = `file://${resolve(__dirname, "../index.html")}`;
 
-// Item helper: the SŁODKIE column's "Chałka maślana" (available, has a price).
-const ITEM = '.menu-item:has(h3:text-is("Chałka maślana"))';
+// Item helper: the SŁODKIE column's "Cynamonka" (available, no highlight).
+const ITEM = '.menu-item:has(h3:text-is("Cynamonka"))';
 
 async function enterEditMode(page) {
   const logo = page.locator("h1");
@@ -117,7 +117,7 @@ test("saved statuses from a previous day are ignored (fresh bake)", async ({ pag
   await page.evaluate(() => {
     localStorage.setItem("alterbake-stock-v1", JSON.stringify({
       day: "2000-1-1",
-      items: { "Chałka maślana": "wyprzedane" },
+      items: { "Cynamonka": "wyprzedane" },
     }));
   });
   await page.reload();
@@ -127,9 +127,9 @@ test("saved statuses from a previous day are ignored (fresh bake)", async ({ pag
 test("morning sold-out item (no price in HTML) is not toggleable", async ({ page }) => {
   await page.goto(INDEX);
   await enterEditMode(page);
-  const orkiszowy = page.locator('.menu-item:has(h3:has-text("Orkiszowy"))').first();
-  await orkiszowy.click();
-  await expect(orkiszowy.locator(".status-badge")).toHaveText("WYPRZEDANE");
+  const gryczany = page.locator('.menu-item:has(h3:has-text("gryczanej"))').first();
+  await gryczany.click();
+  await expect(gryczany.locator(".status-badge")).toHaveText("W CZWARTEK");
 });
 
 test("long-press toggles the gold highlight and survives reload", async ({ page }) => {
@@ -161,18 +161,22 @@ test("tapping the feature panel cycles the bake of the day and back", async ({ p
 
   // Pierwsze stukniecie: pierwszy dostepny produkt z kolumn.
   await feature.click();
-  await expect(feature.locator("h2")).toHaveText("Kołocz z serem");
-  await expect(feature.locator(".feature-price strong")).toHaveText("12 zł");
+  await expect(feature.locator("h2")).toHaveText("Jagodzianka");
+  await expect(feature.locator(".feature-price strong")).toHaveText("19 zł");
+  // Zakladka mowi prawde: podmieniony produkt to wypiek dnia, nie bestseller.
+  await expect(feature.locator(".section-kicker")).toHaveText("WYPIEK DNIA");
 
   // Wybor przezywa odswiezenie strony.
   await page.reload();
-  await expect(page.locator(".feature h2")).toHaveText("Kołocz z serem");
+  await expect(page.locator(".feature h2")).toHaveText("Jagodzianka");
+  await expect(page.locator(".feature .section-kicker")).toHaveText("WYPIEK DNIA");
 
   // Cykl przez wszystkie dostepne produkty wraca do oryginalu.
   await enterEditMode(page);
   const eligible = await page.locator(".menu-item:not(.sold-out) .item-price strong").count();
   for (let i = 0; i < eligible; i++) await page.locator(".feature").click();
   await expect(page.locator(".feature h2")).toHaveText(originalTitle);
+  await expect(page.locator(".feature .section-kicker")).toHaveText("NASZ BESTSELLER");
 });
 
 test("marking the featured product sold out restores the original feature", async ({ page }) => {
@@ -181,27 +185,32 @@ test("marking the featured product sold out restores the original feature", asyn
   const feature = page.locator(".feature");
   const originalTitle = await feature.locator("h2").textContent();
 
-  await feature.click(); // wypiek dnia -> "Kołocz z serem"
-  const koloc = page.locator('.menu-item:has(h3:text-is("Kołocz z serem"))').first();
-  await koloc.click(); // -> OSTATNIE SZTUKI
-  await koloc.click(); // -> WYPRZEDANE
+  await feature.click(); // wypiek dnia -> "Jagodzianka"
+  const jagodzianka = page.locator('.menu-item:has(h3:text-is("Jagodzianka"))').first();
+  await jagodzianka.click(); // -> OSTATNIE SZTUKI
+  await jagodzianka.click(); // -> WYPRZEDANE
   await expect(feature.locator("h2")).toHaveText(originalTitle);
 });
 
 test("evening mode swaps the masthead message and survives reload", async ({ page }) => {
   await page.goto(INDEX);
   await expect(page.locator(".today strong")).toHaveText("świeże od 8:00");
+  await expect(page.locator("body")).not.toHaveClass(/evening/);
   await enterEditMode(page);
 
   await page.locator(".edit-banner .btn-evening").click();
   await expect(page.locator(".today strong")).toHaveText("ostatnie wypieki");
   await expect(page.locator(".edit-banner .btn-evening")).toHaveText("Dzień");
+  // Motyw wieczorny: ciemna, wysokokontrastowa wersja tablicy.
+  await expect(page.locator("body")).toHaveClass(/evening/);
 
   await page.reload();
   await expect(page.locator(".today strong")).toHaveText("ostatnie wypieki");
+  await expect(page.locator("body")).toHaveClass(/evening/);
 
   // Powrot do trybu dziennego.
   await enterEditMode(page);
   await page.locator(".edit-banner .btn-evening").click();
   await expect(page.locator(".today strong")).toHaveText("świeże od 8:00");
+  await expect(page.locator("body")).not.toHaveClass(/evening/);
 });

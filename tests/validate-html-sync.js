@@ -23,7 +23,12 @@ function pass(msg) {
 
 // --- Load files ---
 
-const html = readFileSync(HTML_PATH, "utf8");
+// Soft hyphens (&shy;) and non-breaking spaces (&nbsp;) are typographic
+// hints for narrow columns — normalize them away so name comparisons
+// see the plain product name.
+const html = readFileSync(HTML_PATH, "utf8")
+  .replace(/&shy;|\u00AD/g, "")
+  .replace(/&nbsp;|\u00A0/g, " ");
 const data = JSON.parse(readFileSync(PRODUCTS_PATH, "utf8"));
 
 console.log("\n=== products.json ↔ index.html sync ===\n");

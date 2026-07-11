@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#faf9f6">
+    <meta name="theme-color" content="#f6f4ee">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Menu AlterBake</title>
@@ -47,13 +47,13 @@
 
       <section class="feature" aria-labelledby="feature-title">
         <div class="feature-copy">
-          <p class="section-kicker">WYPIEK DNIA</p>
-          <h2 id="feature-title">Kołocz śląski z serem</h2>
-          <p>Kruchy spód, twaróg, maślana kruszonka.</p>
+          <p class="section-kicker">NASZ BESTSELLER</p>
+          <h2 id="feature-title">Chleb pszenny długodojrzewający</h2>
+          <p>Na zakwasie, długo fermentowany.</p>
         </div>
         <div class="feature-price price-lockup">
-          <strong>12 zł</strong>
-          <span>/ porcja</span>
+          <strong>16 zł</strong>
+          <span>/ 680 g</span>
         </div>
       </section>
 
@@ -69,8 +69,8 @@
               </svg>
               ciepłe
             </span>
-            <h3>Chleb firmowy</h3>
-            <p>Zakwas pszenny i żyto.</p>
+            <h3>Chleb pszenny długodojrzewający</h3>
+            <p>Na zakwasie, długo fermentowany.</p>
           </article>
           <article class="recommendation-card">
             <span>
@@ -80,7 +80,7 @@
               na słodko
             </span>
             <h3>Jagodzianka</h3>
-            <p>Pełna jagód, masła i kruszonki.</p>
+            <p>Na maślanym cieście drożdżowym.</p>
           </article>
           <article class="recommendation-card">
             <span>
@@ -91,8 +91,8 @@
               </svg>
               do domu
             </span>
-            <h3>Chałka maślana</h3>
-            <p>Miękka, zaplatana ręcznie.</p>
+            <h3>Chałka z&nbsp;kruszonką</h3>
+            <p>Drożdżowa, z&nbsp;maślaną kruszonką.</p>
           </article>
         </div>
       </section>
@@ -101,7 +101,8 @@
         EDYCJA MENU:
         Nazwy produktow powinny byc krotkie, zeby dobrze czytaly sie z 1-2 metrow.
         Cene wpisuj jako "12 zl" w <strong>, a jednostke jako "/ porcja" w <span>.
-        Uklad pozycji: nazwa, pod nia opis, na dole cena wyrownana do prawej.
+        Uklad pozycji: cena w prawym gornym rogu (w HTML blok .item-price
+        stoi przed <h3> - oplywanie), obok nazwa, pod caloscia opis.
       -->
       <section class="menu-grid">
         <div class="menu-column">
@@ -110,30 +111,30 @@
           </div>
 
           <article class="menu-item highlight">
-            <h3>Kołocz z serem</h3>
-            <p class="item-desc">Twaróg, kruszonka, kruche ciasto</p>
             <div class="item-price">
-              <strong>12 zł</strong>
-              <span>/ porcja</span>
-            </div>
-          </article>
-
-          <article class="menu-item stock-low">
-            <h3>Jagodzianka <span class="status-badge low">OSTATNIE SZTUKI</span></h3>
-            <p class="item-desc">Pełna jagód, masła i kruszonki.</p>
-            <div class="item-price">
-              <strong>16 zł</strong>
+              <strong>19 zł</strong>
               <span>/ szt.</span>
             </div>
+            <h3>Jagodzianka</h3>
+            <p class="item-desc">Na maślanym cieście drożdżowym.</p>
           </article>
 
           <article class="menu-item">
-            <h3>Chałka maślana</h3>
-            <p class="item-desc">Zaplatana ręcznie</p>
             <div class="item-price">
-              <strong>18 zł</strong>
+              <strong>15 zł</strong>
               <span>/ szt.</span>
             </div>
+            <h3>Chałka z&nbsp;kruszonką</h3>
+            <p class="item-desc">Drożdżowa, z&nbsp;maślaną kruszonką.</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-price">
+              <strong>8 zł</strong>
+              <span>/ szt.</span>
+            </div>
+            <h3>Cynamonka</h3>
+            <p class="item-desc">Zawijana, mocno cynamonowa.</p>
           </article>
         </div>
 
@@ -143,66 +144,75 @@
           </div>
 
           <article class="menu-item highlight">
-            <h3>Chleb firmowy</h3>
-            <p class="item-desc">Zakwas pszenny, żyto, sól</p>
             <div class="item-price">
-              <strong>19 zł</strong>
-              <span>/ bochenek</span>
+              <strong>16 zł</strong>
+              <span>/ 680 g</span>
             </div>
+            <h3>Chleb pszenny długo&shy;dojrze&shy;wający <span class="status-badge low">BESTSELLER</span></h3>
+            <p class="item-desc">Na zakwasie, długo fermentowany.</p>
           </article>
 
           <article class="menu-item">
-            <h3>Żytni razowy</h3>
-            <p class="item-desc">Ciemny, wilgotny, długo prowadzony.</p>
             <div class="item-price">
-              <strong>21 zł</strong>
-              <span>/ bochenek</span>
+              <strong>12 zł</strong>
+              <span>/ 700 g</span>
             </div>
+            <h3>Chleb pszenno-żytni</h3>
+            <p class="item-desc">Nasz klasyk na zakwasie.</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-price">
+              <strong>13 zł</strong>
+              <span>/ 650 g</span>
+            </div>
+            <h3>Chleb żytni 100%</h3>
+            <p class="item-desc">Na zakwasie, w&nbsp;całości z&nbsp;żyta.</p>
           </article>
 
           <article class="menu-item sold-out">
-            <h3>Orkiszowy <span class="status-badge">WYPRZEDANE</span></h3>
-            <p class="item-desc">Jutro wraca na ladę.</p>
             <div class="item-price item-price-empty" aria-hidden="true"></div>
+            <h3>Chleb z&nbsp;kaszy gryczanej <span class="status-badge">W CZWARTEK</span></h3>
+            <p class="item-desc">Pieczemy go raz w&nbsp;tygodniu.</p>
           </article>
         </div>
 
         <div class="menu-column">
           <div class="column-heading">
-            <h2>NA WAGĘ</h2>
+            <h2>BUŁKI</h2>
           </div>
 
-          <article class="menu-item">
-            <h3>Placek cebulowy</h3>
-            <p class="item-desc">Oliwa, cebula, rozmaryn</p>
-            <div class="item-price">
-              <strong>8 zł</strong>
-              <span>/ 100 g</span>
-            </div>
-          </article>
-
           <article class="menu-item highlight">
-            <h3>Krajanka żytnia</h3>
-            <p class="item-desc">Małe kromki do zabrania</p>
             <div class="item-price">
-              <strong>7 zł</strong>
-              <span>/ 100 g</span>
-            </div>
-          </article>
-
-          <article class="menu-item">
-            <h3>Pajda z masłem</h3>
-            <p class="item-desc">Chleb firmowy, masło, sól</p>
-            <div class="item-price">
-              <strong>10 zł</strong>
+              <strong>2,20 zł</strong>
               <span>/ szt.</span>
             </div>
+            <h3>Kajzerka</h3>
+            <p class="item-desc">Klasyczna, chrupiąca.</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-price">
+              <strong>2,80 zł</strong>
+              <span>/ szt.</span>
+            </div>
+            <h3>Grahamka</h3>
+            <p class="item-desc">Pełnoziarnista, z&nbsp;ziarnami.</p>
+          </article>
+
+          <article class="menu-item">
+            <div class="item-price">
+              <strong>8 zł</strong>
+              <span>/ szt.</span>
+            </div>
+            <h3>Bagietka</h3>
+            <p class="item-desc">Pszenna, pieczona na&nbsp;miejscu.</p>
           </article>
         </div>
       </section>
 
       <footer class="notice">
-        <span>AlterBake &middot; Gliwice / stara piekarnia na nowo / @alterbake</span>
+        <span>ZAKWAS &middot; CZAS &middot; GLIWICE</span>
       </footer>
     </main>
   </body>

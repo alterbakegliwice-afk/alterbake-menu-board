@@ -9,7 +9,7 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 - `board.js` - tryb obsługi: statusy dostępności zmieniane stuknięciami na iPadzie.
 - `products.json` - prosta lista produktów do edycji.
 - `products.sample.json` - zapasowy przykład danych.
-- `fonts/` - lokalne pliki fontu Fraunces (nagłówki i nazwy produktów; licencja SIL OFL). Nic nie jest pobierane z internetu.
+- `fonts/` - lokalne pliki fontów (licencje SIL OFL): Anton (logotyp), Archivo Black (nagłówki kategorii), Fraunces (materiały drukowane). Nic nie jest pobierane z internetu; obok woff2 leżą pliki woff dla starszego Safari (iPad 2 / iOS 9).
 
 Wszystkie pliki tablicy leżą w katalogu głównym repozytorium - jedna kopia, bez duplikatów.
 
@@ -22,7 +22,7 @@ Pieczywo wyprzedaje się po południu, a nie rano - dlatego statusy można zmien
    - **stuknięcie w produkt** przełącza stan: dostępne → `OSTATNIE SZTUKI` → `WYPRZEDANE` → dostępne,
    - **przytrzymanie produktu** (pół sekundy) przenosi złote wyróżnienie - rano wyróżniaj bestseller, po południu to, co trzeba sprzedać,
    - **stuknięcie w panel WYPIEK DNIA** podmienia wypiek na kolejny dostępny produkt z kolumn (pełny cykl wraca do oryginału),
-   - **przycisk Wieczór** zmienia komunikat na "KOŃCÓWKA DNIA / ostatnie wypieki" (przycisk `Dzień` przywraca).
+   - **przycisk Wieczór** zmienia komunikat na "KOŃCÓWKA DNIA / ostatnie wypieki" (przycisk `Dzień` przywraca). Tablica celowo zostaje jasna także wieczorem - ciemny ekran w witrynie odbija światło i słabo czyta się na starszym iPadzie.
 3. Stuknij `Zakończ` (albo odczekaj 45 sekund) - tryb się wyłączy.
 
 Zasady działania:
