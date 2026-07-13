@@ -1,2 +1,7 @@
 node_modules/
 test-results/
+materials/out/
+*.log
+.DS_Store
+.idea/
+.vscode/
