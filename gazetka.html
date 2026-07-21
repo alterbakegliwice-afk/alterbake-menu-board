@@ -295,13 +295,13 @@
         <p class="loading">Wczytywanie dzisiejszego asortymentu&hellip;</p>
       </main>
 
-      <a class="order" href="mailto:alterbake.gliwice@gmail.com?subject=Zam%C3%B3wienie%20na%20jutro">
-        Zamów na jutro <span>&rarr;</span> alterbake.gliwice@gmail.com
+      <a class="order" href="https://docs.google.com/forms/d/1PrEy2AtoG9WLGb7rHg_PARnWnGpbW1kk8LB2TYpwW8I/viewform">
+        Zamów na jutro <span>&rarr;</span> formularz zamówień
       </a>
 
       <footer class="foot">
         ZAKWAS &middot; CZAS &middot; GLIWICE
-        <small>świeże od 8:00 &middot; codziennie do wyprzedania &middot; Instagram: @alterbake</small>
+        <small>świeże od 8:00 &middot; codziennie do wyprzedania<br>Instagram: @alterbake &middot; alterbake.gliwice@gmail.com</small>
       </footer>
     </div>
 
@@ -338,15 +338,23 @@
           document.getElementById("hero-lead").textContent = invited.lead;
         }
 
+        /* Escapowanie pol z products.json - ta sama zasada co textContent
+           w board.js: dane produktow nigdy nie wchodza jako HTML. */
+        function esc(text) {
+          return String(text == null ? "" : text)
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
         function itemHtml(p) {
           var cls = "item" + (p.soldOut ? " sold-out" : "");
           var badge = p.tag === "Bestseller" ? '<span class="badge">BESTSELLER</span>'
-            : (p.status ? '<span class="badge">' + p.status + "</span>" : "");
+            : (p.status ? '<span class="badge">' + esc(p.status) + "</span>" : "");
           var price = p.soldOut ? "" :
-            '<div class="price"><strong>' + p.price + "</strong><span>" + p.unit + "</span></div>";
+            '<div class="price"><strong>' + esc(p.price) + "</strong><span>" + esc(p.unit) + "</span></div>";
           return '<article class="' + cls + '">' + price +
-            "<h4>" + p.name + badge + "</h4>" +
-            "<p>" + p.description + "</p></article>";
+            "<h4>" + esc(p.name) + badge + "</h4>" +
+            "<p>" + esc(p.description) + "</p></article>";
         }
 
         function render(data) {

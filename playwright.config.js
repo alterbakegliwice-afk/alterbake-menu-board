@@ -19,6 +19,14 @@ export default defineConfig({
     baseURL: `file://${resolve(__dirname, "index.html")}`,
     launchOptions,
   },
+  // Gazetka i panel zaproszen czytaja products.json przez XHR - to wymaga
+  // http, nie file://. Prosty serwer statyczny tylko na czas testow.
+  webServer: {
+    command: "python3 -m http.server 8123",
+    url: "http://127.0.0.1:8123/index.html",
+    reuseExistingServer: true,
+    timeout: 15000,
+  },
   projects: [
     {
       name: "chromium",

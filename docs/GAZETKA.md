@@ -47,8 +47,10 @@ telefon obsługi                    klient
   czwartkowy gryczany, końcówka dnia. Nie więcej niż 1–2 zaproszenia dziennie.
 - Wiadomość mówi prawdę: „do wyprzedania" — jeśli coś się skończyło,
   zaznacz to w `products.json` (gazetka pokaże przekreślone).
-- Treści rotują same (3 warianty na grupę, wg dnia tygodnia). Edycja:
-  sekcja `TEMPLATES` w `zaproszenia.html`.
+- Treści dobierają się same wg **pory dnia** (rano / popołudnie /
+  końcówka po 17:00) i rotują wg dnia tygodnia — zaproszenie z godziny 19
+  nigdy nie powie "właśnie wyszły z pieca". Edycja: sekcja `TEMPLATES`
+  w `zaproszenia.html`.
 
 ## Analiza dziennika
 
@@ -60,9 +62,11 @@ Interpretacja:
 - CSV (`Pobierz dziennik`) można wkleić do arkusza i skrzyżować z danymi
   sprzedaży ze store-order.
 
-Dziennik żyje w localStorage telefonu obsługi — kopie rób przez CSV.
-Niezależnie od tego historia postów na kanale Telegram jest drugim,
-trwałym logiem z godzinami.
+Dziennik żyje w localStorage telefonu obsługi. **Uwaga (iOS/Safari):
+jeśli strona nie będzie otwierana przez ~7 dni, system może wyczyścić
+ten magazyn** — dlatego raz w tygodniu pobierz CSV (nawyk: niedziela
+wieczorem). Niezależnie od tego historia postów na kanale Telegram jest
+drugim, trwałym logiem z godzinami.
 
 ## Integracja ze store-order (etap 2)
 

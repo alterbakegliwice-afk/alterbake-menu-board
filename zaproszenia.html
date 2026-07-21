@@ -234,41 +234,80 @@
       (function () {
         "use strict";
 
-        /* Adres gazetki, do ktorej prowadza zaproszenia. */
-        var GAZETKA_URL = "https://alterbakegliwice-afk.github.io/alterbake-menu-board/gazetka.html";
+        /* Adres gazetki: wyliczany z adresu panelu (dziala tez po zmianie
+           domeny); stala tylko jako zapas przy otwarciu z pliku. */
+        var GAZETKA_URL = /^https?:/.test(window.location.protocol)
+          ? window.location.href.split("?")[0].replace(/zaproszenia\.html.*$/, "gazetka.html")
+          : "https://alterbakegliwice-afk.github.io/alterbake-menu-board/gazetka.html";
         var LOG_KEY = "alterbake-zaproszenia-log";
 
-        /* Rotujace tresci - zeby kanal nie brzmial jak automat.
-           Wariant wybiera dzien tygodnia; edytuj smialo. */
+        /* Tresci wg PORY DNIA (rano / popoludnie / koncowka) - zaproszenie
+           mowi prawde o tym, co dzieje sie w piekarni. W obrebie pory
+           warianty rotuja wg dnia tygodnia. Edytuj smialo. */
         var TEMPLATES = {
           slodkie: {
             cat: "słodkie",
             label: "S",
-            hooks: [
-              "Blacha jagodzianek właśnie wyjechała z pieca. Najlepsze, póki ciepłe.",
-              "Popołudnie z kawą? Chałka z kruszonką i cynamonki czekają na ladzie.",
-              "Słodkie z maślanego ciasta drożdżowego — pieczone dziś, na miejscu."
-            ]
+            hooks: {
+              rano: [
+                "Blacha jagodzianek właśnie wyjechała z pieca. Najlepsze, póki ciepłe.",
+                "Słodkie z maślanego ciasta drożdżowego — pieczone dziś rano, na miejscu."
+              ],
+              popoludnie: [
+                "Popołudnie z kawą? Chałka z kruszonką i cynamonki czekają na ladzie.",
+                "Do kawy po obiedzie: jagodzianki i cynamonki jeszcze są."
+              ],
+              koncowka: [
+                "Końcówka dnia: słodkie jeszcze jest, jutro pieczemy od nowa.",
+                "Ostatnie jagodzianki i chałki — do zamknięcia albo do wyprzedania."
+              ]
+            }
           },
           chleby: {
             cat: "chleby",
             label: "C",
-            hooks: [
-              "Chleb na zakwasie właśnie ostygł do krojenia. Długodojrzewający schodzi pierwszy.",
-              "Świeży wypiek na ladzie: zakwas, czas i nic więcej.",
-              "Bochenki prosto z pieca — jest z czego wybierać, póki są."
-            ]
+            hooks: {
+              rano: [
+                "Chleb na zakwasie właśnie ostygł do krojenia. Długodojrzewający schodzi pierwszy.",
+                "Bochenki prosto z pieca — świeże od 8:00, na zakwasie."
+              ],
+              popoludnie: [
+                "Świeży chleb wciąż na ladzie: zakwas, czas i nic więcej.",
+                "Jest z czego wybierać: długodojrzewający, pszenno-żytni, żytni 100%."
+              ],
+              koncowka: [
+                "Ostatnie bochenki dnia — jutro pieczemy od nowa.",
+                "Końcówka dnia: chleb na zakwasie jeszcze czeka."
+              ]
+            }
           },
           bulki: {
             cat: "bułki",
             label: "B",
-            hooks: [
-              "Kajzerki chrupią najgłośniej przed południem. Właśnie wyszły.",
-              "Świeże bułki na ladzie — na dziś i na zapas do zamrażarki.",
-              "Grahamki i kajzerki prosto z pieca. Ciepłe do wyprzedania."
-            ]
+            hooks: {
+              rano: [
+                "Kajzerki chrupią najgłośniej przed południem. Właśnie wyszły.",
+                "Świeże bułki od rana — na śniadanie i na zapas."
+              ],
+              popoludnie: [
+                "Bułki wciąż świeże — na kolację i na zapas do zamrażarki.",
+                "Grahamki i kajzerki jeszcze są. Chrupiące do końca dnia."
+              ],
+              koncowka: [
+                "Ostatnie bułki dnia — do zamrażarki, rano będą jak świeże.",
+                "Końcówka: kajzerki i grahamki do wyprzedania."
+              ]
+            }
           }
         };
+
+        /* Pora dnia: rano do 12:00, popoludnie 12-17, koncowka po 17:00. */
+        function daypart() {
+          var h = new Date().getHours();
+          if (h < 12) return "rano";
+          if (h < 17) return "popoludnie";
+          return "koncowka";
+        }
 
         var products = [];
         var xhr = new XMLHttpRequest();
@@ -290,7 +329,8 @@
 
         function buildMessage(groupKey) {
           var t = TEMPLATES[groupKey];
-          var hook = t.hooks[new Date().getDay() % t.hooks.length];
+          var variants = t.hooks[daypart()];
+          var hook = variants[new Date().getDay() % variants.length];
           var list = listFor(t.cat);
           var msg = hook;
           if (list) msg += "\n\nNa ladzie: " + list + ".";
