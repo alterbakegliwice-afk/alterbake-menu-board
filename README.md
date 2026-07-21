@@ -7,6 +7,8 @@ Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy 
 - `index.html` - gotowy widok menu.
 - `styles.css` - wygląd i responsywność.
 - `board.js` - tryb obsługi: statusy dostępności zmieniane stuknięciami na iPadzie.
+- `gazetka.html` - gazetka dla klientów: co dziś na ladzie (ceny z `products.json`); cel linków z zaproszeń.
+- `zaproszenia.html` - panel obsługi: trzy przyciski "zaproś klientów" (Telegram/WhatsApp) + dziennik stuknięć dzień×pora. Instrukcja: `docs/GAZETKA.md`.
 - `products.json` - prosta lista produktów do edycji.
 - `products.sample.json` - zapasowy przykład danych.
 - `fonts/` - lokalne pliki fontów (licencje SIL OFL): Anton (logotyp), Archivo Black (nagłówki kategorii), Fraunces (materiały drukowane). Nic nie jest pobierane z internetu; obok woff2 leżą pliki woff dla starszego Safari (iPad 2 / iOS 9).
