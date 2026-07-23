@@ -29,17 +29,17 @@ telefon obsługi                    klient
 
 ## Uruchomienie (raz, ~15 minut)
 
-1. **Kanał Telegram**: Telegram → Nowy kanał → „AlterBake — świeże z pieca",
-   publiczny, adres np. `t.me/alterbake`. Telefon obsługi musi być adminem.
+1. **Kanał Telegram**: `t.me/alterbake` (zarejestrowany ✓). Telefon
+   obsługi musi być adminem kanału.
 2. **Kanał WhatsApp** (opcjonalnie, drugi kanał dla klientów bez Telegrama):
    WhatsApp → Aktualizacje → Utwórz kanał. Postów nie da się automatyzować —
    panel przygotowuje tekst do wklejenia (przycisk „Kopiuj").
 3. Na telefonie obsługi otwórz
    `https://alterbakegliwice-afk.github.io/alterbake-menu-board/zaproszenia.html`
    → Udostępnij → **Dodaj do ekranu początkowego**.
-4. Wydrukuj QR do kanału przy kasie i na torebki:
-   „Napiszemy, kiedy wyjdzie z pieca → [QR]". Lada rekrutuje subskrybentów,
-   nie internet.
+4. Wydrukuj plakietkę przy kasę: `materials/plakietka-lada.html`
+   (A5, QR do `t.me/alterbake` w środku — plik `materials/qr-telegram.svg`).
+   Lada rekrutuje subskrybentów, nie internet.
 
 ## Zasady użycia (żeby kanał żył długo)
 

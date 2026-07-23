@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <title>AlterBake - Plakietka przy ladzie (A5)</title>
+    <!--
+      SZABLON: plakietka przy kasie / na lade (A5 pion) - rekrutuje
+      subskrybentow kanalu Telegram. Drukuj: otworz w przegladarce ->
+      Drukuj -> A5 (albo A4 i przytnij). QR prowadzi na t.me/alterbake.
+      Ta sama plakietke mozna pomniejszyc na naklejki na torebki.
+    -->
+    <style>
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("../fonts/anton-latin-ext-400-normal.woff2") format("woff2"),
+          url("../fonts/anton-latin-ext-400-normal.woff") format("woff");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("../fonts/anton-latin-400-normal.woff2") format("woff2"),
+          url("../fonts/anton-latin-400-normal.woff") format("woff");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      :root {
+        --ink: #1d1b18;
+        --muted: #6f6a61;
+        --soft: #57524a;
+        --paper: #f6f4ee;
+        --card: #fffef9;
+        --hairline: rgba(29, 27, 24, 0.12);
+      }
+
+      * { box-sizing: border-box; margin: 0; }
+
+      @page { size: A5; margin: 0; }
+
+      body {
+        width: 148mm;
+        min-height: 210mm;
+        display: flex;
+        flex-direction: column;
+        padding: 12mm 12mm 10mm;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .kicker {
+        color: var(--muted);
+        font-size: 9pt;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-top: 2.5mm;
+        font-family: "Anton", "Arial Narrow", Arial, sans-serif;
+        font-size: 34pt;
+        font-weight: 400;
+        line-height: 0.92;
+        letter-spacing: -0.015em;
+        text-transform: uppercase;
+      }
+
+      .brand-line {
+        margin-top: 2mm;
+        color: var(--muted);
+        font-size: 11pt;
+        font-weight: 500;
+      }
+
+      /* Rama z czarna zakladka - jak hero na tablicy. */
+      .frame {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 9mm;
+        padding: 6mm 8mm 8mm;
+        border: 0.7mm solid var(--ink);
+        border-radius: 3mm;
+        background: var(--card);
+        text-align: center;
+      }
+
+      .tab {
+        display: inline-block;
+        margin-top: -10.5mm;
+        padding: 2.2mm 4.5mm;
+        background: var(--ink);
+        color: #faf7f0;
+        border-radius: 1.2mm;
+        font-size: 9pt;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin-top: 5mm;
+        font-size: 20pt;
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.01em;
+      }
+
+      .sub {
+        margin-top: 2.5mm;
+        color: var(--soft);
+        font-size: 11.5pt;
+        line-height: 1.35;
+        max-width: 100mm;
+      }
+
+      .qr {
+        width: 62mm;
+        height: 62mm;
+        margin-top: 6mm;
+      }
+
+      .handle {
+        margin-top: 4.5mm;
+        font-size: 16pt;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+      }
+
+      .privacy {
+        margin-top: 2.5mm;
+        color: var(--muted);
+        font-size: 9.5pt;
+      }
+
+      .foot {
+        margin-top: 7mm;
+        border-top: 0.3mm solid var(--hairline);
+        padding-top: 4mm;
+        color: var(--soft);
+        font-size: 9pt;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="kicker">PIEKARNIA RZEMIEŚLNICZA</p>
+      <h1>AlterBake</h1>
+      <p class="brand-line">stara piekarnia od nowa</p>
+    </header>
+
+    <section class="frame">
+      <p class="tab">ŚWIEŻE Z PIECA</p>
+      <h2>Napiszemy, kiedy<br>wyjdzie z pieca</h2>
+      <p class="sub">Zeskanuj i obserwuj nasz kanał — dostaniesz krótką wiadomość, gdy na ladzie wyląduje świeży chleb, bułki albo słodkie.</p>
+      <img class="qr" src="qr-telegram.svg" alt="Kod QR do kanału AlterBake na Telegramie">
+      <p class="handle">t.me/alterbake</p>
+      <p class="privacy">Bez podawania numeru i bez zakładania konta w piekarni — zapisujesz się i tyle. Wypisać się można jednym stuknięciem.</p>
+    </section>
+
+    <footer class="foot">ZAKWAS &middot; CZAS &middot; GLIWICE</footer>
+  </body>
+</html>
