@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Gazetka AlterBake - co dziś na ladzie i po co warto przyjść. Piekarnia rzemieślnicza, Gliwice.">
+    <meta name="theme-color" content="#f6f4ee">
+    <title>Gazetka AlterBake — co dziś na ladzie</title>
+    <!--
+      GAZETKA: strona, do ktorej prowadza zaproszenia z kanalu Telegram /
+      WhatsApp (panel obslugi: zaproszenia.html). Parametr ?grupa=slodkie|
+      chleby|bulki podbija dana grupe w hero. Ceny i asortyment czyta
+      z products.json - edytujesz jeden plik, gazetka i tablica sa spojne.
+    -->
+    <style>
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("fonts/anton-latin-ext-400-normal.woff2") format("woff2"),
+          url("fonts/anton-latin-ext-400-normal.woff") format("woff");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Anton";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("fonts/anton-latin-400-normal.woff2") format("woff2"),
+          url("fonts/anton-latin-400-normal.woff") format("woff");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Archivo Black";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("fonts/archivo-black-latin-ext-400-normal.woff2") format("woff2"),
+          url("fonts/archivo-black-latin-ext-400-normal.woff") format("woff");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Archivo Black";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src:
+          url("fonts/archivo-black-latin-400-normal.woff2") format("woff2"),
+          url("fonts/archivo-black-latin-400-normal.woff") format("woff");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      :root {
+        --ink: #1d1b18;
+        --muted: #6f6a61;
+        --soft: #57524a;
+        --card: #fdfcf8;
+        --card-strong: #fffef9;
+        --hairline: rgba(29, 27, 24, 0.12);
+        --frame: rgba(29, 27, 24, 0.2);
+        --champagne: #c9a86a;
+      }
+
+      * { box-sizing: border-box; margin: 0; }
+
+      body {
+        min-height: 100vh;
+        padding: 22px 18px 26px;
+        background: linear-gradient(180deg, #f6f4ee 0%, #edeae1 100%);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      }
+
+      .sheet {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .kicker {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-top: 8px;
+        font-family: "Anton", "Arial Narrow", Arial, sans-serif;
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 0.92;
+        letter-spacing: -0.015em;
+        text-transform: uppercase;
+      }
+
+      .brand-line {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .issue-date {
+        margin-top: 14px;
+        padding-top: 10px;
+        border-top: 1px solid var(--ink);
+        color: var(--soft);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      /* Hero zaproszenia: czarna rama + zakladka, jak na tablicy. */
+      .hero {
+        margin-top: 26px;
+        padding: 12px 20px 16px;
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        background: var(--card-strong);
+      }
+
+      .hero .tab {
+        display: inline-block;
+        margin-top: -24px;
+        padding: 6px 14px;
+        background: var(--ink);
+        color: #faf7f0;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .hero h2 {
+        margin-top: 8px;
+        font-size: 27px;
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+      }
+
+      .hero p.lead {
+        margin-top: 6px;
+        color: var(--soft);
+        font-size: 16px;
+        line-height: 1.35;
+      }
+
+      .group {
+        margin-top: 18px;
+        padding: 12px 18px 8px;
+        border: 1px solid var(--frame);
+        border-radius: 14px;
+        background: var(--card);
+      }
+
+      .group.accent {
+        border: 2px solid var(--ink);
+        background: var(--card-strong);
+      }
+
+      .group h3 {
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--hairline);
+        font-family: "Archivo Black", "Arial Black", Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .item {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .item::after { content: ""; display: block; clear: both; }
+      .item:last-child { border-bottom: 0; }
+
+      .item .price {
+        float: right;
+        margin: 1px 0 4px 12px;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .item .price strong {
+        display: block;
+        font-size: 17px;
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .item .price span {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      .item h4 {
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -0.005em;
+      }
+
+      .item p {
+        margin-top: 2px;
+        color: var(--soft);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .item.sold-out { opacity: 0.5; }
+      .item.sold-out h4 { text-decoration: line-through; }
+
+      .badge {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 2px 8px;
+        border: 1px solid rgba(185, 151, 91, 0.4);
+        border-radius: 5px;
+        background: rgba(201, 168, 106, 0.32);
+        color: #4f3f24;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        vertical-align: middle;
+        white-space: nowrap;
+      }
+
+      .order {
+        display: block;
+        margin-top: 18px;
+        padding: 13px 18px;
+        border-radius: 8px;
+        background: var(--ink);
+        color: #faf7f0;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      .order span { color: var(--champagne); }
+
+      .foot {
+        margin-top: 22px;
+        padding-top: 12px;
+        border-top: 1px solid var(--hairline);
+        color: var(--soft);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .foot small {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-transform: none;
+      }
+
+      .loading { color: var(--muted); font-size: 14px; padding: 14px 0; }
+    </style>
+  </head>
+  <body>
+    <div class="sheet">
+      <header>
+        <p class="kicker">PIEKARNIA RZEMIEŚLNICZA</p>
+        <h1>AlterBake</h1>
+        <p class="brand-line">stara piekarnia od nowa</p>
+        <p class="issue-date">GAZETKA &middot; <span id="issue-date"></span></p>
+      </header>
+
+      <section class="hero" id="hero">
+        <p class="tab" id="hero-tab">DZIŚ NA LADZIE</p>
+        <h2 id="hero-title">Świeże od 8:00, do wyprzedania</h2>
+        <p class="lead" id="hero-lead">Pieczemy na miejscu, na zakwasie, bez polepszaczy. Poniżej wszystko, co dziś wyszło z pieca.</p>
+      </section>
+
+      <main id="menu">
+        <p class="loading">Wczytywanie dzisiejszego asortymentu&hellip;</p>
+      </main>
+
+      <a class="order" href="https://docs.google.com/forms/d/1PrEy2AtoG9WLGb7rHg_PARnWnGpbW1kk8LB2TYpwW8I/viewform">
+        Zamów na jutro <span>&rarr;</span> formularz zamówień
+      </a>
+
+      <footer class="foot">
+        ZAKWAS &middot; CZAS &middot; GLIWICE
+        <small>świeże od 8:00 &middot; codziennie do wyprzedania<br>Instagram: @alterbake &middot; alterbake.gliwice@gmail.com</small>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* Grupy zaproszen - musza odpowiadac panelowi zaproszenia.html. */
+        var GROUPS = {
+          slodkie: { cat: "słodkie", title: "Przyjdź na słodkie wypieki", tab: "ZAPROSZENIE", lead: "Maślane ciasto drożdżowe, pieczone dziś na miejscu. Najlepsze, póki ciepłe." },
+          chleby:  { cat: "chleby",  title: "Przyjdź po świeży chleb",   tab: "ZAPROSZENIE", lead: "Zakwas, czas i nic więcej. Bochenki właśnie ostygły do krojenia." },
+          bulki:   { cat: "bułki",   title: "Przyjdź po świeże bułki",   tab: "ZAPROSZENIE", lead: "Chrupiące prosto z pieca — na dziś i na zapas do zamrażarki." }
+        };
+        var ORDER = ["słodkie", "chleby", "bułki"];
+        var LABELS = { "słodkie": "SŁODKIE", "chleby": "CHLEBY", "bułki": "BUŁKI" };
+
+        var dateEl = document.getElementById("issue-date");
+        if (dateEl) {
+          try {
+            dateEl.textContent = new Date().toLocaleDateString("pl-PL",
+              { weekday: "long", day: "numeric", month: "long" });
+          } catch (e) { dateEl.textContent = new Date().toLocaleDateString(); }
+        }
+
+        function param(name) {
+          var m = window.location.search.match(new RegExp("[?&]" + name + "=([^&]+)"));
+          return m ? decodeURIComponent(m[1]) : "";
+        }
+
+        var invited = GROUPS[param("grupa")] || null;
+        if (invited) {
+          document.getElementById("hero-tab").textContent = invited.tab;
+          document.getElementById("hero-title").textContent = invited.title;
+          document.getElementById("hero-lead").textContent = invited.lead;
+        }
+
+        /* Escapowanie pol z products.json - ta sama zasada co textContent
+           w board.js: dane produktow nigdy nie wchodza jako HTML. */
+        function esc(text) {
+          return String(text == null ? "" : text)
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        function itemHtml(p) {
+          var cls = "item" + (p.soldOut ? " sold-out" : "");
+          var badge = p.tag === "Bestseller" ? '<span class="badge">BESTSELLER</span>'
+            : (p.status ? '<span class="badge">' + esc(p.status) + "</span>" : "");
+          var price = p.soldOut ? "" :
+            '<div class="price"><strong>' + esc(p.price) + "</strong><span>" + esc(p.unit) + "</span></div>";
+          return '<article class="' + cls + '">' + price +
+            "<h4>" + esc(p.name) + badge + "</h4>" +
+            "<p>" + esc(p.description) + "</p></article>";
+        }
+
+        function render(data) {
+          var products = (data && data.products) || [];
+          var byCat = {};
+          var i;
+          for (i = 0; i < products.length; i++) {
+            var p = products[i];
+            if (!byCat[p.category]) byCat[p.category] = [];
+            byCat[p.category].push(p);
+          }
+          /* Zaproszona grupa idzie na gore i dostaje mocniejsza rame. */
+          var order = ORDER.slice();
+          if (invited) {
+            order = [invited.cat];
+            for (i = 0; i < ORDER.length; i++) {
+              if (ORDER[i] !== invited.cat) order.push(ORDER[i]);
+            }
+          }
+          var html = "";
+          for (i = 0; i < order.length; i++) {
+            var cat = order[i];
+            var list = byCat[cat] || [];
+            if (!list.length) continue;
+            var accent = invited && cat === invited.cat ? " accent" : "";
+            html += '<section class="group' + accent + '"><h3>' + LABELS[cat] + "</h3>";
+            for (var j = 0; j < list.length; j++) html += itemHtml(list[j]);
+            html += "</section>";
+          }
+          document.getElementById("menu").innerHTML =
+            html || '<p class="loading">Dziś aktualizujemy asortyment — wpadnij albo napisz.</p>';
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "products.json?d=" + new Date().toISOString().slice(0, 10), true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState !== 4) return;
+          if (xhr.status === 200 || xhr.status === 0) {
+            try { render(JSON.parse(xhr.responseText)); }
+            catch (e) { render(null); }
+          } else { render(null); }
+        };
+        xhr.send();
+      })();
+    </script>
+  </body>
+</html>

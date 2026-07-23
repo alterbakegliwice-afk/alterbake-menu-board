@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f6f4ee">
+    <title>AlterBake — panel zaproszeń (obsługa)</title>
+    <!--
+      PANEL OBSLUGI: trzy przyciski = trzy grupy produktow. Stukniecie:
+      1) zapisuje czas i grupe w dzienniku (analiza: w jakie dni i pory
+         zapraszamy na co -> tam jest nadprodukcja),
+      2) sklada gotowa wiadomosc (rotujace tresci + ceny z products.json),
+      3) otwiera Telegram z wiadomoscia do wyslania na kanal
+         (albo kopiujesz tekst i wklejasz w Kanal WhatsApp).
+      Zadnych sekretow w tym pliku - wyslac na kanal moze tylko jego admin.
+      Dodaj te strone do ekranu poczatkowego na telefonie obslugi.
+    -->
+    <style>
+      :root {
+        --ink: #1d1b18;
+        --muted: #6f6a61;
+        --soft: #57524a;
+        --card: #fdfcf8;
+        --hairline: rgba(29, 27, 24, 0.12);
+        --frame: rgba(29, 27, 24, 0.2);
+        --champagne: #c9a86a;
+      }
+
+      * { box-sizing: border-box; margin: 0; }
+
+      body {
+        min-height: 100vh;
+        padding: 22px 18px 30px;
+        background: linear-gradient(180deg, #f6f4ee 0%, #edeae1 100%);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      }
+
+      .sheet { max-width: 560px; margin: 0 auto; }
+
+      .kicker {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-top: 6px;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+
+      .hint {
+        margin-top: 6px;
+        color: var(--soft);
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .buttons { margin-top: 18px; }
+
+      .invite-btn {
+        display: block;
+        width: 100%;
+        margin-top: 12px;
+        padding: 18px 20px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--ink);
+        color: #faf7f0;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .invite-btn small {
+        display: block;
+        margin-top: 3px;
+        color: rgba(250, 247, 240, 0.62);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .invite-btn:active { background: #3a352e; }
+
+      .compose {
+        display: none;
+        margin-top: 18px;
+        padding: 14px 16px 16px;
+        border: 2px solid var(--ink);
+        border-radius: 10px;
+        background: var(--card);
+      }
+
+      .compose.show { display: block; }
+
+      .compose h2 {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+
+      .compose textarea {
+        width: 100%;
+        min-height: 150px;
+        margin-top: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--frame);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        font: 500 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        resize: vertical;
+      }
+
+      .actions { margin-top: 10px; }
+
+      .actions a,
+      .actions button {
+        display: inline-block;
+        margin: 4px 8px 0 0;
+        padding: 11px 16px;
+        border: 1px solid var(--ink);
+        border-radius: 8px;
+        background: var(--ink);
+        color: #faf7f0;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .actions .secondary {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--frame);
+      }
+
+      .actions a:active,
+      .actions button:active { background: rgba(201, 168, 106, 0.25); color: var(--ink); }
+
+      .note { margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+
+      .stats {
+        margin-top: 26px;
+        padding: 14px 16px 12px;
+        border: 1px solid var(--frame);
+        border-radius: 10px;
+        background: var(--card);
+      }
+
+      .stats h2 {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+
+      .stats table {
+        width: 100%;
+        margin-top: 10px;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+
+      .stats th,
+      .stats td {
+        padding: 6px 4px;
+        border-bottom: 1px solid var(--hairline);
+        text-align: center;
+      }
+
+      .stats th {
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
+
+      .stats td:first-child,
+      .stats th:first-child { text-align: left; font-weight: 700; }
+
+      .stats .empty { color: rgba(29, 27, 24, 0.25); }
+
+      .legend { margin-top: 8px; color: var(--muted); font-size: 11px; }
+
+      .stats .actions { margin-top: 12px; }
+    </style>
+  </head>
+  <body>
+    <div class="sheet">
+      <p class="kicker">ALTERBAKE &middot; PANEL OBSŁUGI</p>
+      <h1>Zaproś klientów</h1>
+      <p class="hint">Stuknij grupę — wiadomość składa się sama (ceny z gazetki). Wyślij ją na kanał Telegram albo skopiuj do Kanału WhatsApp. Każde stuknięcie zapisuje się w dzienniku na dole.</p>
+
+      <div class="buttons">
+        <button class="invite-btn" data-group="slodkie" type="button">Zaproś na słodkie wypieki<small>jagodzianki &middot; chałka &middot; cynamonki</small></button>
+        <button class="invite-btn" data-group="chleby" type="button">Zaproś po świeży chleb<small>zakwas &middot; długodojrzewający &middot; żytni</small></button>
+        <button class="invite-btn" data-group="bulki" type="button">Zaproś po świeże bułki<small>kajzerki &middot; grahamki &middot; bagietki</small></button>
+      </div>
+
+      <section class="compose" id="compose">
+        <h2 id="compose-title">Wiadomość gotowa</h2>
+        <textarea id="message" readonly></textarea>
+        <div class="actions">
+          <a id="tg-link" href="#" target="_blank" rel="noopener">Wyślij na Telegramie</a>
+          <button class="secondary" id="copy-btn" type="button">Kopiuj (WhatsApp)</button>
+        </div>
+        <p class="note">Telegram: wybierz kanał AlterBake i wyślij. WhatsApp: wklej skopiowany tekst w swoim Kanale. Wysłać może tylko admin kanału.</p>
+      </section>
+
+      <section class="stats">
+        <h2>Kiedy zapraszamy (dziennik stuknięć)</h2>
+        <table id="stats-table"></table>
+        <p class="legend">S = słodkie, C = chleby, B = bułki. Liczby = ile razy zapraszaliśmy w tym oknie. Tam, gdzie regularnie zapraszamy, jest nadprodukcja — warto dopasować wypiek albo stałą porę promocji.</p>
+        <div class="actions">
+          <button class="secondary" id="csv-btn" type="button">Pobierz dziennik (CSV)</button>
+          <button class="secondary" id="clear-btn" type="button">Wyczyść dziennik</button>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* Adres gazetki: wyliczany z adresu panelu (dziala tez po zmianie
+           domeny); stala tylko jako zapas przy otwarciu z pliku. */
+        var GAZETKA_URL = /^https?:/.test(window.location.protocol)
+          ? window.location.href.split("?")[0].replace(/zaproszenia\.html.*$/, "gazetka.html")
+          : "https://alterbakegliwice-afk.github.io/alterbake-menu-board/gazetka.html";
+        var LOG_KEY = "alterbake-zaproszenia-log";
+
+        /* Tresci wg PORY DNIA (rano / popoludnie / koncowka) - zaproszenie
+           mowi prawde o tym, co dzieje sie w piekarni. W obrebie pory
+           warianty rotuja wg dnia tygodnia. Edytuj smialo. */
+        var TEMPLATES = {
+          slodkie: {
+            cat: "słodkie",
+            label: "S",
+            hooks: {
+              rano: [
+                "Blacha jagodzianek właśnie wyjechała z pieca. Najlepsze, póki ciepłe.",
+                "Słodkie z maślanego ciasta drożdżowego — pieczone dziś rano, na miejscu."
+              ],
+              popoludnie: [
+                "Popołudnie z kawą? Chałka z kruszonką i cynamonki czekają na ladzie.",
+                "Do kawy po obiedzie: jagodzianki i cynamonki jeszcze są."
+              ],
+              koncowka: [
+                "Końcówka dnia: słodkie jeszcze jest, jutro pieczemy od nowa.",
+                "Ostatnie jagodzianki i chałki — do zamknięcia albo do wyprzedania."
+              ]
+            }
+          },
+          chleby: {
+            cat: "chleby",
+            label: "C",
+            hooks: {
+              rano: [
+                "Chleb na zakwasie właśnie ostygł do krojenia. Długodojrzewający schodzi pierwszy.",
+                "Bochenki prosto z pieca — świeże od 8:00, na zakwasie."
+              ],
+              popoludnie: [
+                "Świeży chleb wciąż na ladzie: zakwas, czas i nic więcej.",
+                "Jest z czego wybierać: długodojrzewający, pszenno-żytni, żytni 100%."
+              ],
+              koncowka: [
+                "Ostatnie bochenki dnia — jutro pieczemy od nowa.",
+                "Końcówka dnia: chleb na zakwasie jeszcze czeka."
+              ]
+            }
+          },
+          bulki: {
+            cat: "bułki",
+            label: "B",
+            hooks: {
+              rano: [
+                "Kajzerki chrupią najgłośniej przed południem. Właśnie wyszły.",
+                "Świeże bułki od rana — na śniadanie i na zapas."
+              ],
+              popoludnie: [
+                "Bułki wciąż świeże — na kolację i na zapas do zamrażarki.",
+                "Grahamki i kajzerki jeszcze są. Chrupiące do końca dnia."
+              ],
+              koncowka: [
+                "Ostatnie bułki dnia — do zamrażarki, rano będą jak świeże.",
+                "Końcówka: kajzerki i grahamki do wyprzedania."
+              ]
+            }
+          }
+        };
+
+        /* Pora dnia: rano do 12:00, popoludnie 12-17, koncowka po 17:00. */
+        function daypart() {
+          var h = new Date().getHours();
+          if (h < 12) return "rano";
+          if (h < 17) return "popoludnie";
+          return "koncowka";
+        }
+
+        var products = [];
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "products.json", true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState !== 4) return;
+          try { products = JSON.parse(xhr.responseText).products || []; } catch (e) {}
+        };
+        xhr.send();
+
+        function listFor(cat) {
+          var out = [];
+          for (var i = 0; i < products.length; i++) {
+            var p = products[i];
+            if (p.category === cat && !p.soldOut) out.push(p.name + " " + p.price);
+          }
+          return out.join(" · ");
+        }
+
+        function buildMessage(groupKey) {
+          var t = TEMPLATES[groupKey];
+          var variants = t.hooks[daypart()];
+          var hook = variants[new Date().getDay() % variants.length];
+          var list = listFor(t.cat);
+          var msg = hook;
+          if (list) msg += "\n\nNa ladzie: " + list + ".";
+          msg += "\nŚwieże od 8:00, do wyprzedania. Do zobaczenia!";
+          return msg;
+        }
+
+        function gazetkaLink(groupKey) {
+          return GAZETKA_URL + "?grupa=" + groupKey +
+            "&utm_source=push&utm_campaign=zaproszenie-" + groupKey;
+        }
+
+        /* --- Dziennik stukniec (localStorage tego telefonu) --- */
+
+        function readLog() {
+          try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; }
+          catch (e) { return []; }
+        }
+
+        function writeLog(log) {
+          try { localStorage.setItem(LOG_KEY, JSON.stringify(log)); } catch (e) {}
+        }
+
+        function logTap(groupKey) {
+          var log = readLog();
+          log.push({ t: new Date().toISOString(), g: groupKey });
+          writeLog(log);
+          renderStats();
+        }
+
+        var DAYS = ["Pn", "Wt", "Śr", "Cz", "Pt", "So", "Nd"];
+        var SLOTS = [
+          { label: "6–10", from: 6, to: 10 },
+          { label: "10–14", from: 10, to: 14 },
+          { label: "14–18", from: 14, to: 18 },
+          { label: "18–22", from: 18, to: 22 }
+        ];
+
+        function renderStats() {
+          var log = readLog();
+          /* counts[dzien][slot][grupa] */
+          var counts = {};
+          for (var i = 0; i < log.length; i++) {
+            var d = new Date(log[i].t);
+            var day = (d.getDay() + 6) % 7; /* Pn = 0 */
+            var h = d.getHours();
+            for (var s = 0; s < SLOTS.length; s++) {
+              if (h >= SLOTS[s].from && h < SLOTS[s].to) {
+                counts[day] = counts[day] || {};
+                counts[day][s] = counts[day][s] || {};
+                var g = log[i].g;
+                counts[day][s][g] = (counts[day][s][g] || 0) + 1;
+              }
+            }
+          }
+          var html = "<tr><th>Dzień</th>";
+          for (var s2 = 0; s2 < SLOTS.length; s2++) html += "<th>" + SLOTS[s2].label + "</th>";
+          html += "</tr>";
+          for (var day2 = 0; day2 < 7; day2++) {
+            html += "<tr><td>" + DAYS[day2] + "</td>";
+            for (var s3 = 0; s3 < SLOTS.length; s3++) {
+              var c = (counts[day2] || {})[s3];
+              if (!c) { html += '<td class="empty">&middot;</td>'; continue; }
+              var parts = [];
+              if (c.slodkie) parts.push("S" + c.slodkie);
+              if (c.chleby) parts.push("C" + c.chleby);
+              if (c.bulki) parts.push("B" + c.bulki);
+              html += "<td>" + parts.join(" ") + "</td>";
+            }
+            html += "</tr>";
+          }
+          document.getElementById("stats-table").innerHTML = html;
+        }
+
+        /* --- Interakcje --- */
+
+        var msgEl = document.getElementById("message");
+
+        function onInvite(groupKey) {
+          var msg = buildMessage(groupKey);
+          var link = gazetkaLink(groupKey);
+          msgEl.value = msg + "\n" + link;
+          document.getElementById("compose-title").textContent =
+            "Wiadomość gotowa — wyślij albo skopiuj";
+          document.getElementById("tg-link").href =
+            "https://t.me/share/url?url=" + encodeURIComponent(link) +
+            "&text=" + encodeURIComponent(msg);
+          document.getElementById("compose").className = "compose show";
+          logTap(groupKey);
+        }
+
+        var btns = document.querySelectorAll(".invite-btn");
+        for (var b = 0; b < btns.length; b++) {
+          (function (btn) {
+            btn.addEventListener("click", function () {
+              onInvite(btn.getAttribute("data-group"));
+            });
+          })(btns[b]);
+        }
+
+        document.getElementById("copy-btn").addEventListener("click", function () {
+          msgEl.removeAttribute("readonly");
+          msgEl.select();
+          msgEl.setSelectionRange(0, 99999);
+          var ok = false;
+          try { ok = document.execCommand("copy"); } catch (e) {}
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(msgEl.value);
+            ok = true;
+          }
+          msgEl.setAttribute("readonly", "readonly");
+          this.textContent = ok ? "Skopiowane ✓" : "Zaznacz i skopiuj ręcznie";
+          var self = this;
+          setTimeout(function () { self.textContent = "Kopiuj (WhatsApp)"; }, 2000);
+        });
+
+        document.getElementById("csv-btn").addEventListener("click", function () {
+          var log = readLog();
+          var rows = ["data_czas,grupa"];
+          for (var i = 0; i < log.length; i++) rows.push(log[i].t + "," + log[i].g);
+          var a = document.createElement("a");
+          a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(rows.join("\n"));
+          a.download = "alterbake-zaproszenia.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        });
+
+        document.getElementById("clear-btn").addEventListener("click", function () {
+          if (window.confirm("Wyczyścić cały dziennik stuknięć na tym telefonie? Najpierw pobierz CSV.")) {
+            writeLog([]);
+            renderStats();
+          }
+        });
+
+        renderStats();
+      })();
+    </script>
+  </body>
+</html>
