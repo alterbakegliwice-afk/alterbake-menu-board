@@ -1,5 +1,12 @@
 # AlterBake Menu Board
 
+> **⚠️ ZMIGROWANO DO MONOREPO ALTERBAKE OS (2026-07-24).**
+> Kod tego repozytorium żyje teraz w `alterbake-ai-dashboard` w katalogu `apps/menu/`
+> (gałąź konsolidacyjna `claude/alterbake-routing-consolidation-lfze3v`; po scaleniu — `main`),
+> pod wspólną powłoką z routingiem `#/`. Tam prowadź dalszy rozwój — to repozytorium
+> pozostaje archiwum historii sprzed konsolidacji.
+
+
 Statyczna tablica menu dla iPada w trybie kioskowym. Działa bez backendu, bazy danych, logowania, analityki i zewnętrznych usług.
 
 ## Pliki
